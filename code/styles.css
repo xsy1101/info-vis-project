@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  padding: 30px;
+  background: #999;
+  color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px;     
+}
+
+#chart {  
+  /*margin: -40px auto;*/
+}
+
+#controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 16px;
+  border: none;
+  background: lightgray;
+  cursor: pointer;
+}
