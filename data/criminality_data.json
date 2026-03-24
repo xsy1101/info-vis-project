@@ -1,0 +1,24 @@
+[
+  {
+    "Charge": Criminal Conviction,
+    "detentions": 191943,
+    "arrests": 163892,
+    "removals": 181915,
+    "total": 537750
+  },
+  {
+    "Charge": Other Immigration Violator,
+    "detentions": 770882,
+    "arrests": 223971,
+    "removals": 291720,
+    "total": 1286573
+  },
+  {
+    "Charge": Pending Criminal Charges,
+    "detentions": 52746,
+    "arrests": 50139,
+    "removals": 31706,
+    "total": 134591
+  }
+]
+    
