@@ -21,9 +21,6 @@ main {
   margin-top: 20px;     
 }
 
-#chart {  
-  /*margin: -40px auto;*/
-}
 
 #controls {
   display: flex;
