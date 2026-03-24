@@ -1,0 +1,3127 @@
+{
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "records": [
+    {
+      "aor": "Atlanta",
+      "fiscal_year": 2021,
+      "lat": 33.749,
+      "lng": -84.388,
+      "detentions": 4702,
+      "removals": 2780,
+      "arrests": 4822,
+      "total": 12304,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5792
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1982
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1470
+        }
+      ]
+    },
+    {
+      "aor": "Baltimore",
+      "fiscal_year": 2021,
+      "lat": 39.2904,
+      "lng": -76.6122,
+      "detentions": 91,
+      "removals": 0,
+      "arrests": 187,
+      "total": 278,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 190
+        },
+        {
+          "country": "HAITI",
+          "total": 45
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 21
+        }
+      ]
+    },
+    {
+      "aor": "Boston",
+      "fiscal_year": 2021,
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "detentions": 249,
+      "removals": 92,
+      "arrests": 1122,
+      "total": 1463,
+      "top_countries": [
+        {
+          "country": "GUATEMALA",
+          "total": 337
+        },
+        {
+          "country": "ECUADOR",
+          "total": 264
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 239
+        }
+      ]
+    },
+    {
+      "aor": "Buffalo",
+      "fiscal_year": 2021,
+      "lat": 42.8864,
+      "lng": -78.8784,
+      "detentions": 133,
+      "removals": 134,
+      "arrests": 196,
+      "total": 463,
+      "top_countries": [
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 217
+        },
+        {
+          "country": "MEXICO",
+          "total": 130
+        },
+        {
+          "country": "ECUADOR",
+          "total": 40
+        }
+      ]
+    },
+    {
+      "aor": "Chicago",
+      "fiscal_year": 2021,
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "detentions": 2883,
+      "removals": 1903,
+      "arrests": 4443,
+      "total": 9229,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5960
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1183
+        },
+        {
+          "country": "HONDURAS",
+          "total": 974
+        }
+      ]
+    },
+    {
+      "aor": "Dallas",
+      "fiscal_year": 2021,
+      "lat": 32.7767,
+      "lng": -96.797,
+      "detentions": 10150,
+      "removals": 5586,
+      "arrests": 8121,
+      "total": 23857,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 14722
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 1807
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1697
+        }
+      ]
+    },
+    {
+      "aor": "Denver",
+      "fiscal_year": 2021,
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "detentions": 1466,
+      "removals": 833,
+      "arrests": 1085,
+      "total": 3384,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1752
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 471
+        },
+        {
+          "country": "BRAZIL",
+          "total": 436
+        }
+      ]
+    },
+    {
+      "aor": "Detroit",
+      "fiscal_year": 2021,
+      "lat": 42.3314,
+      "lng": -83.0458,
+      "detentions": 807,
+      "removals": 756,
+      "arrests": 1358,
+      "total": 2921,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2122
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 352
+        },
+        {
+          "country": "HONDURAS",
+          "total": 253
+        }
+      ]
+    },
+    {
+      "aor": "El Paso",
+      "fiscal_year": 2021,
+      "lat": 31.7619,
+      "lng": -106.485,
+      "detentions": 15225,
+      "removals": 2781,
+      "arrests": 1403,
+      "total": 19409,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5845
+        },
+        {
+          "country": "HAITI",
+          "total": 3103
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2214
+        }
+      ]
+    },
+    {
+      "aor": "Houston",
+      "fiscal_year": 2021,
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "detentions": 8198,
+      "removals": 4145,
+      "arrests": 5629,
+      "total": 17972,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 7964
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2685
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1795
+        }
+      ]
+    },
+    {
+      "aor": "Los Angeles",
+      "fiscal_year": 2021,
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "detentions": 1507,
+      "removals": 1188,
+      "arrests": 2714,
+      "total": 5409,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3792
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 559
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 524
+        }
+      ]
+    },
+    {
+      "aor": "Miami",
+      "fiscal_year": 2021,
+      "lat": 25.7617,
+      "lng": -80.1918,
+      "detentions": 3438,
+      "removals": 1790,
+      "arrests": 3174,
+      "total": 8402,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2667
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1959
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1219
+        }
+      ]
+    },
+    {
+      "aor": "New Orleans",
+      "fiscal_year": 2021,
+      "lat": 29.9511,
+      "lng": -90.0715,
+      "detentions": 12792,
+      "removals": 2982,
+      "arrests": 3059,
+      "total": 18833,
+      "top_countries": [
+        {
+          "country": "VENEZUELA",
+          "total": 3823
+        },
+        {
+          "country": "MEXICO",
+          "total": 3298
+        },
+        {
+          "country": "HAITI",
+          "total": 2118
+        }
+      ]
+    },
+    {
+      "aor": "New York City",
+      "fiscal_year": 2021,
+      "lat": 40.7128,
+      "lng": -74.006,
+      "detentions": 2852,
+      "removals": 10,
+      "arrests": 3196,
+      "total": 6058,
+      "top_countries": [
+        {
+          "country": "ECUADOR",
+          "total": 3663
+        },
+        {
+          "country": "HONDURAS",
+          "total": 823
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 639
+        }
+      ]
+    },
+    {
+      "aor": "Newark",
+      "fiscal_year": 2021,
+      "lat": 40.7357,
+      "lng": -74.1724,
+      "detentions": 614,
+      "removals": 186,
+      "arrests": 3169,
+      "total": 3969,
+      "top_countries": [
+        {
+          "country": "ECUADOR",
+          "total": 1314
+        },
+        {
+          "country": "HONDURAS",
+          "total": 667
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 524
+        }
+      ]
+    },
+    {
+      "aor": "Philadelphia",
+      "fiscal_year": 2021,
+      "lat": 39.9526,
+      "lng": -75.1652,
+      "detentions": 889,
+      "removals": 721,
+      "arrests": 1178,
+      "total": 2788,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1392
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 531
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 415
+        }
+      ]
+    },
+    {
+      "aor": "Phoenix",
+      "fiscal_year": 2021,
+      "lat": 33.4484,
+      "lng": -112.074,
+      "detentions": 54373,
+      "removals": 4769,
+      "arrests": 1971,
+      "total": 61113,
+      "top_countries": [
+        {
+          "country": "BRAZIL",
+          "total": 15874
+        },
+        {
+          "country": "MEXICO",
+          "total": 9404
+        },
+        {
+          "country": "CUBA",
+          "total": 9130
+        }
+      ]
+    },
+    {
+      "aor": "Salt Lake City",
+      "fiscal_year": 2021,
+      "lat": 40.7608,
+      "lng": -111.891,
+      "detentions": 1441,
+      "removals": 903,
+      "arrests": 1431,
+      "total": 3775,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3149
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 162
+        },
+        {
+          "country": "BRAZIL",
+          "total": 138
+        }
+      ]
+    },
+    {
+      "aor": "San Antonio",
+      "fiscal_year": 2021,
+      "lat": 29.4241,
+      "lng": -98.4936,
+      "detentions": 60583,
+      "removals": 7316,
+      "arrests": 4858,
+      "total": 72757,
+      "top_countries": [
+        {
+          "country": "NICARAGUA",
+          "total": 12315
+        },
+        {
+          "country": "HAITI",
+          "total": 11224
+        },
+        {
+          "country": "MEXICO",
+          "total": 9892
+        }
+      ]
+    },
+    {
+      "aor": "San Diego",
+      "fiscal_year": 2021,
+      "lat": 32.7157,
+      "lng": -117.1611,
+      "detentions": 4208,
+      "removals": 1529,
+      "arrests": 430,
+      "total": 6167,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2400
+        },
+        {
+          "country": "BRAZIL",
+          "total": 943
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 448
+        }
+      ]
+    },
+    {
+      "aor": "San Francisco",
+      "fiscal_year": 2021,
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "detentions": 1121,
+      "removals": 961,
+      "arrests": 1752,
+      "total": 3834,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3339
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 225
+        },
+        {
+          "country": "HONDURAS",
+          "total": 126
+        }
+      ]
+    },
+    {
+      "aor": "Seattle",
+      "fiscal_year": 2021,
+      "lat": 47.6062,
+      "lng": -122.3321,
+      "detentions": 1473,
+      "removals": 546,
+      "arrests": 1598,
+      "total": 3617,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1585
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 550
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 482
+        }
+      ]
+    },
+    {
+      "aor": "St. Paul",
+      "fiscal_year": 2021,
+      "lat": 44.9537,
+      "lng": -93.09,
+      "detentions": 715,
+      "removals": 555,
+      "arrests": 1335,
+      "total": 2605,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1506
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 672
+        },
+        {
+          "country": "HONDURAS",
+          "total": 238
+        }
+      ]
+    },
+    {
+      "aor": "Unmapped AOR Records",
+      "fiscal_year": 2021,
+      "lat": 39.8283,
+      "lng": -98.5795,
+      "detentions": 0,
+      "removals": 0,
+      "arrests": 743,
+      "total": 743,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 353
+        },
+        {
+          "country": "UNKNOWN",
+          "total": 235
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 104
+        }
+      ]
+    },
+    {
+      "aor": "Washington",
+      "fiscal_year": 2021,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 696,
+      "removals": 319,
+      "arrests": 751,
+      "total": 1766,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 660
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 503
+        },
+        {
+          "country": "HONDURAS",
+          "total": 377
+        }
+      ]
+    },
+    {
+      "aor": "Atlanta",
+      "fiscal_year": 2022,
+      "lat": 33.749,
+      "lng": -84.388,
+      "detentions": 5373,
+      "removals": 2598,
+      "arrests": 7219,
+      "total": 15190,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5476
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2087
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 1742
+        }
+      ]
+    },
+    {
+      "aor": "Baltimore",
+      "fiscal_year": 2022,
+      "lat": 39.2904,
+      "lng": -76.6122,
+      "detentions": 114,
+      "removals": 0,
+      "arrests": 1229,
+      "total": 1343,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 404
+        },
+        {
+          "country": "HONDURAS",
+          "total": 268
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 176
+        }
+      ]
+    },
+    {
+      "aor": "Boston",
+      "fiscal_year": 2022,
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "detentions": 428,
+      "removals": 38,
+      "arrests": 5944,
+      "total": 6410,
+      "top_countries": [
+        {
+          "country": "BRAZIL",
+          "total": 2550
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 675
+        },
+        {
+          "country": "ECUADOR",
+          "total": 568
+        }
+      ]
+    },
+    {
+      "aor": "Buffalo",
+      "fiscal_year": 2022,
+      "lat": 42.8864,
+      "lng": -78.8784,
+      "detentions": 225,
+      "removals": 136,
+      "arrests": 538,
+      "total": 899,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 291
+        },
+        {
+          "country": "CUBA",
+          "total": 274
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 148
+        }
+      ]
+    },
+    {
+      "aor": "Chicago",
+      "fiscal_year": 2022,
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "detentions": 2324,
+      "removals": 1473,
+      "arrests": 7720,
+      "total": 11517,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 4834
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1439
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 1273
+        }
+      ]
+    },
+    {
+      "aor": "Dallas",
+      "fiscal_year": 2022,
+      "lat": 32.7767,
+      "lng": -96.797,
+      "detentions": 9678,
+      "removals": 3974,
+      "arrests": 12046,
+      "total": 25698,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 10775
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 4126
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 2607
+        }
+      ]
+    },
+    {
+      "aor": "Denver",
+      "fiscal_year": 2022,
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "detentions": 1774,
+      "removals": 479,
+      "arrests": 2614,
+      "total": 4867,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 940
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 922
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 709
+        }
+      ]
+    },
+    {
+      "aor": "Detroit",
+      "fiscal_year": 2022,
+      "lat": 42.3314,
+      "lng": -83.0458,
+      "detentions": 819,
+      "removals": 655,
+      "arrests": 2631,
+      "total": 4105,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2143
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 422
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 305
+        }
+      ]
+    },
+    {
+      "aor": "El Paso",
+      "fiscal_year": 2022,
+      "lat": 31.7619,
+      "lng": -106.485,
+      "detentions": 12827,
+      "removals": 4177,
+      "arrests": 1397,
+      "total": 18401,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5715
+        },
+        {
+          "country": "REPUBLIC OF TURKIYE",
+          "total": 4421
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 1705
+        }
+      ]
+    },
+    {
+      "aor": "HQ",
+      "fiscal_year": 2022,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 0,
+      "removals": 201,
+      "arrests": 0,
+      "total": 201,
+      "top_countries": [
+        {
+          "country": "HAITI",
+          "total": 133
+        },
+        {
+          "country": "HONDURAS",
+          "total": 41
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 27
+        }
+      ]
+    },
+    {
+      "aor": "Harlingen",
+      "fiscal_year": 2022,
+      "lat": 26.1906,
+      "lng": -97.6961,
+      "detentions": 39346,
+      "removals": 11683,
+      "arrests": 5549,
+      "total": 56578,
+      "top_countries": [
+        {
+          "country": "NICARAGUA",
+          "total": 15733
+        },
+        {
+          "country": "MEXICO",
+          "total": 10611
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 6154
+        }
+      ]
+    },
+    {
+      "aor": "Houston",
+      "fiscal_year": 2022,
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "detentions": 15483,
+      "removals": 5476,
+      "arrests": 8094,
+      "total": 29053,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 8202
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 4303
+        },
+        {
+          "country": "HONDURAS",
+          "total": 3159
+        }
+      ]
+    },
+    {
+      "aor": "Los Angeles",
+      "fiscal_year": 2022,
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "detentions": 1512,
+      "removals": 1235,
+      "arrests": 5911,
+      "total": 8658,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 4181
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 1174
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 1125
+        }
+      ]
+    },
+    {
+      "aor": "Miami",
+      "fiscal_year": 2022,
+      "lat": 25.7617,
+      "lng": -80.1918,
+      "detentions": 4494,
+      "removals": 1511,
+      "arrests": 8306,
+      "total": 14311,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3070
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 2289
+        },
+        {
+          "country": "CUBA",
+          "total": 1876
+        }
+      ]
+    },
+    {
+      "aor": "New Orleans",
+      "fiscal_year": 2022,
+      "lat": 29.9511,
+      "lng": -90.0715,
+      "detentions": 24531,
+      "removals": 4601,
+      "arrests": 7762,
+      "total": 36894,
+      "top_countries": [
+        {
+          "country": "NICARAGUA",
+          "total": 8273
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 5721
+        },
+        {
+          "country": "MEXICO",
+          "total": 4043
+        }
+      ]
+    },
+    {
+      "aor": "New York City",
+      "fiscal_year": 2022,
+      "lat": 40.7128,
+      "lng": -74.006,
+      "detentions": 9357,
+      "removals": 12,
+      "arrests": 9804,
+      "total": 19173,
+      "top_countries": [
+        {
+          "country": "ECUADOR",
+          "total": 9258
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 2281
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1427
+        }
+      ]
+    },
+    {
+      "aor": "Newark",
+      "fiscal_year": 2022,
+      "lat": 40.7357,
+      "lng": -74.1724,
+      "detentions": 686,
+      "removals": 0,
+      "arrests": 10952,
+      "total": 11638,
+      "top_countries": [
+        {
+          "country": "COLOMBIA",
+          "total": 2303
+        },
+        {
+          "country": "PERU",
+          "total": 1902
+        },
+        {
+          "country": "ECUADOR",
+          "total": 1499
+        }
+      ]
+    },
+    {
+      "aor": "Philadelphia",
+      "fiscal_year": 2022,
+      "lat": 39.9526,
+      "lng": -75.1652,
+      "detentions": 989,
+      "removals": 1063,
+      "arrests": 1699,
+      "total": 3751,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1325
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 455
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 446
+        }
+      ]
+    },
+    {
+      "aor": "Phoenix",
+      "fiscal_year": 2022,
+      "lat": 33.4484,
+      "lng": -112.074,
+      "detentions": 82430,
+      "removals": 8434,
+      "arrests": 3700,
+      "total": 94564,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 15071
+        },
+        {
+          "country": "CUBA",
+          "total": 14649
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 14071
+        }
+      ]
+    },
+    {
+      "aor": "Salt Lake City",
+      "fiscal_year": 2022,
+      "lat": 40.7608,
+      "lng": -111.891,
+      "detentions": 1293,
+      "removals": 766,
+      "arrests": 3710,
+      "total": 5769,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2818
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 939
+        },
+        {
+          "country": "PERU",
+          "total": 580
+        }
+      ]
+    },
+    {
+      "aor": "San Antonio",
+      "fiscal_year": 2022,
+      "lat": 29.4241,
+      "lng": -98.4936,
+      "detentions": 57554,
+      "removals": 2976,
+      "arrests": 5752,
+      "total": 66282,
+      "top_countries": [
+        {
+          "country": "VENEZUELA",
+          "total": 16032
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 12387
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 10939
+        }
+      ]
+    },
+    {
+      "aor": "San Diego",
+      "fiscal_year": 2022,
+      "lat": 32.7157,
+      "lng": -117.1611,
+      "detentions": 11035,
+      "removals": 1164,
+      "arrests": 655,
+      "total": 12854,
+      "top_countries": [
+        {
+          "country": "COLOMBIA",
+          "total": 2308
+        },
+        {
+          "country": "MEXICO",
+          "total": 1710
+        },
+        {
+          "country": "INDIA",
+          "total": 1586
+        }
+      ]
+    },
+    {
+      "aor": "San Francisco",
+      "fiscal_year": 2022,
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "detentions": 1047,
+      "removals": 862,
+      "arrests": 2111,
+      "total": 4020,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3153
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 208
+        },
+        {
+          "country": "INDIA",
+          "total": 163
+        }
+      ]
+    },
+    {
+      "aor": "Seattle",
+      "fiscal_year": 2022,
+      "lat": 47.6062,
+      "lng": -122.3321,
+      "detentions": 475,
+      "removals": 468,
+      "arrests": 1737,
+      "total": 2680,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1118
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 379
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 240
+        }
+      ]
+    },
+    {
+      "aor": "St. Paul",
+      "fiscal_year": 2022,
+      "lat": 44.9537,
+      "lng": -93.09,
+      "detentions": 511,
+      "removals": 313,
+      "arrests": 2360,
+      "total": 3184,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1058
+        },
+        {
+          "country": "CUBA",
+          "total": 571
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 462
+        }
+      ]
+    },
+    {
+      "aor": "Unmapped AOR Records",
+      "fiscal_year": 2022,
+      "lat": 39.8283,
+      "lng": -98.5795,
+      "detentions": 0,
+      "removals": 0,
+      "arrests": 1908,
+      "total": 1908,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 646
+        },
+        {
+          "country": "UNKNOWN",
+          "total": 354
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 196
+        }
+      ]
+    },
+    {
+      "aor": "Washington",
+      "fiscal_year": 2022,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 524,
+      "removals": 75,
+      "arrests": 1095,
+      "total": 1694,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 524
+        },
+        {
+          "country": "MEXICO",
+          "total": 346
+        },
+        {
+          "country": "HONDURAS",
+          "total": 303
+        }
+      ]
+    },
+    {
+      "aor": "Atlanta",
+      "fiscal_year": 2023,
+      "lat": 33.749,
+      "lng": -84.388,
+      "detentions": 5129,
+      "removals": 5002,
+      "arrests": 6196,
+      "total": 16327,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 7413
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2176
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1716
+        }
+      ]
+    },
+    {
+      "aor": "Baltimore",
+      "fiscal_year": 2023,
+      "lat": 39.2904,
+      "lng": -76.6122,
+      "detentions": 298,
+      "removals": 0,
+      "arrests": 1262,
+      "total": 1560,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 376
+        },
+        {
+          "country": "HONDURAS",
+          "total": 342
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 272
+        }
+      ]
+    },
+    {
+      "aor": "Boston",
+      "fiscal_year": 2023,
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "detentions": 865,
+      "removals": 436,
+      "arrests": 7586,
+      "total": 8887,
+      "top_countries": [
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 1907
+        },
+        {
+          "country": "BRAZIL",
+          "total": 1722
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 1329
+        }
+      ]
+    },
+    {
+      "aor": "Buffalo",
+      "fiscal_year": 2023,
+      "lat": 42.8864,
+      "lng": -78.8784,
+      "detentions": 686,
+      "removals": 426,
+      "arrests": 911,
+      "total": 2023,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 796
+        },
+        {
+          "country": "CUBA",
+          "total": 434
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 200
+        }
+      ]
+    },
+    {
+      "aor": "Chicago",
+      "fiscal_year": 2023,
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "detentions": 3233,
+      "removals": 1994,
+      "arrests": 9042,
+      "total": 14269,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 6459
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 2062
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 1547
+        }
+      ]
+    },
+    {
+      "aor": "Dallas",
+      "fiscal_year": 2023,
+      "lat": 32.7767,
+      "lng": -96.797,
+      "detentions": 10211,
+      "removals": 6806,
+      "arrests": 15059,
+      "total": 32076,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 16633
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 2839
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2738
+        }
+      ]
+    },
+    {
+      "aor": "Denver",
+      "fiscal_year": 2023,
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "detentions": 3181,
+      "removals": 806,
+      "arrests": 7263,
+      "total": 11250,
+      "top_countries": [
+        {
+          "country": "COLOMBIA",
+          "total": 2524
+        },
+        {
+          "country": "MEXICO",
+          "total": 1944
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 1491
+        }
+      ]
+    },
+    {
+      "aor": "Detroit",
+      "fiscal_year": 2023,
+      "lat": 42.3314,
+      "lng": -83.0458,
+      "detentions": 623,
+      "removals": 430,
+      "arrests": 2624,
+      "total": 3677,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1528
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 534
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 512
+        }
+      ]
+    },
+    {
+      "aor": "El Paso",
+      "fiscal_year": 2023,
+      "lat": 31.7619,
+      "lng": -106.485,
+      "detentions": 10316,
+      "removals": 8338,
+      "arrests": 2253,
+      "total": 20907,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 6618
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 3708
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 2248
+        }
+      ]
+    },
+    {
+      "aor": "HQ",
+      "fiscal_year": 2023,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 0,
+      "removals": 590,
+      "arrests": 0,
+      "total": 590,
+      "top_countries": [
+        {
+          "country": "REPUBLIC OF TURKIYE",
+          "total": 301
+        },
+        {
+          "country": "HAITI",
+          "total": 256
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 23
+        }
+      ]
+    },
+    {
+      "aor": "Harlingen",
+      "fiscal_year": 2023,
+      "lat": 26.1906,
+      "lng": -97.6961,
+      "detentions": 32271,
+      "removals": 29017,
+      "arrests": 5726,
+      "total": 67014,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 13476
+        },
+        {
+          "country": "HONDURAS",
+          "total": 12801
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 10220
+        }
+      ]
+    },
+    {
+      "aor": "Houston",
+      "fiscal_year": 2023,
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "detentions": 23215,
+      "removals": 11795,
+      "arrests": 12631,
+      "total": 47641,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 14949
+        },
+        {
+          "country": "HONDURAS",
+          "total": 7708
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 5330
+        }
+      ]
+    },
+    {
+      "aor": "Los Angeles",
+      "fiscal_year": 2023,
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "detentions": 2846,
+      "removals": 2263,
+      "arrests": 9018,
+      "total": 14127,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 6932
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 3334
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 1442
+        }
+      ]
+    },
+    {
+      "aor": "Miami",
+      "fiscal_year": 2023,
+      "lat": 25.7617,
+      "lng": -80.1918,
+      "detentions": 6476,
+      "removals": 2913,
+      "arrests": 8431,
+      "total": 17820,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 4520
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 3154
+        },
+        {
+          "country": "CUBA",
+          "total": 2596
+        }
+      ]
+    },
+    {
+      "aor": "New Orleans",
+      "fiscal_year": 2023,
+      "lat": 29.9511,
+      "lng": -90.0715,
+      "detentions": 29076,
+      "removals": 10414,
+      "arrests": 11634,
+      "total": 51124,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 9269
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 7124
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 4473
+        }
+      ]
+    },
+    {
+      "aor": "New York City",
+      "fiscal_year": 2023,
+      "lat": 40.7128,
+      "lng": -74.006,
+      "detentions": 7572,
+      "removals": 12,
+      "arrests": 7889,
+      "total": 15473,
+      "top_countries": [
+        {
+          "country": "ECUADOR",
+          "total": 5293
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 2821
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 2443
+        }
+      ]
+    },
+    {
+      "aor": "Newark",
+      "fiscal_year": 2023,
+      "lat": 40.7357,
+      "lng": -74.1724,
+      "detentions": 930,
+      "removals": 65,
+      "arrests": 9598,
+      "total": 10593,
+      "top_countries": [
+        {
+          "country": "PERU",
+          "total": 2140
+        },
+        {
+          "country": "ECUADOR",
+          "total": 1979
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 1721
+        }
+      ]
+    },
+    {
+      "aor": "Philadelphia",
+      "fiscal_year": 2023,
+      "lat": 39.9526,
+      "lng": -75.1652,
+      "detentions": 1164,
+      "removals": 1933,
+      "arrests": 2240,
+      "total": 5337,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1894
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 1181
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 572
+        }
+      ]
+    },
+    {
+      "aor": "Phoenix",
+      "fiscal_year": 2023,
+      "lat": 33.4484,
+      "lng": -112.074,
+      "detentions": 45456,
+      "removals": 14856,
+      "arrests": 4229,
+      "total": 64541,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 24589
+        },
+        {
+          "country": "PERU",
+          "total": 6831
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 4664
+        }
+      ]
+    },
+    {
+      "aor": "Salt Lake City",
+      "fiscal_year": 2023,
+      "lat": 40.7608,
+      "lng": -111.891,
+      "detentions": 2019,
+      "removals": 1466,
+      "arrests": 4902,
+      "total": 8387,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 4745
+        },
+        {
+          "country": "PERU",
+          "total": 946
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 850
+        }
+      ]
+    },
+    {
+      "aor": "San Antonio",
+      "fiscal_year": 2023,
+      "lat": 29.4241,
+      "lng": -98.4936,
+      "detentions": 33809,
+      "removals": 12382,
+      "arrests": 5649,
+      "total": 51840,
+      "top_countries": [
+        {
+          "country": "HONDURAS",
+          "total": 11060
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 10217
+        },
+        {
+          "country": "MEXICO",
+          "total": 8641
+        }
+      ]
+    },
+    {
+      "aor": "San Diego",
+      "fiscal_year": 2023,
+      "lat": 32.7157,
+      "lng": -117.1611,
+      "detentions": 16770,
+      "removals": 2547,
+      "arrests": 824,
+      "total": 20141,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3963
+        },
+        {
+          "country": "PERU",
+          "total": 2489
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 2014
+        }
+      ]
+    },
+    {
+      "aor": "San Francisco",
+      "fiscal_year": 2023,
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "detentions": 1485,
+      "removals": 1152,
+      "arrests": 2690,
+      "total": 5327,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3990
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 606
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 285
+        }
+      ]
+    },
+    {
+      "aor": "Seattle",
+      "fiscal_year": 2023,
+      "lat": 47.6062,
+      "lng": -122.3321,
+      "detentions": 1405,
+      "removals": 947,
+      "arrests": 2933,
+      "total": 5285,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2531
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 929
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 464
+        }
+      ]
+    },
+    {
+      "aor": "St. Paul",
+      "fiscal_year": 2023,
+      "lat": 44.9537,
+      "lng": -93.09,
+      "detentions": 1076,
+      "removals": 737,
+      "arrests": 4002,
+      "total": 5815,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1865
+        },
+        {
+          "country": "CUBA",
+          "total": 1238
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 867
+        }
+      ]
+    },
+    {
+      "aor": "Washington",
+      "fiscal_year": 2023,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 1055,
+      "removals": 353,
+      "arrests": 1882,
+      "total": 3290,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 772
+        },
+        {
+          "country": "MEXICO",
+          "total": 727
+        },
+        {
+          "country": "HONDURAS",
+          "total": 547
+        }
+      ]
+    },
+    {
+      "aor": "Atlanta",
+      "fiscal_year": 2024,
+      "lat": 33.749,
+      "lng": -84.388,
+      "detentions": 4432,
+      "removals": 6277,
+      "arrests": 4914,
+      "total": 15623,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 8087
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 2521
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2393
+        }
+      ]
+    },
+    {
+      "aor": "Baltimore",
+      "fiscal_year": 2024,
+      "lat": 39.2904,
+      "lng": -76.6122,
+      "detentions": 323,
+      "removals": 65,
+      "arrests": 604,
+      "total": 992,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 346
+        },
+        {
+          "country": "MEXICO",
+          "total": 213
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 212
+        }
+      ]
+    },
+    {
+      "aor": "Boston",
+      "fiscal_year": 2024,
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "detentions": 1262,
+      "removals": 1017,
+      "arrests": 938,
+      "total": 3217,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 813
+        },
+        {
+          "country": "BRAZIL",
+          "total": 734
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 540
+        }
+      ]
+    },
+    {
+      "aor": "Buffalo",
+      "fiscal_year": 2024,
+      "lat": 42.8864,
+      "lng": -78.8784,
+      "detentions": 1617,
+      "removals": 926,
+      "arrests": 169,
+      "total": 2712,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1093
+        },
+        {
+          "country": "INDIA",
+          "total": 1060
+        },
+        {
+          "country": "BANGLADESH",
+          "total": 377
+        }
+      ]
+    },
+    {
+      "aor": "Chicago",
+      "fiscal_year": 2024,
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "detentions": 4399,
+      "removals": 2934,
+      "arrests": 7965,
+      "total": 15298,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 8400
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 2450
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1854
+        }
+      ]
+    },
+    {
+      "aor": "Dallas",
+      "fiscal_year": 2024,
+      "lat": 32.7767,
+      "lng": -96.797,
+      "detentions": 9656,
+      "removals": 6540,
+      "arrests": 9468,
+      "total": 25664,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 16292
+        },
+        {
+          "country": "HONDURAS",
+          "total": 3295
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 2163
+        }
+      ]
+    },
+    {
+      "aor": "Denver",
+      "fiscal_year": 2024,
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "detentions": 1386,
+      "removals": 915,
+      "arrests": 1804,
+      "total": 4105,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1928
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 585
+        },
+        {
+          "country": "ECUADOR",
+          "total": 192
+        }
+      ]
+    },
+    {
+      "aor": "Detroit",
+      "fiscal_year": 2024,
+      "lat": 42.3314,
+      "lng": -83.0458,
+      "detentions": 988,
+      "removals": 790,
+      "arrests": 1271,
+      "total": 3049,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2113
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 438
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 273
+        }
+      ]
+    },
+    {
+      "aor": "El Paso",
+      "fiscal_year": 2024,
+      "lat": 31.7619,
+      "lng": -106.485,
+      "detentions": 17566,
+      "removals": 38995,
+      "arrests": 1282,
+      "total": 57843,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 27601
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 18579
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 3862
+        }
+      ]
+    },
+    {
+      "aor": "HQ",
+      "fiscal_year": 2024,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 0,
+      "removals": 2680,
+      "arrests": 0,
+      "total": 2680,
+      "top_countries": [
+        {
+          "country": "GUATEMALA",
+          "total": 1885
+        },
+        {
+          "country": "HAITI",
+          "total": 273
+        },
+        {
+          "country": "TURKIYE",
+          "total": 201
+        }
+      ]
+    },
+    {
+      "aor": "Harlingen",
+      "fiscal_year": 2024,
+      "lat": 26.1906,
+      "lng": -97.6961,
+      "detentions": 50233,
+      "removals": 73130,
+      "arrests": 5289,
+      "total": 128652,
+      "top_countries": [
+        {
+          "country": "GUATEMALA",
+          "total": 35805
+        },
+        {
+          "country": "HONDURAS",
+          "total": 30792
+        },
+        {
+          "country": "MEXICO",
+          "total": 17270
+        }
+      ]
+    },
+    {
+      "aor": "Houston",
+      "fiscal_year": 2024,
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "detentions": 22068,
+      "removals": 13450,
+      "arrests": 8698,
+      "total": 44216,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 14191
+        },
+        {
+          "country": "HONDURAS",
+          "total": 7856
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 4468
+        }
+      ]
+    },
+    {
+      "aor": "Los Angeles",
+      "fiscal_year": 2024,
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "detentions": 3857,
+      "removals": 3551,
+      "arrests": 4043,
+      "total": 11451,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 7173
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1006
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 825
+        }
+      ]
+    },
+    {
+      "aor": "Miami",
+      "fiscal_year": 2024,
+      "lat": 25.7617,
+      "lng": -80.1918,
+      "detentions": 6796,
+      "removals": 4130,
+      "arrests": 8557,
+      "total": 19483,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5267
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 4848
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2543
+        }
+      ]
+    },
+    {
+      "aor": "New Orleans",
+      "fiscal_year": 2024,
+      "lat": 29.9511,
+      "lng": -90.0715,
+      "detentions": 18546,
+      "removals": 17524,
+      "arrests": 8941,
+      "total": 45011,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 12517
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 8255
+        },
+        {
+          "country": "HONDURAS",
+          "total": 6403
+        }
+      ]
+    },
+    {
+      "aor": "New York City",
+      "fiscal_year": 2024,
+      "lat": 40.7128,
+      "lng": -74.006,
+      "detentions": 3199,
+      "removals": 57,
+      "arrests": 3462,
+      "total": 6718,
+      "top_countries": [
+        {
+          "country": "ECUADOR",
+          "total": 3527
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 735
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 709
+        }
+      ]
+    },
+    {
+      "aor": "Newark",
+      "fiscal_year": 2024,
+      "lat": 40.7357,
+      "lng": -74.1724,
+      "detentions": 1700,
+      "removals": 182,
+      "arrests": 2485,
+      "total": 4367,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1225
+        },
+        {
+          "country": "ECUADOR",
+          "total": 1062
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 429
+        }
+      ]
+    },
+    {
+      "aor": "Philadelphia",
+      "fiscal_year": 2024,
+      "lat": 39.9526,
+      "lng": -75.1652,
+      "detentions": 888,
+      "removals": 1662,
+      "arrests": 965,
+      "total": 3515,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1556
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 736
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 644
+        }
+      ]
+    },
+    {
+      "aor": "Phoenix",
+      "fiscal_year": 2024,
+      "lat": 33.4484,
+      "lng": -112.074,
+      "detentions": 35318,
+      "removals": 24397,
+      "arrests": 3405,
+      "total": 63120,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 34911
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 9378
+        },
+        {
+          "country": "ECUADOR",
+          "total": 3494
+        }
+      ]
+    },
+    {
+      "aor": "Salt Lake City",
+      "fiscal_year": 2024,
+      "lat": 40.7608,
+      "lng": -111.891,
+      "detentions": 2214,
+      "removals": 1719,
+      "arrests": 2330,
+      "total": 6263,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5223
+        },
+        {
+          "country": "HONDURAS",
+          "total": 626
+        },
+        {
+          "country": "PERU",
+          "total": 126
+        }
+      ]
+    },
+    {
+      "aor": "San Antonio",
+      "fiscal_year": 2024,
+      "lat": 29.4241,
+      "lng": -98.4936,
+      "detentions": 26239,
+      "removals": 24750,
+      "arrests": 6009,
+      "total": 56998,
+      "top_countries": [
+        {
+          "country": "HONDURAS",
+          "total": 15980
+        },
+        {
+          "country": "MEXICO",
+          "total": 13041
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 5156
+        }
+      ]
+    },
+    {
+      "aor": "San Diego",
+      "fiscal_year": 2024,
+      "lat": 32.7157,
+      "lng": -117.1611,
+      "detentions": 23623,
+      "removals": 5151,
+      "arrests": 267,
+      "total": 29041,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 6011
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 2946
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 2553
+        }
+      ]
+    },
+    {
+      "aor": "San Francisco",
+      "fiscal_year": 2024,
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "detentions": 1696,
+      "removals": 1530,
+      "arrests": 1729,
+      "total": 4955,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 4059
+        },
+        {
+          "country": "HONDURAS",
+          "total": 412
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 174
+        }
+      ]
+    },
+    {
+      "aor": "Seattle",
+      "fiscal_year": 2024,
+      "lat": 47.6062,
+      "lng": -122.3321,
+      "detentions": 1778,
+      "removals": 1532,
+      "arrests": 1275,
+      "total": 4585,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2526
+        },
+        {
+          "country": "INDIA",
+          "total": 1632
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 79
+        }
+      ]
+    },
+    {
+      "aor": "St. Paul",
+      "fiscal_year": 2024,
+      "lat": 44.9537,
+      "lng": -93.09,
+      "detentions": 1016,
+      "removals": 853,
+      "arrests": 1751,
+      "total": 3620,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1889
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 613
+        },
+        {
+          "country": "ECUADOR",
+          "total": 555
+        }
+      ]
+    },
+    {
+      "aor": "Washington",
+      "fiscal_year": 2024,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 1159,
+      "removals": 820,
+      "arrests": 1286,
+      "total": 3265,
+      "top_countries": [
+        {
+          "country": "EL SALVADOR",
+          "total": 1020
+        },
+        {
+          "country": "MEXICO",
+          "total": 851
+        },
+        {
+          "country": "HONDURAS",
+          "total": 698
+        }
+      ]
+    },
+    {
+      "aor": "Atlanta",
+      "fiscal_year": 2025,
+      "lat": 33.749,
+      "lng": -84.388,
+      "detentions": 1325,
+      "removals": 978,
+      "arrests": 1292,
+      "total": 3595,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2021
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 538
+        },
+        {
+          "country": "HONDURAS",
+          "total": 503
+        }
+      ]
+    },
+    {
+      "aor": "Baltimore",
+      "fiscal_year": 2025,
+      "lat": 39.2904,
+      "lng": -76.6122,
+      "detentions": 127,
+      "removals": 14,
+      "arrests": 185,
+      "total": 326,
+      "top_countries": [
+        {
+          "country": "GUATEMALA",
+          "total": 119
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 108
+        },
+        {
+          "country": "HONDURAS",
+          "total": 70
+        }
+      ]
+    },
+    {
+      "aor": "Boston",
+      "fiscal_year": 2025,
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "detentions": 283,
+      "removals": 296,
+      "arrests": 208,
+      "total": 787,
+      "top_countries": [
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 218
+        },
+        {
+          "country": "BRAZIL",
+          "total": 215
+        },
+        {
+          "country": "MEXICO",
+          "total": 126
+        }
+      ]
+    },
+    {
+      "aor": "Buffalo",
+      "fiscal_year": 2025,
+      "lat": 42.8864,
+      "lng": -78.8784,
+      "detentions": 534,
+      "removals": 476,
+      "arrests": 14,
+      "total": 1024,
+      "top_countries": [
+        {
+          "country": "INDIA",
+          "total": 627
+        },
+        {
+          "country": "MEXICO",
+          "total": 246
+        },
+        {
+          "country": "BANGLADESH",
+          "total": 102
+        }
+      ]
+    },
+    {
+      "aor": "Chicago",
+      "fiscal_year": 2025,
+      "lat": 41.8781,
+      "lng": -87.6298,
+      "detentions": 1133,
+      "removals": 698,
+      "arrests": 1672,
+      "total": 3503,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 2178
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 522
+        },
+        {
+          "country": "HONDURAS",
+          "total": 452
+        }
+      ]
+    },
+    {
+      "aor": "Dallas",
+      "fiscal_year": 2025,
+      "lat": 32.7767,
+      "lng": -96.797,
+      "detentions": 2179,
+      "removals": 1501,
+      "arrests": 2265,
+      "total": 5945,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 4141
+        },
+        {
+          "country": "HONDURAS",
+          "total": 770
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 458
+        }
+      ]
+    },
+    {
+      "aor": "Denver",
+      "fiscal_year": 2025,
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "detentions": 311,
+      "removals": 215,
+      "arrests": 289,
+      "total": 815,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 593
+        },
+        {
+          "country": "VENEZUELA",
+          "total": 126
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 44
+        }
+      ]
+    },
+    {
+      "aor": "Detroit",
+      "fiscal_year": 2025,
+      "lat": 42.3314,
+      "lng": -83.0458,
+      "detentions": 229,
+      "removals": 190,
+      "arrests": 222,
+      "total": 641,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 524
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 80
+        },
+        {
+          "country": "HONDURAS",
+          "total": 21
+        }
+      ]
+    },
+    {
+      "aor": "El Paso",
+      "fiscal_year": 2025,
+      "lat": 31.7619,
+      "lng": -106.485,
+      "detentions": 4945,
+      "removals": 9272,
+      "arrests": 333,
+      "total": 14550,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 10317
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1638
+        },
+        {
+          "country": "HONDURAS",
+          "total": 680
+        }
+      ]
+    },
+    {
+      "aor": "HQ",
+      "fiscal_year": 2025,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 0,
+      "removals": 9419,
+      "arrests": 0,
+      "total": 9419,
+      "top_countries": [
+        {
+          "country": "GUATEMALA",
+          "total": 5270
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2295
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 1171
+        }
+      ]
+    },
+    {
+      "aor": "Harlingen",
+      "fiscal_year": 2025,
+      "lat": 26.1906,
+      "lng": -97.6961,
+      "detentions": 10576,
+      "removals": 11156,
+      "arrests": 1134,
+      "total": 22866,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 5664
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 4673
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 3262
+        }
+      ]
+    },
+    {
+      "aor": "Houston",
+      "fiscal_year": 2025,
+      "lat": 29.7604,
+      "lng": -95.3698,
+      "detentions": 4951,
+      "removals": 3171,
+      "arrests": 2418,
+      "total": 10540,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3790
+        },
+        {
+          "country": "HONDURAS",
+          "total": 2075
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1217
+        }
+      ]
+    },
+    {
+      "aor": "Los Angeles",
+      "fiscal_year": 2025,
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "detentions": 638,
+      "removals": 597,
+      "arrests": 844,
+      "total": 2079,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1653
+        },
+        {
+          "country": "NICARAGUA",
+          "total": 152
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 102
+        }
+      ]
+    },
+    {
+      "aor": "Miami",
+      "fiscal_year": 2025,
+      "lat": 25.7617,
+      "lng": -80.1918,
+      "detentions": 1890,
+      "removals": 915,
+      "arrests": 2158,
+      "total": 4963,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1573
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1168
+        },
+        {
+          "country": "HONDURAS",
+          "total": 637
+        }
+      ]
+    },
+    {
+      "aor": "New Orleans",
+      "fiscal_year": 2025,
+      "lat": 29.9511,
+      "lng": -90.0715,
+      "detentions": 5371,
+      "removals": 2638,
+      "arrests": 2501,
+      "total": 10510,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3382
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 1790
+        },
+        {
+          "country": "HONDURAS",
+          "total": 1539
+        }
+      ]
+    },
+    {
+      "aor": "New York City",
+      "fiscal_year": 2025,
+      "lat": 40.7128,
+      "lng": -74.006,
+      "detentions": 170,
+      "removals": 49,
+      "arrests": 178,
+      "total": 397,
+      "top_countries": [
+        {
+          "country": "ECUADOR",
+          "total": 331
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 39
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 27
+        }
+      ]
+    },
+    {
+      "aor": "Newark",
+      "fiscal_year": 2025,
+      "lat": 40.7357,
+      "lng": -74.1724,
+      "detentions": 477,
+      "removals": 65,
+      "arrests": 628,
+      "total": 1170,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 302
+        },
+        {
+          "country": "ECUADOR",
+          "total": 273
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 147
+        }
+      ]
+    },
+    {
+      "aor": "Philadelphia",
+      "fiscal_year": 2025,
+      "lat": 39.9526,
+      "lng": -75.1652,
+      "detentions": 231,
+      "removals": 330,
+      "arrests": 258,
+      "total": 819,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 374
+        },
+        {
+          "country": "DOMINICAN REPUBLIC",
+          "total": 193
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 148
+        }
+      ]
+    },
+    {
+      "aor": "Phoenix",
+      "fiscal_year": 2025,
+      "lat": 33.4484,
+      "lng": -112.074,
+      "detentions": 7826,
+      "removals": 5120,
+      "arrests": 821,
+      "total": 13767,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 9155
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 948
+        },
+        {
+          "country": "COLOMBIA",
+          "total": 724
+        }
+      ]
+    },
+    {
+      "aor": "Salt Lake City",
+      "fiscal_year": 2025,
+      "lat": 40.7608,
+      "lng": -111.891,
+      "detentions": 516,
+      "removals": 372,
+      "arrests": 531,
+      "total": 1419,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1253
+        },
+        {
+          "country": "HONDURAS",
+          "total": 124
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 42
+        }
+      ]
+    },
+    {
+      "aor": "San Antonio",
+      "fiscal_year": 2025,
+      "lat": 29.4241,
+      "lng": -98.4936,
+      "detentions": 5388,
+      "removals": 5162,
+      "arrests": 1180,
+      "total": 11730,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 3374
+        },
+        {
+          "country": "HONDURAS",
+          "total": 3010
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 957
+        }
+      ]
+    },
+    {
+      "aor": "San Diego",
+      "fiscal_year": 2025,
+      "lat": 32.7157,
+      "lng": -117.1611,
+      "detentions": 6745,
+      "removals": 1402,
+      "arrests": 87,
+      "total": 8234,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 1809
+        },
+        {
+          "country": "INDIA",
+          "total": 780
+        },
+        {
+          "country": "CHINA, PEOPLES REPUBLIC OF",
+          "total": 512
+        }
+      ]
+    },
+    {
+      "aor": "San Francisco",
+      "fiscal_year": 2025,
+      "lat": 37.7749,
+      "lng": -122.4194,
+      "detentions": 353,
+      "removals": 291,
+      "arrests": 378,
+      "total": 1022,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 980
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 22
+        },
+        {
+          "country": "HONDURAS",
+          "total": 20
+        }
+      ]
+    },
+    {
+      "aor": "Seattle",
+      "fiscal_year": 2025,
+      "lat": 47.6062,
+      "lng": -122.3321,
+      "detentions": 164,
+      "removals": 162,
+      "arrests": 110,
+      "total": 436,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 413
+        },
+        {
+          "country": "INDIA",
+          "total": 23
+        }
+      ]
+    },
+    {
+      "aor": "St. Paul",
+      "fiscal_year": 2025,
+      "lat": 44.9537,
+      "lng": -93.09,
+      "detentions": 293,
+      "removals": 268,
+      "arrests": 353,
+      "total": 914,
+      "top_countries": [
+        {
+          "country": "MEXICO",
+          "total": 498
+        },
+        {
+          "country": "GUATEMALA",
+          "total": 229
+        },
+        {
+          "country": "ECUADOR",
+          "total": 82
+        }
+      ]
+    },
+    {
+      "aor": "Washington",
+      "fiscal_year": 2025,
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "detentions": 355,
+      "removals": 172,
+      "arrests": 394,
+      "total": 921,
+      "top_countries": [
+        {
+          "country": "HONDURAS",
+          "total": 278
+        },
+        {
+          "country": "EL SALVADOR",
+          "total": 252
+        },
+        {
+          "country": "MEXICO",
+          "total": 237
+        }
+      ]
+    }
+  ]
+}

@@ -3,6 +3,10 @@
   <head>
     <title>ICE Data Visualization</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -19,6 +23,40 @@
           <svg id="chart"></svg>
         </div>
     </main>
+    <section id="adr-citizenship-experience">
+      <div class="poem-panel">
+        <h2>Unnumbered</h2>
+        <p class="poem-stanza">Am I just a number<br />a dot on a graph<br />Confined to a cell made of lines</p>
+        <p class="poem-stanza">Or something with a heartbeat<br />Flesh and bone trembling with a pulse<br />A homage to those who came before me<br />Tied to this world by other hearts that beats in tandem</p>
+        <p class="poem-stanza">When you came you brought pain and misery<br />An empire built on the back of slaves<br />Endless rivers of blood you pollute this land<br />that you call yours</p>
+        <p class="poem-stanza">Take me<br />away from the endless sky<br />and those who love me<br />We are not voiceless<br />And we will scream till the end</p>
+        <p class="poem-stanza">One day<br />History will know<br />and I will be home</p>
+      </div>
+
+      <div class="viz-control-panel">
+        <div class="button-row viz-row">
+          <button class="viz-btn active" data-viz="viz1">Viz 1</button>
+          <button class="viz-btn" data-viz="viz2">Viz 2</button>
+          <button class="viz-btn" data-viz="viz3">Viz 3</button>
+          <button class="viz-btn" data-viz="viz4">Viz 4</button>
+        </div>
+        <div class="button-row metric-row">
+          <button class="metric-btn active" data-metric="arrests">Arrests</button>
+          <button class="metric-btn" data-metric="detentions">Detentions</button>
+          <button class="metric-btn" data-metric="removals">Removals</button>
+        </div>
+        <div class="button-row year-row">
+          <label for="viz-year-select">Fiscal Year</label>
+          <select id="viz-year-select"></select>
+        </div>
+      </div>
+
+      <div id="advanced-chart-container">
+        <svg id="advanced-chart"></svg>
+      </div>
+    </section>
+
+    <div id="adv-tooltip" class="adv-tooltip hidden"></div>
     <script src="main.js"></script>
   </body>
 </html>

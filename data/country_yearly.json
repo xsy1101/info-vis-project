@@ -1,0 +1,523 @@
+{
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "top_countries": [
+    "MEXICO",
+    "GUATEMALA",
+    "HONDURAS",
+    "COLOMBIA",
+    "VENEZUELA",
+    "NICARAGUA",
+    "ECUADOR",
+    "CUBA",
+    "EL SALVADOR",
+    "PERU"
+  ],
+  "records": [
+    {
+      "country": "MEXICO",
+      "fiscal_year": 2021,
+      "iso3": "MEX",
+      "iso_numeric": "484",
+      "detentions": 31086,
+      "removals": 29634,
+      "arrests": 27528,
+      "total": 88248
+    },
+    {
+      "country": "MEXICO",
+      "fiscal_year": 2022,
+      "iso3": "MEX",
+      "iso_numeric": "484",
+      "detentions": 32706,
+      "removals": 31724,
+      "arrests": 27529,
+      "total": 91959
+    },
+    {
+      "country": "MEXICO",
+      "fiscal_year": 2023,
+      "iso3": "MEX",
+      "iso_numeric": "484",
+      "detentions": 52430,
+      "removals": 51586,
+      "arrests": 41611,
+      "total": 145627
+    },
+    {
+      "country": "MEXICO",
+      "fiscal_year": 2024,
+      "iso3": "MEX",
+      "iso_numeric": "484",
+      "detentions": 66972,
+      "removals": 84905,
+      "arrests": 42477,
+      "total": 194354
+    },
+    {
+      "country": "MEXICO",
+      "fiscal_year": 2025,
+      "iso3": "MEX",
+      "iso_numeric": "484",
+      "detentions": 17296,
+      "removals": 26218,
+      "arrests": 11274,
+      "total": 54788
+    },
+    {
+      "country": "GUATEMALA",
+      "fiscal_year": 2021,
+      "iso3": "GTM",
+      "iso_numeric": "320",
+      "detentions": 8568,
+      "removals": 5282,
+      "arrests": 7099,
+      "total": 20949
+    },
+    {
+      "country": "GUATEMALA",
+      "fiscal_year": 2022,
+      "iso3": "GTM",
+      "iso_numeric": "320",
+      "detentions": 7661,
+      "removals": 4070,
+      "arrests": 8333,
+      "total": 20064
+    },
+    {
+      "country": "GUATEMALA",
+      "fiscal_year": 2023,
+      "iso3": "GTM",
+      "iso_numeric": "320",
+      "detentions": 15369,
+      "removals": 16894,
+      "arrests": 7916,
+      "total": 40179
+    },
+    {
+      "country": "GUATEMALA",
+      "fiscal_year": 2024,
+      "iso3": "GTM",
+      "iso_numeric": "320",
+      "detentions": 33459,
+      "removals": 58733,
+      "arrests": 10701,
+      "total": 102893
+    },
+    {
+      "country": "GUATEMALA",
+      "fiscal_year": 2025,
+      "iso3": "GTM",
+      "iso_numeric": "320",
+      "detentions": 6301,
+      "removals": 11522,
+      "arrests": 2713,
+      "total": 20536
+    },
+    {
+      "country": "HONDURAS",
+      "fiscal_year": 2021,
+      "iso3": "HND",
+      "iso_numeric": "340",
+      "detentions": 11284,
+      "removals": 3027,
+      "arrests": 9399,
+      "total": 23710
+    },
+    {
+      "country": "HONDURAS",
+      "fiscal_year": 2022,
+      "iso3": "HND",
+      "iso_numeric": "340",
+      "detentions": 9203,
+      "removals": 3994,
+      "arrests": 14814,
+      "total": 28011
+    },
+    {
+      "country": "HONDURAS",
+      "fiscal_year": 2023,
+      "iso3": "HND",
+      "iso_numeric": "340",
+      "detentions": 19335,
+      "removals": 19509,
+      "arrests": 9616,
+      "total": 48460
+    },
+    {
+      "country": "HONDURAS",
+      "fiscal_year": 2024,
+      "iso3": "HND",
+      "iso_numeric": "340",
+      "detentions": 25484,
+      "removals": 42855,
+      "arrests": 10443,
+      "total": 78782
+    },
+    {
+      "country": "HONDURAS",
+      "fiscal_year": 2025,
+      "iso3": "HND",
+      "iso_numeric": "340",
+      "detentions": 6391,
+      "removals": 6850,
+      "arrests": 2743,
+      "total": 15984
+    },
+    {
+      "country": "COLOMBIA",
+      "fiscal_year": 2021,
+      "iso3": "COL",
+      "iso_numeric": "170",
+      "detentions": 2164,
+      "removals": 134,
+      "arrests": 33,
+      "total": 2331
+    },
+    {
+      "country": "COLOMBIA",
+      "fiscal_year": 2022,
+      "iso3": "COL",
+      "iso_numeric": "170",
+      "detentions": 38167,
+      "removals": 2831,
+      "arrests": 9689,
+      "total": 50687
+    },
+    {
+      "country": "COLOMBIA",
+      "fiscal_year": 2023,
+      "iso3": "COL",
+      "iso_numeric": "170",
+      "detentions": 32507,
+      "removals": 8332,
+      "arrests": 13796,
+      "total": 54635
+    },
+    {
+      "country": "COLOMBIA",
+      "fiscal_year": 2024,
+      "iso3": "COL",
+      "iso_numeric": "170",
+      "detentions": 18017,
+      "removals": 12018,
+      "arrests": 2743,
+      "total": 32778
+    },
+    {
+      "country": "COLOMBIA",
+      "fiscal_year": 2025,
+      "iso3": "COL",
+      "iso_numeric": "170",
+      "detentions": 4243,
+      "removals": 2434,
+      "arrests": 334,
+      "total": 7011
+    },
+    {
+      "country": "VENEZUELA",
+      "fiscal_year": 2021,
+      "iso3": "VEN",
+      "iso_numeric": "862",
+      "detentions": 23055,
+      "removals": 0,
+      "arrests": 2246,
+      "total": 25301
+    },
+    {
+      "country": "VENEZUELA",
+      "fiscal_year": 2022,
+      "iso3": "VEN",
+      "iso_numeric": "862",
+      "detentions": 36157,
+      "removals": 0,
+      "arrests": 16415,
+      "total": 52572
+    },
+    {
+      "country": "VENEZUELA",
+      "fiscal_year": 2023,
+      "iso3": "VEN",
+      "iso_numeric": "862",
+      "detentions": 14158,
+      "removals": 233,
+      "arrests": 15962,
+      "total": 30353
+    },
+    {
+      "country": "VENEZUELA",
+      "fiscal_year": 2024,
+      "iso3": "VEN",
+      "iso_numeric": "862",
+      "detentions": 16565,
+      "removals": 2655,
+      "arrests": 3185,
+      "total": 22405
+    },
+    {
+      "country": "VENEZUELA",
+      "fiscal_year": 2025,
+      "iso3": "VEN",
+      "iso_numeric": "862",
+      "detentions": 1673,
+      "removals": 50,
+      "arrests": 501,
+      "total": 2224
+    },
+    {
+      "country": "NICARAGUA",
+      "fiscal_year": 2021,
+      "iso3": "NIC",
+      "iso_numeric": "558",
+      "detentions": 26311,
+      "removals": 492,
+      "arrests": 1705,
+      "total": 28508
+    },
+    {
+      "country": "NICARAGUA",
+      "fiscal_year": 2022,
+      "iso3": "NIC",
+      "iso_numeric": "558",
+      "detentions": 47070,
+      "removals": 1758,
+      "arrests": 10046,
+      "total": 58874
+    },
+    {
+      "country": "NICARAGUA",
+      "fiscal_year": 2023,
+      "iso3": "NIC",
+      "iso_numeric": "558",
+      "detentions": 2840,
+      "removals": 1164,
+      "arrests": 20162,
+      "total": 24166
+    },
+    {
+      "country": "NICARAGUA",
+      "fiscal_year": 2024,
+      "iso3": "NIC",
+      "iso_numeric": "558",
+      "detentions": 8589,
+      "removals": 2087,
+      "arrests": 7182,
+      "total": 17858
+    },
+    {
+      "country": "NICARAGUA",
+      "fiscal_year": 2025,
+      "iso3": "NIC",
+      "iso_numeric": "558",
+      "detentions": 390,
+      "removals": 225,
+      "arrests": 755,
+      "total": 1370
+    },
+    {
+      "country": "ECUADOR",
+      "fiscal_year": 2021,
+      "iso3": "ECU",
+      "iso_numeric": "218",
+      "detentions": 16571,
+      "removals": 715,
+      "arrests": 4022,
+      "total": 21308
+    },
+    {
+      "country": "ECUADOR",
+      "fiscal_year": 2022,
+      "iso3": "ECU",
+      "iso_numeric": "218",
+      "detentions": 10718,
+      "removals": 787,
+      "arrests": 7663,
+      "total": 19168
+    },
+    {
+      "country": "ECUADOR",
+      "fiscal_year": 2023,
+      "iso3": "ECU",
+      "iso_numeric": "218",
+      "detentions": 18536,
+      "removals": 4675,
+      "arrests": 6554,
+      "total": 29765
+    },
+    {
+      "country": "ECUADOR",
+      "fiscal_year": 2024,
+      "iso3": "ECU",
+      "iso_numeric": "218",
+      "detentions": 21227,
+      "removals": 11262,
+      "arrests": 3529,
+      "total": 36018
+    },
+    {
+      "country": "ECUADOR",
+      "fiscal_year": 2025,
+      "iso3": "ECU",
+      "iso_numeric": "218",
+      "detentions": 2733,
+      "removals": 1951,
+      "arrests": 464,
+      "total": 5148
+    },
+    {
+      "country": "CUBA",
+      "fiscal_year": 2021,
+      "iso3": "CUB",
+      "iso_numeric": "192",
+      "detentions": 17493,
+      "removals": 29,
+      "arrests": 860,
+      "total": 18382
+    },
+    {
+      "country": "CUBA",
+      "fiscal_year": 2022,
+      "iso3": "CUB",
+      "iso_numeric": "192",
+      "detentions": 26870,
+      "removals": 0,
+      "arrests": 8419,
+      "total": 35289
+    },
+    {
+      "country": "CUBA",
+      "fiscal_year": 2023,
+      "iso3": "CUB",
+      "iso_numeric": "192",
+      "detentions": 7297,
+      "removals": 128,
+      "arrests": 12001,
+      "total": 19426
+    },
+    {
+      "country": "CUBA",
+      "fiscal_year": 2024,
+      "iso3": "CUB",
+      "iso_numeric": "192",
+      "detentions": 2675,
+      "removals": 77,
+      "arrests": 1500,
+      "total": 4252
+    },
+    {
+      "country": "CUBA",
+      "fiscal_year": 2025,
+      "iso3": "CUB",
+      "iso_numeric": "192",
+      "detentions": 529,
+      "removals": 10,
+      "arrests": 253,
+      "total": 792
+    },
+    {
+      "country": "EL SALVADOR",
+      "fiscal_year": 2021,
+      "iso3": "SLV",
+      "iso_numeric": "222",
+      "detentions": 3293,
+      "removals": 995,
+      "arrests": 3742,
+      "total": 8030
+    },
+    {
+      "country": "EL SALVADOR",
+      "fiscal_year": 2022,
+      "iso3": "SLV",
+      "iso_numeric": "222",
+      "detentions": 3381,
+      "removals": 5373,
+      "arrests": 4743,
+      "total": 13497
+    },
+    {
+      "country": "EL SALVADOR",
+      "fiscal_year": 2023,
+      "iso3": "SLV",
+      "iso_numeric": "222",
+      "detentions": 6702,
+      "removals": 5965,
+      "arrests": 3067,
+      "total": 15734
+    },
+    {
+      "country": "EL SALVADOR",
+      "fiscal_year": 2024,
+      "iso3": "SLV",
+      "iso_numeric": "222",
+      "detentions": 8408,
+      "removals": 12528,
+      "arrests": 3020,
+      "total": 23956
+    },
+    {
+      "country": "EL SALVADOR",
+      "fiscal_year": 2025,
+      "iso3": "SLV",
+      "iso_numeric": "222",
+      "detentions": 2712,
+      "removals": 2668,
+      "arrests": 799,
+      "total": 6179
+    },
+    {
+      "country": "PERU",
+      "fiscal_year": 2021,
+      "iso3": "PER",
+      "iso_numeric": "604",
+      "detentions": 666,
+      "removals": 0,
+      "arrests": 34,
+      "total": 700
+    },
+    {
+      "country": "PERU",
+      "fiscal_year": 2022,
+      "iso3": "PER",
+      "iso_numeric": "604",
+      "detentions": 15250,
+      "removals": 459,
+      "arrests": 3688,
+      "total": 19397
+    },
+    {
+      "country": "PERU",
+      "fiscal_year": 2023,
+      "iso3": "PER",
+      "iso_numeric": "604",
+      "detentions": 15900,
+      "removals": 4201,
+      "arrests": 6899,
+      "total": 27000
+    },
+    {
+      "country": "PERU",
+      "fiscal_year": 2024,
+      "iso3": "PER",
+      "iso_numeric": "604",
+      "detentions": 5900,
+      "removals": 3130,
+      "arrests": 971,
+      "total": 10001
+    },
+    {
+      "country": "PERU",
+      "fiscal_year": 2025,
+      "iso3": "PER",
+      "iso_numeric": "604",
+      "detentions": 665,
+      "removals": 192,
+      "arrests": 65,
+      "total": 922
+    }
+  ]
+}
