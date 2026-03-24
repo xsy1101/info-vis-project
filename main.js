@@ -628,8 +628,15 @@ function drawChart(data, label) {
         );
         const rows = state.data.countryData.records.filter(d => +d.fiscal_year === +state.selectedYear && d.iso_numeric);
         const dataById = new Map(rows.map(d => [String(d.iso_numeric).padStart(3, "0"), d]));
-        const maxValue = d3.max(rows, d => +d[state.activeMetric]) || 1;
-        const color = d3.scaleSequential(d3.interpolateOrRd).domain([0, maxValue]);
+        const values = rows
+            .map(d => +d[state.activeMetric])
+            .filter(v => Number.isFinite(v) && v > 0)
+            .sort(d3.ascending);
+        const q98 = values.length > 0 ? d3.quantile(values, 0.98) : 1;
+        const colorCap = Math.max(1, q98 || 1);
+        const logMin = Math.log1p(1);
+        const logMax = Math.log1p(colorCap);
+        const color = d3.scaleSequential(d3.interpolateYlOrRd).domain([logMin, logMax]);
 
         mapGroup.selectAll(".world-country")
             .data(countries.features)
@@ -640,7 +647,15 @@ function drawChart(data, label) {
             .attr("fill", d => {
                 const key = String(d.id).padStart(3, "0");
                 const rec = dataById.get(key);
-                return rec ? color(+rec[state.activeMetric]) : "#2a2530";
+                if (!rec) {
+                    return "#2a2530";
+                }
+                const rawValue = +rec[state.activeMetric];
+                if (!rawValue || rawValue <= 0) {
+                    return "#2a2530";
+                }
+                const capped = Math.min(rawValue, colorCap);
+                return color(Math.log1p(capped));
             })
             .attr("stroke", "#6f6078")
             .attr("stroke-width", 0.5)
