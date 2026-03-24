@@ -671,12 +671,12 @@
     bindControls();
 
     Promise.all([
-        d3.json("info-vis-project/data/arrests_yearly.json"),
-        d3.json("info-vis-project/data/detentions_yearly.json"),
-        d3.json("info-vis-project/data/removals_yearly.json"),
-        d3.json("info-vis-project/data/aor_data.json"),
-        d3.json("info-vis-project/data/country_data.json"),
-        d3.json("info-vis-project/data/country_yearly.json"),
+        d3.json("../data/arrests_yearly.json"),
+        d3.json("../data/detentions_yearly.json"),
+        d3.json("../data/removals_yearly.json"),
+        d3.json("../data/aor_data.json"),
+        d3.json("../info-vis-project/data/country_data.json"),
+        d3.json("../info-vis-project/data/country_yearly.json"),
     ]).then(([
         yearlyArrests,
         yearlyDetentions,
@@ -714,12 +714,12 @@
 
         return Promise.allSettled([
             loadJsonWithFallback(
-                "info-vis-project/data/maps/us-states-10m.json",
+                "../data/maps/us-states-10m.json",
                 "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
                 "US topology"
             ),
             loadJsonWithFallback(
-                "info-vis-project/data/maps/world-countries-110m.json",
+                "../data/maps/world-countries-110m.json",
                 "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
                 "world topology"
             ),
