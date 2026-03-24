@@ -220,7 +220,7 @@ function drawChart(data, label) {
     const yearRow = d3.select(".year-row");
 
     const state = {
-        activeViz: "viz1",
+        activeViz: "viz2",
         activeMetric: "arrests",
         selectedYear: null,
         streamFocusCountry: null,
@@ -602,8 +602,7 @@ function drawChart(data, label) {
         if (
             !state.data.worldTopology ||
             !state.data.worldTopology.objects ||
-            !state.data.worldTopology.objects.countries ||
-            !state.data.worldNames
+            !state.data.worldTopology.objects.countries
         ) {
             drawNotice(
                 "Viz 3: Country of Citizenship (World Choropleth)",
@@ -622,7 +621,11 @@ function drawChart(data, label) {
         const projection = d3.geoNaturalEarth1().fitSize([innerWidth, innerHeight], countries);
         const path = d3.geoPath(projection);
 
-        const nameById = new Map(state.data.worldNames.map(d => [String(d.id).padStart(3, "0"), d.name]));
+        const nameById = new Map(
+            state.data.countryData.records
+                .filter(d => d.iso_numeric)
+                .map(d => [String(d.iso_numeric).padStart(3, "0"), d.country_normalized || d.country])
+        );
         const rows = state.data.countryData.records.filter(d => +d.fiscal_year === +state.selectedYear && d.iso_numeric);
         const dataById = new Map(rows.map(d => [String(d.iso_numeric).padStart(3, "0"), d]));
         const maxValue = d3.max(rows, d => +d[state.activeMetric]) || 1;
@@ -813,14 +816,14 @@ function drawChart(data, label) {
         updateButtonState();
         clearCanvas();
 
-        if (state.activeViz === "viz1") {
-            renderViz1();
-        } else if (state.activeViz === "viz2") {
+        if (state.activeViz === "viz2") {
             renderViz2();
         } else if (state.activeViz === "viz3") {
             renderViz3();
-        } else {
+        } else if (state.activeViz === "viz4") {
             renderViz4();
+        } else {
+            renderViz2();
         }
     }
 
@@ -841,6 +844,13 @@ function drawChart(data, label) {
         yearSelect.on("change", function () {
             state.selectedYear = +this.value;
             render();
+        });
+    }
+
+    function loadJsonWithFallback(localPath, remotePath, label) {
+        return d3.json(localPath).catch(localErr => {
+            console.warn(`Unable to load local ${label} at ${localPath}; falling back to CDN.`, localErr);
+            return d3.json(remotePath);
         });
     }
 
@@ -870,7 +880,6 @@ function drawChart(data, label) {
             streamData,
             usTopology: null,
             worldTopology: null,
-            worldNames: null,
         };
 
         const years = (countryData.years || []).slice().sort((a, b) => a - b);
@@ -890,16 +899,23 @@ function drawChart(data, label) {
         render();
 
         return Promise.allSettled([
-            d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"),
-            d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
-            d3.tsv("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.tsv"),
+            loadJsonWithFallback(
+                "../data/maps/us-states-10m.json",
+                "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json",
+                "US topology"
+            ),
+            loadJsonWithFallback(
+                "../data/maps/world-countries-110m.json",
+                "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+                "world topology"
+            ),
         ]);
     }).then(results => {
         if (!results || !state.data) {
             return;
         }
 
-        const [usRes, worldRes, namesRes] = results;
+        const [usRes, worldRes] = results;
         if (usRes.status === "fulfilled") {
             state.data.usTopology = usRes.value;
         } else {
@@ -910,12 +926,6 @@ function drawChart(data, label) {
             state.data.worldTopology = worldRes.value;
         } else {
             console.warn("Unable to load world topology:", worldRes.reason);
-        }
-
-        if (namesRes.status === "fulfilled") {
-            state.data.worldNames = namesRes.value;
-        } else {
-            console.warn("Unable to load world country names:", namesRes.reason);
         }
 
         if (state.activeViz === "viz2" || state.activeViz === "viz3") {
