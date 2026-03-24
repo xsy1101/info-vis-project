@@ -9,9 +9,9 @@ const icons_per_row = 5;
 const padding = 1;
 
 Promise.all([
-  d3.json("../data/arrests_yearly.json"),
-  d3.json("../data/detentions_yearly.json"),
-  d3.json("../data/removals_yearly.json")
+  d3.json("/data/arrests_yearly.json"),
+  d3.json("/data/detentions_yearly.json"),
+  d3.json("/data/removals_yearly.json")
 ]).then(([a, d, r]) => {
   arrestsData = a;
   detentionsData = d;
@@ -166,7 +166,7 @@ function drawChart(data, label) {
         .enter()
         .append("image")
         .attr("class", "chain-link")
-        .attr("href", "../assets/chains.svg")
+        .attr("href", "/assets/chains.svg")
         .attr("width", chainSize)
         .attr("height", 20)
 
