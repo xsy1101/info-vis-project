@@ -9,9 +9,9 @@ const icons_per_row = 5;
 const padding = 1;
 
 Promise.all([
-  d3.json("/data/arrests_yearly.json"),
-  d3.json("/data/detentions_yearly.json"),
-  d3.json("/data/removals_yearly.json")
+  d3.json("/info-vis-project/data/arrests_yearly.json"),
+  d3.json("/info-vis-project/data/detentions_yearly.json"),
+  d3.json("/info-vis-project/data/removals_yearly.json")
 ]).then(([a, d, r]) => {
   arrestsData = a;
   detentionsData = d;
