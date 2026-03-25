@@ -866,6 +866,7 @@
         d3.json("../data/aor_data.json"),
         d3.json("../data/country_data.json"),
         d3.json("../data/country_yearly.json"),
+        d3.json("../data/criminality_data.json"),
     ]).then(([
         yearlyArrests,
         yearlyDetentions,
