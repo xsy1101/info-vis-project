@@ -6,7 +6,7 @@
 
     const advWidth = 1100;
     const advHeight = 620;
-    const advMargin = { top: 70, right: 35, bottom: 70, left: 100 };
+    const advMargin = { top: 70, right: 35, bottom: 70, left: 85 };
     const innerWidth = advWidth - advMargin.left - advMargin.right;
     const innerHeight = advHeight - advMargin.top - advMargin.bottom;
 
@@ -114,7 +114,10 @@
         return state.data.yearlyRemovals;
     }
 
+
     function renderViz1() {
+        
+
         const source = getYearlySeries(state.activeMetric);
         const data = source.map(d => ({
             year: +d["Fiscal Year"],
@@ -155,7 +158,7 @@
         chart.append("text")
             .attr("transform", "rotate(-90)")
             .attr("x", -innerHeight / 2)
-            .attr("y", -70)
+            .attr("y", -60)
             .attr("fill", "#f2dce8")
             .attr("text-anchor", "middle")
             .text(metricLabel(state.activeMetric));
@@ -370,13 +373,16 @@
         legend.append("text")
             .attr("fill", "#f3dde6")
             .attr("font-size", 12)
+            .attr("y", 70)
+            .attr("x", 60)
+            .attr("text-anchor", "middle")
             .text(metricLabel(state.activeMetric));
 
         legend.selectAll(".legend-bubble")
             .data(legendValues)
             .enter()
             .append("circle")
-            .attr("cx", 35)
+            .attr("cx", 60)
             .attr("cy", d => 52 - radius(d))
             .attr("r", d => radius(d))
             .attr("fill", "none")
@@ -409,14 +415,14 @@
 
         drawFrame(
             "Viz 3: Country of Citizenship (World Choropleth)",
-            `${metricLabel(state.activeMetric)} by country in FY ${state.selectedYear}`
+            `${metricLabel(state.activeMetric)} by country of citizenship in FY ${state.selectedYear}`
         );
 
         const mapGroup = root.append("g");
         const countries = topojson.feature(state.data.worldTopology, state.data.worldTopology.objects.countries);
         const projection = d3.geoNaturalEarth1().fitSize([innerWidth, innerHeight], countries);
         const path = d3.geoPath(projection);
-
+        
         const nameById = new Map(
             state.data.countryData.records
                 .filter(d => d.iso_numeric)
@@ -487,12 +493,75 @@
             .attr("fill", "#d2bac9")
             .attr("font-size", 12)
             .text("Scroll to zoom, drag to pan");
-    }
+        
+        const v = rows
+            .map(d => +d[state.activeMetric])
+            .filter(v => Number.isFinite(v));
+
+        const minValue = v.length > 0 ? 0 : 0; // start from 0
+        const maxValue = v.length > 0 ? d3.max(v) : 1;
+
+        const legendWidth = 120;
+        const legendHeight = 10;
+        const legendX = advMargin.left;
+        const legendY = innerHeight - 40;
+
+        const legend = root.append("g")
+            .attr("transform", `translate(${legendX}, ${legendY})`);
+
+        const defs = advSvg.select("defs").empty() ? advSvg.append("defs") : advSvg.select("defs");
+
+        const linearGradient = defs.append("linearGradient")
+            .attr("id", "simple-gradient")
+            .attr("x1", "0%")
+            .attr("x2", "100%");
+
+        linearGradient.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", "#F7EB60"); 
+
+        linearGradient.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", "#bd0026"); // dark red
+
+        legend.append("rect")
+            .attr("width", legendWidth)
+            .attr("height", legendHeight)
+            .style("fill", "url(#simple-gradient)")
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 0.5);
+
+        legend.append("text")
+            .attr("x", 0)
+            .attr("y", -4)
+            .attr("fill", "#f3dde6")
+            .attr("font-size", 11)
+            .attr("text-anchor", "start")
+            .text(`${minValue}`);
+
+        legend.append("text")
+            .attr("x", legendWidth)
+            .attr("y", -4)
+            .attr("fill", "#f3dde6")
+            .attr("font-size", 11)
+            .attr("text-anchor", "end")
+            .text(`${maxValue}`);
+
+        legend.append("text")
+            .attr("x", legendWidth / 2)
+            .attr("y", -18)
+            .attr("text-anchor", "middle")
+            .attr("fill", "#f3dde6")
+            .attr("font-size", 12)
+            .text(`# of ${metricLabel(state.activeMetric)}`);
+        
+}
 
     function renderViz4() {
         drawFrame(
             "Viz 4: Rivers of Movement",
-            `Top-10 countries by total activity, layered by year (${metricLabel(state.activeMetric)})`
+            `Streams show the yearly trend of people from each country of citizenship (${metricLabel(state.activeMetric)}).` +
+            " Hover over a stream to see totals from 2021 - 2025."
         );
 
         const payload = state.data.streamData;
@@ -581,15 +650,17 @@
             .attr("transform", `translate(0,${innerHeight})`)
             .call(d3.axisBottom(x).ticks(years.length).tickFormat(d3.format("d")));
 
+
         root.append("text")
             .attr("x", innerWidth / 2)
             .attr("y", innerHeight + 50)
             .attr("text-anchor", "middle")
             .attr("fill", "#f2dce8")
             .text("Fiscal Year");
+        
 
         const legend = root.append("g")
-            .attr("transform", `translate(${innerWidth - 180},15)`);
+            .attr("transform", `translate(${innerWidth - 70},-45)`);
 
         legend.selectAll(".legend-chip")
             .data(countries)
@@ -793,9 +864,8 @@
         d3.json("../data/detentions_yearly.json"),
         d3.json("../data/removals_yearly.json"),
         d3.json("../data/aor_data.json"),
-        d3.json("../info-vis-project/data/country_data.json"),
-        d3.json("../info-vis-project/data/country_yearly.json"),
-        d3.json("../data/criminality_data.json"),
+        d3.json("../data/country_data.json"),
+        d3.json("../data/country_yearly.json"),
     ]).then(([
         yearlyArrests,
         yearlyDetentions,
