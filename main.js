@@ -198,7 +198,7 @@
             .enter()
             .append("image")
             .attr("class", "viz1-person")
-            .attr("href", "../assets/person.svg")
+            .attr("href", "assets/person.svg")
             .attr("width", iconSize)
             .attr("height", iconSize)
             .attr("x", d => x(d.year) + 
@@ -244,7 +244,7 @@
                 .enter()
                 .append("image")
                 .attr("class", "viz1-chain")
-                .attr("href", "../assets/chains.svg")
+                .attr("href", "assets/chains.svg")
                 .attr("width", 18)
                 .attr("height", 18)
                 .attr("opacity", 0.84)
