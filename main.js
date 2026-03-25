@@ -618,6 +618,122 @@
             });
     }
 
+    function renderViz5() {
+        drawFrame (
+            "Viz 5: Criminal Status of ADR",
+            `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)}`
+        );
+
+        const criminality = (state.data.criminalityData || []).map(d => {
+            let label = d.Charge;
+            if (d.Charge === "Pending Criminal Charges") {
+                label = "Pending Criminal Chargers";
+            }
+
+            return {
+                label,
+                arrests: +d.arrests || 0,
+                detentions: +d.detentions || 0,
+                removals: +d.removals || 0,
+            };
+        });
+
+        const x = d3.scaleBand()
+            .domain([
+                "Criminal Conviction",
+                "Pending Criminal Chargers",
+                "Other Immigration Violator"
+            ])
+            .range([0, innerWidth])
+            .padding(0.3);
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(criminality, d => d[state.activeMetric]) || 0])
+            .nice()
+            .range([innerHeight, 0]);
+
+        const color = d3.scaleOrdinal()
+            .domain(["Criminal Conviction", "Pending Criminal Chargers", "Other Immigration Violator"])
+            .range(["#F52731", "#F5E027", "#F57327"]);
+
+        root.append("g")
+            .attr("class", "adv-axis")
+            .attr("transform", `translate(0,${innerHeight})`)
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("fill", "#f2dce8")
+            .attr("font-size", 12)
+            .attr("text-anchor", "middle")
+            .attr("dx", "-0.5em")
+            .attr("dy", "0.5em");
+    
+        root.append("g")
+            .attr("class", "adv-axis")
+            .call(d3.axisLeft(y).ticks(6));
+    
+        root.append("text")
+            .attr("x", innerWidth / 2)
+            .attr("y", innerHeight + 58)
+            .attr("fill", "#f2dce8")
+            .attr("text-anchor", "middle")
+            .text("Legal Reason");
+    
+        root.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("x", -innerHeight / 2)
+            .attr("y", -70)
+            .attr("fill", "#f2dce8")
+            .attr("text-anchor", "middle")
+            .text(metricLabel(state.activeMetric));
+    
+        root.selectAll(".viz5-grid-line")
+            .data(y.ticks(6))
+            .enter()
+            .append("line")
+            .attr("class", "viz5-grid-line")
+            .attr("x1", 0)
+            .attr("x2", innerWidth)
+            .attr("y1", d => y(d))
+            .attr("y2", d => y(d))
+            .attr("stroke", "rgba(255,255,255,0.10)")
+            .attr("stroke-dasharray", "3,3");
+    
+        root.selectAll(".viz5-bar")
+            .data(criminality, d => d.label)
+            .enter()
+            .append("rect")
+            .attr("class", "viz5-bar")
+            .attr("x", d => x(d.label))
+            .attr("y", innerHeight)
+            .attr("width", x.bandwidth())
+            .attr("height", 0)
+            .attr("rx", 6)
+            .attr("fill", d => color(d.label))
+            .on("mousemove", (event, d) => {
+                showTooltip(
+                    event,
+                    `<strong>${d.label}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(d[state.activeMetric])}`
+                );
+            })
+            .on("mouseleave", hideTooltip)
+            .transition()
+            .duration(800)
+            .attr("y", d => y(d[state.activeMetric]))
+            .attr("height", d => innerHeight - y(d[state.activeMetric]));
+    
+        root.selectAll(".viz5-value")
+            .data(criminality, d => d.label)
+            .enter()
+            .append("text")
+            .attr("class", "viz5-value")
+            .attr("x", d => x(d.label) + x.bandwidth() / 2)
+            .attr("y", d => y(d[state.activeMetric]) - 10)
+            .attr("text-anchor", "middle")
+            .attr("fill", "#f7e7ee")
+            .attr("font-size", 12)
+            .text(d => formatNumber(d[state.activeMetric]));
+    }
+
     function render() {
         if (!state.data) {
             return;
@@ -636,6 +752,8 @@
             renderViz3();
         } else if (state.activeViz === "viz4") {
             renderViz4();
+        } else if (state.activeViz === "viz5") {
+            renderViz5();
         } else {
             renderViz1();
         }
@@ -677,6 +795,7 @@
         d3.json("../data/aor_data.json"),
         d3.json("../info-vis-project/data/country_data.json"),
         d3.json("../info-vis-project/data/country_yearly.json"),
+        d3.json("../data/criminality_data.json"),
     ]).then(([
         yearlyArrests,
         yearlyDetentions,
@@ -684,6 +803,7 @@
         aorData,
         countryData,
         streamData,
+        criminalityData,
     ]) => {
         state.data = {
             yearlyArrests,
@@ -692,6 +812,7 @@
             aorData,
             countryData,
             streamData,
+            criminalityData,
             usTopology: null,
             worldTopology: null,
         };
