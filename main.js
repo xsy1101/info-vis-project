@@ -1,5 +1,6 @@
 (() => {
     
+    
     const advSvg = d3.select("#advanced-chart");
     if (advSvg.empty()) {
         return;
@@ -73,12 +74,7 @@
         });
 
         const needsYear = state.activeViz === "viz2" || state.activeViz === "viz3"; 
-        yearRow.property("disabled", !needsYear)
-                .style("opacity", needsYear ? 1 : 0)
-                .style("cursor", needsYear ? "pointer" : "not-allowed");
-        yearSelect.property("disabled", !needsYear)
-                .style("opacity", needsYear ? 1 : 0)
-                .style("cursor", needsYear ? "pointer" : "not-allowed");
+        yearRow.style("display", needsYear ? "flex" : "none");
     }
 
     function drawFrame(title, subtitle) {
@@ -914,17 +910,13 @@
         }
 
         if (stanzaIndex === 1) {
-            state.activeViz = "viz1";
+            state.activeViz = "viz2";
             render();
             return;
         }
 
         if (stanzaIndex === 2) {
-            if (lineIndex <= 1) {      
-                state.activeViz = "viz2";
-            } else {                    
-                state.activeViz = "viz3";
-            }
+            state.activeViz = "viz3";
             render();
             return;
         }
@@ -969,6 +961,14 @@ goToLine(0, 0);
             renderViz1();
         }
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        initPoemProgression();
+
+        document.getElementById('forward-button').addEventListener('click', nextPoemLine);
+        document.getElementById('backward-button').addEventListener('click', prevPoemLine);
+    });
+
 
     window.addEventListener('DOMContentLoaded', () => {
         initPoemProgression();
