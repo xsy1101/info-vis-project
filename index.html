@@ -10,43 +10,47 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
-    <header class="poem-header">
-        <h1 class="poem-title">Unnumbered</h1>
-        <p class="poem-lines">
-          Am I just a number<br />
-          a dot on a graph<br />
-          Confined to a cell made of lines
-          <br /><br />
-          Or something with a heartbeat<br />
-          Flesh and bone trembling with a pulse<br />
-          A homage to those who came before me<br />
-          Tied to this world by other hearts that beats in tandem
-          <br /><br />
-          When you came you brought pain and misery<br />
-          An empire built on the back of slaves<br />
-          Endless rivers of blood you pollute this land<br />
-          that you call yours
-          <br /><br />
-          Take me<br />
-          away from the endless sky<br />
-          and those who love me<br />
-          We are not voiceless<br />
-          And we will scream till the end
-          <br /><br />
-          One day<br />
-          History will know<br />
-          and I will be home
-        </p>
-    </header>
-    <section id="adr-citizenship-experience">
+    <div class = "layout">
+    <div class="poem-panel">
+      <div class="poem">
+
+        <ul class="verse" id="verse1">
+          <li class="line">Time unfolds like a long, trembling wire</li>
+          <li class="line">each point held a breath</li>
+          <li class="line">I wonder if a life can be graphed</li>
+          <li class="line">as it is tied to this world by so many strings</li>
+        </ul>
+
+        <ul class="verse" id="verse2">
+          <li class="line">When you came you drew borders</li>
+          <li class="line">a lattice of lines claiming what is yours</li>
+          <li class="line">Across this land you prowl</li>
+          <li class="line">spilled blood seeping through the cracks</li>
+        </ul>
+
+        <ul class="verse" id="verse3">
+          <li class="line">This blood has roots</li>
+          <li class="line">worlds we've been through history in our bones</li>
+          <li class="line">You may have come before us</li>
+          <li class="line">but we orchestrated the soul of this nation</li>
+        </ul>
+
+        <ul class="verse" id="verse4">
+          <li class="line">You make us guilty</li>
+          <li class="line">As if the crimes you commit</li>
+          <li class="line">is somehow better than just wanting a home</li>
+          <li class="line">in this long wait for the final freedom</li>
+        </ul>
+
+        <ul class="verse" id="verse5">
+          <li class="line">One day</li>
+          <li class="line">History will hear our voices</li>
+          <li class="line">And we will be home</li>
+        </ul>
+      </div>
+    </div>
+    <div class="viz-panel">
       <div class="viz-control-panel">
-        <div class="button-row viz-row">
-          <button class="viz-btn active" data-viz="viz1">Viz 1</button>
-          <button class="viz-btn" data-viz="viz2">Viz 2</button>
-          <button class="viz-btn" data-viz="viz3">Viz 3</button>
-          <button class="viz-btn" data-viz="viz4">Viz 4</button>
-          <button class="viz-btn" data-viz="viz5">Viz 5</button>
-        </div>
         <div class="button-row metric-row">
           <button class="metric-btn active" data-metric="arrests">Arrests</button>
           <button class="metric-btn" data-metric="detentions">Detentions</button>
@@ -57,11 +61,16 @@
           <select id="viz-year-select"></select>
         </div>
       </div>
-
-      <div id="advanced-chart-container">
-        <svg id="advanced-chart"></svg>
+        <div id="advanced-chart-container">
+          <svg id="advanced-chart"></svg>
+        </div>
+        <div class="controls">
+          <button class="arrow-button" id="backward-button">◄</button>
+          <button class="arrow-button" id="forward-button">►</button>
       </div>
-    </section>
+      </div>
+    </div>
+    </div>
 
     <div id="adv-tooltip" class="adv-tooltip hidden"></div>
     <script src="main.js" defer></script>

@@ -1,4 +1,5 @@
 (() => {
+    
     const advSvg = d3.select("#advanced-chart");
     if (advSvg.empty()) {
         return;
@@ -71,8 +72,13 @@
             return d3.select(this).attr("data-metric") === state.activeMetric;
         });
 
-        const needsYear = state.activeViz === "viz2" || state.activeViz === "viz3";
-        yearRow.style("display", needsYear ? "flex" : "none");
+        const needsYear = state.activeViz === "viz2" || state.activeViz === "viz3"; 
+        yearRow.property("disabled", !needsYear)
+                .style("opacity", needsYear ? 1 : 0)
+                .style("cursor", needsYear ? "pointer" : "not-allowed");
+        yearSelect.property("disabled", !needsYear)
+                .style("opacity", needsYear ? 1 : 0)
+                .style("cursor", needsYear ? "pointer" : "not-allowed");
     }
 
     function drawFrame(title, subtitle) {
@@ -116,7 +122,6 @@
 
 
     function renderViz1() {
-        
 
         const source = getYearlySeries(state.activeMetric);
         const data = source.map(d => ({
@@ -805,6 +810,141 @@
             .text(d => formatNumber(d[state.activeMetric]));
     }
 
+    // poem stuff
+    let stanzaIndex = 0;
+    let lineIndex = 0;
+
+    const stanzaLengths = [3, 4, 4, 5, 3];
+
+    const verses = document.querySelectorAll(".verse");
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const forwardBtn = document.getElementById("forward-button");
+        const backwardBtn = document.getElementById("backward-button");
+
+        forwardBtn.addEventListener("click", goToNext);
+        backwardBtn.addEventListener("click", goToPrevious);
+    });
+
+    function goToNext() {
+        lineIndex++;
+
+        if (lineIndex >= stanzaLengths[stanzaIndex]) {
+            stanzaIndex++;
+            if (stanzaIndex >= verses.length) {
+                stanzaIndex = verses.length - 1;
+                lineIndex = stanzaLengths[stanzaIndex] - 1;
+                return;
+            }
+            lineIndex = 0;
+        }
+
+        goToLine(stanzaIndex, lineIndex);
+    }
+
+    function goToPrevious() {
+        lineIndex--;
+
+        if (lineIndex < 0) {
+            stanzaIndex--;
+            if (stanzaIndex < 0) {
+                stanzaIndex = 0;
+                lineIndex = 0;
+                return;
+            }
+            lineIndex = stanzaLengths[stanzaIndex] - 1;
+        }
+
+        goToLine(stanzaIndex, lineIndex);
+    }
+
+
+    function goToLine(stanzaIndex, lineIndex) {
+        hideAllVersesExcept(stanzaIndex);
+        activateLines(stanzaIndex, lineIndex);
+        updateVizForLine(stanzaIndex, lineIndex);
+    }
+
+    function hideAllVersesExcept(active) {
+        verses.forEach((v, i) => {
+            v.style.display = i === active ? "block" : "none";
+        });
+    }
+
+    function activateLines(stanzaIndex, lineIndex) {
+        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        const lines = verse.querySelectorAll(".line");
+
+        lines.forEach((line, i) => {
+            line.classList.remove("active-line", "completed-line");
+            if (i < lineIndex) line.classList.add("completed-line");
+            if (i === lineIndex) line.classList.add("active-line");
+        });
+    }
+
+    /* function centerActiveLine(stanzaIndex, lineIndex) {
+        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        const inner = verse.querySelector(".verse-inner");
+
+        const lineHeight = 40;   
+        const visibleLines = 4;  
+
+        const offset = (lineIndex * lineHeight) - ((visibleLines - 1) / 2 * lineHeight);
+
+        inner.style.transform = `translateY(${-offset}px)`;
+    }
+
+    function updateScrollbar(stanzaIndex, lineIndex) {
+        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        const thumb = verse.querySelector(".fake-scrollbar-thumb");
+
+        const totalLines = stanzaLengths[stanzaIndex] - 1;
+
+        const progress = totalLines > 0 ? lineIndex / totalLines : 1;
+
+        thumb.style.height = `${progress * 100}%`;
+    } */
+
+    function updateVizForLine(stanzaIndex, lineIndex) {
+        
+        if (stanzaIndex === 0) {
+            state.activeViz = "viz1";
+            render();
+            return;
+        }
+
+        if (stanzaIndex === 1) {
+            state.activeViz = "viz1";
+            render();
+            return;
+        }
+
+        if (stanzaIndex === 2) {
+            if (lineIndex <= 1) {      
+                state.activeViz = "viz2";
+            } else {                    
+                state.activeViz = "viz3";
+            }
+            render();
+            return;
+        }
+
+        if (stanzaIndex === 3) {
+            state.activeViz = "viz5";
+            render();
+            return;
+        }
+
+        if (stanzaIndex === 4) {
+            state.activeViz = "viz1";
+            render();
+            return;
+        }
+    }
+
+
+goToLine(0, 0);
+
     function render() {
         if (!state.data) {
             return;
@@ -829,6 +969,14 @@
             renderViz1();
         }
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        initPoemProgression();
+
+        document.getElementById('forward-button').addEventListener('click', nextPoemLine);
+        document.getElementById('backward-button').addEventListener('click', prevPoemLine);
+    });
+
 
     function bindControls() {
         vizButtons.on("click", function () {
