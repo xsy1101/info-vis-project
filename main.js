@@ -1016,8 +1016,10 @@ goToLine(0, 0);
         });
 
         metricButtons.on("click", function () {
+            clearCanvas();
             state.activeMetric = d3.select(this).attr("data-metric");
-            render();
+            state.stepsDrawn.clear();
+            goToLine(stanzaIndex, lineIndex);
         });
 
         yearSelect.on("change", function () {
