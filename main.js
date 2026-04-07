@@ -116,8 +116,9 @@
         return state.data.yearlyRemovals;
     }
 
+    state.stepsDrawn = new Set();
 
-    function renderViz1() {
+    function renderViz1(step = 1) {
 
         const source = getYearlySeries(state.activeMetric);
         const data = source.map(d => ({
@@ -193,82 +194,29 @@
                 });
             }
         });
-
-        chart.selectAll(".viz1-person")
-            .data(iconData, d => `${d.year}-${d.col}-${d.row}`)
-            .enter()
-            .append("image")
-            .attr("class", "viz1-person")
-            .attr("href", "../assets/person.svg")
-            .attr("width", iconSize)
-            .attr("height", iconSize)
-            .attr("x", d => x(d.year) + 
-            (x.bandwidth() - iconsPerRow * iconSize) / 2 + d.col * iconSize)
-            .attr("y", innerHeight - 30)
-            .attr("opacity", 0.86)
-            .transition()
-            .duration(700)
-            .delay((d, i) => (i % 15) * 14)
-            .attr("y", d => innerHeight - (d.row + 1) * (iconSize + iconPad));
-
+        
         const linePoints = topDots.map(d => ({
             year: d.year,
             x: x(d.year) + x.bandwidth() / 2,
             y: d.y,
         }));
 
-        const line = d3.line()
-            .x(d => d.x)
-            .y(d => d.y);
-
-        const path = chart.append("path")
-            .datum(linePoints)
-            .attr("fill", "none")
-            .attr("stroke", "none")
-            .attr("d", line);
-
-        const pathNode = path.node();
-        if (pathNode) {
-            const totalLength = pathNode.getTotalLength();
-            const chainPoints = d3.range(0, totalLength, 20).map(len => {
-                const p = pathNode.getPointAtLength(len);
-                const next = pathNode.getPointAtLength(Math.min(len + 1, totalLength));
-                return {
-                    x: p.x,
-                    y: p.y,
-                    angle: Math.atan2(next.y - p.y, next.x - p.x),
-                };
-            });
-
-            chart.selectAll(".viz1-chain")
-                .data(chainPoints)
-                .enter()
-                .append("image")
-                .attr("class", "viz1-chain")
-                .attr("href", "../assets/chains.svg")
-                .attr("width", 18)
-                .attr("height", 18)
-                .attr("opacity", 0.84)
-                .attr("transform", d => `
-                    translate(${d.x}, ${d.y})
-                    rotate(${(d.angle * 180) / Math.PI})
-                    translate(-9,-9)
-                `);
+        if (step >= 2 && !state.stepsDrawn.has(2)) {
+            viz1drawDots(chart, topDots, x);
+            state.stepsDrawn.add(2);
         }
 
-        chart.selectAll(".viz1-dot")
-            .data(topDots)
-            .enter()
-            .append("circle")
-            .attr("class", "viz1-dot")
-            .attr("cx", d => x(d.year) + x.bandwidth() / 2)
-            .attr("cy", d => d.y)
-            .attr("r", 0)
-            .attr("fill", "#ffe2e8")
-            .transition()
-            .duration(500)
-            .delay(300)
-            .attr("r", 5.5);
+        if (step >= 3 && !state.stepsDrawn.has(3)) {
+            viz1drawIcons(chart, iconData, x);
+            state.stepsDrawn.add(3);
+        }
+
+        if (step >= 4 && !state.stepsDrawn.has(4)) {
+            viz1drawChains(chart, linePoints);
+            state.stepsDrawn.add(4);
+            state.stepsDrawn.clear();
+        }
+        
 
         chart.selectAll(".viz1-hit")
             .data(data)
@@ -288,6 +236,92 @@
             })
             .on("mouseleave", hideTooltip);
     } 
+
+    //viz 1 helpers
+    function viz1drawDots(chart, topDots, x) {
+        chart.selectAll(".viz1-dot")
+            .data(topDots)
+            .enter()
+            .append("circle")
+            .attr("class", "viz1-dot")
+            .attr("cx", d => x(d.year) + x.bandwidth() / 2)
+            .attr("cy", d => d.y)
+            .attr("r", 0)
+            .attr("fill", "#ffe2e8")
+            .transition()
+            .duration(500)
+            .attr("r", 5.5);
+    }
+
+    function viz1drawIcons(chart, iconData, x) {
+        const iconSize = 30;
+        const iconPad = 2;
+
+        chart.selectAll(".viz1-person")
+            .data(iconData)
+            .enter()
+            .append("image")
+            .attr("class", "viz1-person")
+            .attr("href", "../assets/person.svg")
+            .attr("width", iconSize)
+            .attr("height", iconSize)
+            .attr("x", d => x(d.year) +
+                (x.bandwidth() - d.iconsPerRow * iconSize) / 2 +
+                d.col * iconSize)
+            .attr("y", innerHeight - 30)
+            .attr("opacity", 0.86)
+            .transition()
+            .duration(700)
+            .delay((d, i) => (i % 15) * 14)
+            .attr("y", d => innerHeight - (d.row + 1) * (iconSize + iconPad));
+    }
+
+    function viz1drawChains(chart, linePoints) {
+        const line = d3.line()
+            .x(d => d.x)
+            .y(d => d.y);
+
+        const path = chart.append("path")
+            .datum(linePoints)
+            .attr("fill", "none")
+            .attr("stroke", "none")
+            .attr("d", line);
+
+        const pathNode = path.node();
+        if (!pathNode) return;
+
+        const totalLength = pathNode.getTotalLength();
+
+        const chainPoints = d3.range(0, totalLength, 20).map(len => {
+            const p = pathNode.getPointAtLength(len);
+            const next = pathNode.getPointAtLength(Math.min(len + 1, totalLength));
+            return {
+                x: p.x,
+                y: p.y,
+                angle: Math.atan2(next.y - p.y, next.x - p.x)
+            };
+        });
+
+        chart.selectAll(".viz1-chain")
+            .data(chainPoints)
+            .enter()
+            .append("image")
+            .attr("class", "viz1-chain")
+            .attr("href", "../assets/chains.svg")
+            .attr("width", 18)
+            .attr("height", 18)
+            .attr("transform", d => `
+                translate(${d.x}, ${d.y})
+                rotate(${(d.angle * 180) / Math.PI})
+                translate(-9,-9)
+            `)
+            .attr("opacity", 0)
+            .transition()
+            .duration(700)
+            .attr("opacity", 0.84)
+            ;
+    }
+
 
     function renderViz2() {
         if (!state.data.usTopology || !state.data.usTopology.objects || !state.data.usTopology.objects.states) {
@@ -810,7 +844,7 @@
     let stanzaIndex = 0;
     let lineIndex = 0;
 
-    const stanzaLengths = [3, 4, 4, 5, 3];
+    const stanzaLengths = [4, 4, 4, 4, 3];
 
     const verses = document.querySelectorAll(".verse");
     
@@ -850,7 +884,8 @@
             }
             lineIndex = stanzaLengths[stanzaIndex] - 1;
         }
-
+        clearCanvas();
+        
         goToLine(stanzaIndex, lineIndex);
     }
 
@@ -878,58 +913,40 @@
         });
     }
 
-    /* function centerActiveLine(stanzaIndex, lineIndex) {
-        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
-        const inner = verse.querySelector(".verse-inner");
-
-        const lineHeight = 40;   
-        const visibleLines = 4;  
-
-        const offset = (lineIndex * lineHeight) - ((visibleLines - 1) / 2 * lineHeight);
-
-        inner.style.transform = `translateY(${-offset}px)`;
-    }
-
-    function updateScrollbar(stanzaIndex, lineIndex) {
-        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
-        const thumb = verse.querySelector(".fake-scrollbar-thumb");
-
-        const totalLines = stanzaLengths[stanzaIndex] - 1;
-
-        const progress = totalLines > 0 ? lineIndex / totalLines : 1;
-
-        thumb.style.height = `${progress * 100}%`;
-    } */
-
     function updateVizForLine(stanzaIndex, lineIndex) {
         
         if (stanzaIndex === 0) {
             state.activeViz = "viz1";
-            render();
+            if (state.activeViz === "viz1") {
+            if (!state.stepsDrawn) state.stepsDrawn = new Set();
+            for (let s = lineIndex + 1; s >= 0; s--) {
+                state.stepsDrawn.delete(s);
+        }}
+            render(stanzaIndex, lineIndex);
             return;
         }
 
         if (stanzaIndex === 1) {
             state.activeViz = "viz2";
-            render();
+            render(stanzaIndex, lineIndex);
             return;
         }
 
         if (stanzaIndex === 2) {
             state.activeViz = "viz3";
-            render();
+            render(stanzaIndex, lineIndex);
             return;
         }
 
         if (stanzaIndex === 3) {
             state.activeViz = "viz5";
-            render();
+            render(stanzaIndex, lineIndex);
             return;
         }
 
         if (stanzaIndex === 4) {
-            state.activeViz = "viz1";
-            render();
+            state.activeViz = "viz1";//placeholder
+            render(stanzaIndex, lineIndex);
             return;
         }
     }
@@ -937,18 +954,24 @@
 
 goToLine(0, 0);
 
-    function render() {
+    let lastStanza = 0;
+
+    function render(stanzaIndex, lineIndex) {
         if (!state.data) {
             return;
         }
 
         hideTooltip();
         updateButtonState();
-        clearCanvas();
+        if (stanzaIndex !== lastStanza) {
+            clearCanvas();
+            lastStanza = stanzaIndex;
+        }
 
+    
 
         if (state.activeViz == "viz1") {
-            renderViz1();
+            renderViz1(lineIndex +1);
         } else if (state.activeViz === "viz2") {
             renderViz2();
         } else if (state.activeViz === "viz3") {
