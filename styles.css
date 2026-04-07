@@ -2,6 +2,7 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+  background: radial-gradient(circle at 15% 0%, #3b293c 0%, #1c1a29 52%, #11101a 100%);
 }
 
 .poem ul {
@@ -12,9 +13,9 @@ body, html {
 
 .layout {
   display: flex;
-  height: 100vh;          
+  min-height: 100vh;          
   width: 100vw;
-  overflow: hidden;
+  overflow: visible;
   background: radial-gradient(circle at 15% 0%, #3b293c 0%, #1c1a29 52%, #11101a 100%);   
   color: white;
   font-family: "Source Sans 3", sans-serif;
@@ -43,6 +44,21 @@ body, html {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+}
+
+#opening,
+.layout,
+.poem-panel,
+.viz-panel {
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+#opening.page-fade-out,
+.layout.page-fade-out,
+.poem-panel.page-fade-out,
+.viz-panel.page-fade-out {
+  opacity: 0;
 }
 
 #page-footer {
@@ -294,4 +310,33 @@ main {
 
 .legend-chip {
   cursor: pointer;
+}
+
+#opening {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background: radial-gradient(circle at 15% 0%, #3b293c 0%, #1c1a29 52%, #11101a 100%);
+  color: #f4ecf2;
+  z-index: 5;
+}
+
+#opening h1 {
+  margin: 0 0 12px 0;
+  font-size: 54px;
+  font-family: "Playfair Display", serif;
+}
+
+#opening p {
+  margin: 6px 0;
+  font-size: 24px;
+  opacity: 0.8;
+}
+
+.layout.hidden {
+  display: none;
 }
