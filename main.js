@@ -919,7 +919,7 @@
             state.activeViz = "viz1";
             if (state.activeViz === "viz1") {
             if (!state.stepsDrawn) state.stepsDrawn = new Set();
-            for (let s = lineIndex + 1; s >= 0; s--) {
+            for (let s = lineIndex + 1; s <= 4; s++) {
                 state.stepsDrawn.delete(s);
         }}
             render(stanzaIndex, lineIndex);
