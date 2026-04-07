@@ -765,11 +765,7 @@
                     .text(country);
             });
     }
-    /*const VIZ5_REVEAL_ORDER = [
-        "Criminal Conviction",
-        "Other Immigration Violator",
-        "Pending Criminal Chargers",
-    ];*/
+    
     function renderViz5(step = 1) {
         drawFrame(
             "Viz 5: Criminal Status of ADR",
@@ -809,7 +805,7 @@
             ])
             .range(["#F52731", "#F5E027", "#F57327"]);
 
-        //if (!state.stepsDrawn.has(1)) {
+      
             root.append("g")
                 .attr("class", "adv-axis")
                 .attr("transform", `translate(0,${innerHeight})`)
@@ -832,7 +828,7 @@
                 .attr("stroke-dasharray", "3,3");
 
             state.stepsDrawn.add(1);
-        //}
+      
 
         if (step >= 2 && !state.stepsDrawn.has(2)) {
             const d = criminality[0];
@@ -1009,7 +1005,7 @@
         if (step >= 2 && !state.stepsDrawn.has(2)) {
             stanza.style("overflow", "hidden");
 
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 10; i++) {
                 const size = 20 + Math.random() * 60;   
                 const left = Math.random() * 90;        
                 const top = Math.random() * 90;         
