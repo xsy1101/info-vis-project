@@ -1102,23 +1102,29 @@
     }
 
     function activateLines(stanzaIndex, lineIndex) {
-        let verse;
-        if (stanzaIndex === 4) { 
-            verse = document.getElementById("closing-stanza");
-        } else {
-            verse = document.getElementById(`verse${stanzaIndex + 1}`);
-        }
-
-        if (!verse) return;
-        const lines = verse.querySelectorAll(".line");
-
-        lines.forEach((line, i) => {
-            line.classList.remove("active-line", "completed-line");
-            if (i < lineIndex) line.classList.add("completed-line");
-            if (i === lineIndex) line.classList.add("active-line");
-        });
+    let verse;
+    if (stanzaIndex === 4) {
+        verse = document.getElementById("closing-stanza");
+    } else {
+        verse = document.getElementById(`verse${stanzaIndex + 1}`);
     }
 
+    if (!verse) return;
+    const lines = verse.querySelectorAll(".line");
+
+    lines.forEach((line, i) => {
+        line.classList.remove("active-line", "completed-line", "visible");
+
+        if (i < lineIndex) {
+            line.classList.add("visible", "completed-line");
+        } else if (i === lineIndex) {
+            line.classList.add("visible");
+            requestAnimationFrame(() => {
+                line.classList.add("active-line");
+            });
+        }
+    });
+}
     function updateVizForLine(stanzaIndex, lineIndex) {
         
         if (stanzaIndex === 0) {
