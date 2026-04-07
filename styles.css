@@ -85,6 +85,55 @@ body, html {
     z-index: 20; 
 }
 
+
+.arrow-button {
+  position: absolute;
+  top: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid #68445d;
+  background: rgba(35, 26, 42, 0.92);
+  color: #f4ecf2;
+  font-size: 20px;
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.28);
+}
+
+.arrow-button:hover {
+  background: #37253f;
+  transform: translateY(-1px) scale(1.05);
+}
+
+#closing-stanza {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    text-align: center;
+    position: relative;
+    background-color: radial-gradient(circle at 15% 0%, #3b293c 0%, #1c1a29 52%, #11101a 100%);
+    color: #f2dce8; 
+}
+
+.people-icon {
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    opacity: 0; 
+    transition: opacity 0.8s;
+}
+
+.light-theme {
+    background-color: #fdf6f0;
+    color: #555;
+}
+
 .poem {
   flex: 1;
   pointer-events: none;   
