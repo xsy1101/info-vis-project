@@ -440,7 +440,7 @@
             .text(d => formatNumber(d));
     }
 
-    function renderViz3() {
+    function renderViz3(step = stanzaLengths[2]) {
         if (
             !state.data.worldTopology ||
             !state.data.worldTopology.objects ||
@@ -480,41 +480,64 @@
         const logMax = Math.log1p(colorCap);
         const color = d3.scaleSequential(d3.interpolateYlOrRd).domain([logMin, logMax]);
 
+        const choroplethFeatures = countries.features.map(feature => {
+            const key = String(feature.id).padStart(3, "0");
+            const rec = dataById.get(key);
+            const rawValue = rec ? +rec[state.activeMetric] : 0;
+            const hasValue = Number.isFinite(rawValue) && rawValue > 0;
+            const cappedValue = hasValue ? Math.min(rawValue, colorCap) : 0;
+            return {
+                feature,
+                key,
+                rec,
+                rawValue,
+                hasValue,
+                cappedValue,
+            };
+        });
+
+        const rankedValues = choroplethFeatures
+            .filter(d => d.hasValue)
+            .sort((a, b) => d3.ascending(a.rawValue, b.rawValue));
+
+        const rankById = new Map(rankedValues.map((d, i) => [d.key, i]));
+        const clampedStep = Math.max(1, Math.min(step, stanzaLengths[2]));
+        const revealProgress = stanzaLengths[2] > 1
+            ? (clampedStep - 1) / (stanzaLengths[2] - 1)
+            : 1;
+        const revealedCount = Math.floor(rankedValues.length * revealProgress);
+
         mapGroup.selectAll(".world-country")
-            .data(countries.features)
+            .data(choroplethFeatures)
             .enter()
             .append("path")
             .attr("class", "world-country")
-            .attr("d", path)
-            .attr("fill", d => {
-                const key = String(d.id).padStart(3, "0");
-                const rec = dataById.get(key);
-                if (!rec) {
-                    return "#2a2530";
-                }
-                const rawValue = +rec[state.activeMetric];
-                if (!rawValue || rawValue <= 0) {
-                    return "#2a2530";
-                }
-                const capped = Math.min(rawValue, colorCap);
-                return color(Math.log1p(capped));
-            })
+            .attr("d", d => path(d.feature))
+            .attr("fill", "#2a2530")
             .attr("stroke", "#6f6078")
             .attr("stroke-width", 0.5)
-            .on("mousemove", (event, feature) => {
-                const key = String(feature.id).padStart(3, "0");
-                const rec = dataById.get(key);
-                const countryName = nameById.get(key) || "Unknown country";
+            .attr("fill", d => {
+                if (!d.hasValue) {
+                    return "#2a2530";
+                }
+                const rank = rankById.get(d.key);
+                if (rank >= revealedCount) {
+                    return "#2a2530";
+                }
+                return color(Math.log1p(d.cappedValue));
+            })
+            .on("mousemove", (event, datum) => {
+                const countryName = nameById.get(datum.key) || "Unknown country";
 
-                if (!rec) {
+                if (!datum.rec) {
                     showTooltip(event, `<strong>${countryName}</strong><br/>No available data for this year.`);
                     return;
                 }
 
                 showTooltip(
                     event,
-                    `<strong>${countryName}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(rec[state.activeMetric])}<br/>` +
-                    `Detentions: ${formatNumber(rec.detentions)}<br/>Removals: ${formatNumber(rec.removals)}<br/>Arrests: ${formatNumber(rec.arrests)}`
+                    `<strong>${countryName}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(datum.rec[state.activeMetric])}<br/>` +
+                    `Detentions: ${formatNumber(datum.rec.detentions)}<br/>Removals: ${formatNumber(datum.rec.removals)}<br/>Arrests: ${formatNumber(datum.rec.arrests)}`
                 );
             })
             .on("mouseleave", hideTooltip);
@@ -1058,7 +1081,8 @@ goToLine(0, 0);
         } else if (state.activeViz === "viz2") {
             renderViz2();
         } else if (state.activeViz === "viz3") {
-            renderViz3();
+            const viz3Step = Number.isFinite(lineIndex) ? lineIndex + 1 : stanzaLengths[2];
+            renderViz3(viz3Step);
         } else if (state.activeViz === "viz4") {
             renderViz4();
         } else if (state.activeViz === "viz5") {
