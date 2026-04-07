@@ -728,19 +728,20 @@
                     .text(country);
             });
     }
-
-    function renderViz5() {
-        drawFrame (
+    /*const VIZ5_REVEAL_ORDER = [
+        "Criminal Conviction",
+        "Other Immigration Violator",
+        "Pending Criminal Chargers",
+    ];*/
+    function renderViz5(step = 1) {
+        drawFrame(
             "Viz 5: Criminal Status of ADR",
-            `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)}`
+            `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)} from 2021 - 2025`
         );
 
         const criminality = (state.data.criminalityData || []).map(d => {
             let label = d.Charge;
-            if (d.Charge === "Pending Criminal Charges") {
-                label = "Pending Criminal Chargers";
-            }
-
+            if (d.Charge === "Pending Criminal Charges") label = "Pending Criminal Chargers";
             return {
                 label,
                 arrests: +d.arrests || 0,
@@ -764,85 +765,156 @@
             .range([innerHeight, 0]);
 
         const color = d3.scaleOrdinal()
-            .domain(["Criminal Conviction", "Pending Criminal Chargers", "Other Immigration Violator"])
+            .domain([
+                "Criminal Conviction",
+                "Pending Criminal Chargers",
+                "Other Immigration Violator"
+            ])
             .range(["#F52731", "#F5E027", "#F57327"]);
 
-        root.append("g")
-            .attr("class", "adv-axis")
-            .attr("transform", `translate(0,${innerHeight})`)
-            .call(d3.axisBottom(x))
-            .selectAll("text")
-            .attr("fill", "#f2dce8")
-            .attr("font-size", 12)
-            .attr("text-anchor", "middle")
-            .attr("dx", "-0.5em")
-            .attr("dy", "0.5em");
-    
-        root.append("g")
-            .attr("class", "adv-axis")
-            .call(d3.axisLeft(y).ticks(6));
-    
-        root.append("text")
-            .attr("x", innerWidth / 2)
-            .attr("y", innerHeight + 58)
-            .attr("fill", "#f2dce8")
-            .attr("text-anchor", "middle")
-            .text("Legal Reason");
-    
-        root.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("x", -innerHeight / 2)
-            .attr("y", -70)
-            .attr("fill", "#f2dce8")
-            .attr("text-anchor", "middle")
-            .text(metricLabel(state.activeMetric));
-    
-        root.selectAll(".viz5-grid-line")
-            .data(y.ticks(6))
-            .enter()
-            .append("line")
-            .attr("class", "viz5-grid-line")
-            .attr("x1", 0)
-            .attr("x2", innerWidth)
-            .attr("y1", d => y(d))
-            .attr("y2", d => y(d))
-            .attr("stroke", "rgba(255,255,255,0.10)")
-            .attr("stroke-dasharray", "3,3");
-    
-        root.selectAll(".viz5-bar")
-            .data(criminality, d => d.label)
-            .enter()
-            .append("rect")
-            .attr("class", "viz5-bar")
-            .attr("x", d => x(d.label))
-            .attr("y", innerHeight)
-            .attr("width", x.bandwidth())
-            .attr("height", 0)
-            .attr("rx", 6)
-            .attr("fill", d => color(d.label))
-            .on("mousemove", (event, d) => {
-                showTooltip(
-                    event,
-                    `<strong>${d.label}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(d[state.activeMetric])}`
-                );
-            })
-            .on("mouseleave", hideTooltip)
-            .transition()
-            .duration(800)
-            .attr("y", d => y(d[state.activeMetric]))
-            .attr("height", d => innerHeight - y(d[state.activeMetric]));
-    
-        root.selectAll(".viz5-value")
-            .data(criminality, d => d.label)
-            .enter()
-            .append("text")
-            .attr("class", "viz5-value")
-            .attr("x", d => x(d.label) + x.bandwidth() / 2)
-            .attr("y", d => y(d[state.activeMetric]) - 10)
-            .attr("text-anchor", "middle")
-            .attr("fill", "#f7e7ee")
-            .attr("font-size", 12)
-            .text(d => formatNumber(d[state.activeMetric]));
+
+        // STEP 1 — Axes & grid (always drawn)
+        if (!state.stepsDrawn.has(1)) {
+            root.append("g")
+                .attr("class", "adv-axis")
+                .attr("transform", `translate(0,${innerHeight})`)
+                .call(d3.axisBottom(x).tickFormat(() => ""));
+            
+            root.append("g")
+                .attr("class", "adv-axis")
+                .call(d3.axisLeft(y).ticks(6));
+
+            root.selectAll(".viz5-grid-line")
+                .data(y.ticks(6))
+                .enter()
+                .append("line")
+                .attr("class", "viz5-grid-line")
+                .attr("x1", 0)
+                .attr("x2", innerWidth)
+                .attr("y1", d => y(d))
+                .attr("y2", d => y(d))
+                .attr("stroke", "rgba(255,255,255,0.10)")
+                .attr("stroke-dasharray", "3,3");
+
+            state.stepsDrawn.add(1);
+        }
+
+        if (step >= 2 && !state.stepsDrawn.has(2)) {
+            const d = criminality[0];
+            root.append("rect")
+                .attr("class", "viz5-bar")
+                .attr("x", x(d.label))
+                .attr("width", x.bandwidth())
+                .attr("rx", 6)
+                .attr("fill", color(d.label))
+                .attr("y", innerHeight)
+                .attr("height", 0)
+                .transition()
+                .duration(800)
+                .attr("y", y(d[state.activeMetric]))
+                .attr("height", innerHeight - y(d[state.activeMetric]));
+
+            root.append("text")
+                .attr("class", "viz5-value")
+                .attr("x", x(d.label) + x.bandwidth() / 2)
+                .attr("y", innerHeight)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#f7e7ee")
+                .attr("font-size", 12)
+                .text(formatNumber(d[state.activeMetric]))
+                .transition()
+                .duration(800)
+                .attr("y", y(d[state.activeMetric]) - 10);
+            
+                root.append("text")
+                .attr("class", "viz5-x-label")
+                .attr("x", x(d.label) + x.bandwidth() / 2)
+                .attr("y", innerHeight + 18)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#f2dce8")
+                .attr("font-size", 12)
+                .text(d.label);
+
+            state.stepsDrawn.add(2);
+        }
+
+        if (step >= 3 && !state.stepsDrawn.has(3)) {
+            const d = criminality[1];
+            root.append("rect")
+                .attr("class", "viz5-bar")
+                .attr("x", x(d.label))
+                .attr("width", x.bandwidth())
+                .attr("rx", 6)
+                .attr("fill", color(d.label))
+                .attr("y", innerHeight)
+                .attr("height", 0)
+                .transition()
+                .duration(800)
+                .attr("y", y(d[state.activeMetric]))
+                .attr("height", innerHeight - y(d[state.activeMetric]));
+
+            root.append("text")
+                .attr("class", "viz5-value")
+                .attr("x", x(d.label) + x.bandwidth() / 2)
+                .attr("y", innerHeight)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#f7e7ee")
+                .attr("font-size", 12)
+                .text(formatNumber(d[state.activeMetric]))
+                .transition()
+                .duration(800)
+                .attr("y", y(d[state.activeMetric]) - 10);
+            
+            root.append("text")
+                .attr("class", "viz5-x-label")
+                .attr("x", x(d.label) + x.bandwidth() / 2)
+                .attr("y", innerHeight + 18)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#f2dce8")
+                .attr("font-size", 12)
+                .text(d.label);
+
+            state.stepsDrawn.add(3);
+        }
+
+        if (step >= 4 && !state.stepsDrawn.has(4)) {
+            const d = criminality[2];
+            root.append("rect")
+                .attr("class", "viz5-bar")
+                .attr("x", x(d.label))
+                .attr("width", x.bandwidth())
+                .attr("rx", 6)
+                .attr("fill", color(d.label))
+                .attr("y", innerHeight)
+                .attr("height", 0)
+                .transition()
+                .duration(800)
+                .attr("y", y(d[state.activeMetric]))
+                .attr("height", innerHeight - y(d[state.activeMetric]));
+
+            root.append("text")
+                .attr("class", "viz5-value")
+                .attr("x", x(d.label) + x.bandwidth() / 2)
+                .attr("y", innerHeight)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#f7e7ee")
+                .attr("font-size", 12)
+                .text(formatNumber(d[state.activeMetric]))
+                .transition()
+                .duration(800)
+                .attr("y", y(d[state.activeMetric]) - 10);
+            
+            root.append("text")
+                .attr("class", "viz5-x-label")
+                .attr("x", x(d.label) + x.bandwidth() / 2)
+                .attr("y", innerHeight + 18)
+                .attr("text-anchor", "middle")
+                .attr("fill", "#f2dce8")
+                .attr("font-size", 12)
+                .text(d.label);
+            state.stepsDrawn.add(4);
+            state.stepsDrawn.clear();
+        }
     }
 
     // poem stuff
@@ -923,10 +995,10 @@
         if (stanzaIndex === 0) {
             state.activeViz = "viz1";
             if (state.activeViz === "viz1") {
-            if (!state.stepsDrawn) state.stepsDrawn = new Set();
-            for (let s = lineIndex + 1; s <= 4; s++) {
-                state.stepsDrawn.delete(s);
-        }}
+                if (!state.stepsDrawn) state.stepsDrawn = new Set();
+                for (let s = lineIndex + 1; s <= 4; s++) {
+                    state.stepsDrawn.delete(s);
+            }}
             render(stanzaIndex, lineIndex);
             return;
         }
@@ -945,6 +1017,11 @@
 
         if (stanzaIndex === 3) {
             state.activeViz = "viz5";
+            if (state.activeViz === "viz5") {
+            if (!state.stepsDrawn) state.stepsDrawn = new Set();
+            for (let s = lineIndex + 1; s <= 4; s++) {
+                state.stepsDrawn.delete(s);
+        }}
             render(stanzaIndex, lineIndex);
             return;
         }
@@ -976,6 +1053,7 @@ goToLine(0, 0);
     
 
         if (state.activeViz == "viz1") {
+            
             renderViz1(lineIndex +1);
         } else if (state.activeViz === "viz2") {
             renderViz2();
@@ -984,7 +1062,8 @@ goToLine(0, 0);
         } else if (state.activeViz === "viz4") {
             renderViz4();
         } else if (state.activeViz === "viz5") {
-            renderViz5();
+            
+            renderViz5(lineIndex + 1);
         } else {
             renderViz1();
         }

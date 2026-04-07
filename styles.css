@@ -45,6 +45,17 @@ body, html {
   flex-direction: column;
 }
 
+#page-footer {
+    position: fixed;       
+    bottom: 20px;             
+    left: 0;
+    width: 100%;           
+    display: flex;        
+    justify-content: center; 
+    gap: 20px;             
+    padding: 10px 0;      
+    z-index: 1000;         
+}
 
 
 .line {
