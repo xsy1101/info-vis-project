@@ -30,6 +30,9 @@
         activeMetric: "arrests",
         selectedYear: null,
         streamFocusCountry: null,
+        viz5State: 0,
+        viz5PrevState: 0,
+        isPageTransitioning: false,
         data: null,
     };
 
@@ -74,12 +77,7 @@
         });
 
         const needsYear = state.activeViz === "viz2" || state.activeViz === "viz3"; 
-        yearRow.style("opacity", needsYear ? 1:0)
-            .property("disabled", !needsYear);
-        
-        yearSelect.style("opacity", needsYear ? 1:0)
-            .property("disabled", !needsYear);
-        
+        yearRow.style("display", needsYear ? "flex" : "none");
     }
 
     function drawFrame(title, subtitle) {
@@ -111,6 +109,110 @@
         return d3.format(",")(num || 0);
     }
 
+    const VIZ5_REVEAL_ORDER = [
+        "Criminal Conviction",
+        "Other Immigration Violator",
+        "Pending Criminal Chargers",
+    ];
+
+    function updateViz5LineState() {
+        const lines = document.querySelectorAll("#verse4 .line");
+
+        lines.forEach((line, index) => {
+            line.classList.add("viz5-clickable");
+            line.classList.remove("active-line");
+
+            if (state.currentPage === 5 && index <= state.viz5State) {
+                line.classList.add("active-line");
+            }
+        });
+    }
+
+    function resetViz5Progress() {
+        state.viz5State = 0;
+        updateViz5LineState();
+    }
+
+    function bindViz5VerseLines() {
+        const lines = document.querySelectorAll("#verse4 .line");
+
+        lines.forEach((line, index) => {
+            line.classList.add("viz5-clickable");
+
+            line.addEventListener("click", () => {
+                if (state.currentPage !== 5 || state.activeViz !== "viz5") {
+                    return;
+                }
+
+                if (index === 0) {
+                    state.viz5PrevState = 0;
+                    state.viz5State = 0;
+                    render();
+                    updateViz5LineState();
+                    return;
+                }
+
+                const nextStep = Math.max(state.viz5State, index);
+
+                if (nextStep !== state.viz5State) {
+                    state.viz5PrevState = state.viz5State;
+                    state.viz5State = nextStep;
+                    render();
+                }
+
+                updateViz5LineState();
+            });
+        });
+    }
+
+    function getCurrentPageFadeTarget() {
+        if (state.currentPage === 1) {
+            return document.getElementById("opening");
+        }
+        return document.querySelector(".layout");
+    }
+
+    function transitionToPage(nextPage) {
+        if (state.isPageTransitioning) {
+            return;
+        }
+
+        const currentTarget = getCurrentPageFadeTarget();
+
+        state.isPageTransitioning = true;
+
+        if (!currentTarget) {
+            goToPage(nextPage);
+            state.isPageTransitioning = false;
+            return;
+        }
+
+        currentTarget.classList.add("page-fade-target");
+        currentTarget.classList.add("is-fading");
+
+        setTimeout(() => {
+            currentTarget.classList.remove("is-fading");
+
+            goToPage(nextPage);
+
+            const newTarget = getCurrentPageFadeTarget();
+            if (newTarget) {
+                newTarget.classList.add("page-fade-target");
+                newTarget.classList.add("is-fading");
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        newTarget.classList.remove("is-fading");
+                    });
+                });
+            }
+
+            setTimeout(() => {
+                state.isPageTransitioning = false;
+            }, 350);
+        }, 350);
+    }
+
     function getYearlySeries(metricKey) {
         if (metricKey === "arrests") {
             return state.data.yearlyArrests;
@@ -121,9 +223,8 @@
         return state.data.yearlyRemovals;
     }
 
-    state.stepsDrawn = new Set();
 
-    function renderViz1(step = 1) {
+    function renderViz1() {
 
         const source = getYearlySeries(state.activeMetric);
         const data = source.map(d => ({
@@ -199,29 +300,82 @@
                 });
             }
         });
-        
+
+        chart.selectAll(".viz1-person")
+            .data(iconData, d => `${d.year}-${d.col}-${d.row}`)
+            .enter()
+            .append("image")
+            .attr("class", "viz1-person")
+            .attr("href", "../assets/person.svg")
+            .attr("width", iconSize)
+            .attr("height", iconSize)
+            .attr("x", d => x(d.year) + 
+            (x.bandwidth() - iconsPerRow * iconSize) / 2 + d.col * iconSize)
+            .attr("y", innerHeight - 30)
+            .attr("opacity", 0.86)
+            .transition()
+            .duration(700)
+            .delay((d, i) => (i % 15) * 14)
+            .attr("y", d => innerHeight - (d.row + 1) * (iconSize + iconPad));
+
         const linePoints = topDots.map(d => ({
             year: d.year,
             x: x(d.year) + x.bandwidth() / 2,
             y: d.y,
         }));
 
-        if (step >= 2 && !state.stepsDrawn.has(2)) {
-            viz1drawDots(chart, topDots, x);
-            state.stepsDrawn.add(2);
+        const line = d3.line()
+            .x(d => d.x)
+            .y(d => d.y);
+
+        const path = chart.append("path")
+            .datum(linePoints)
+            .attr("fill", "none")
+            .attr("stroke", "none")
+            .attr("d", line);
+
+        const pathNode = path.node();
+        if (pathNode) {
+            const totalLength = pathNode.getTotalLength();
+            const chainPoints = d3.range(0, totalLength, 20).map(len => {
+                const p = pathNode.getPointAtLength(len);
+                const next = pathNode.getPointAtLength(Math.min(len + 1, totalLength));
+                return {
+                    x: p.x,
+                    y: p.y,
+                    angle: Math.atan2(next.y - p.y, next.x - p.x),
+                };
+            });
+
+            chart.selectAll(".viz1-chain")
+                .data(chainPoints)
+                .enter()
+                .append("image")
+                .attr("class", "viz1-chain")
+                .attr("href", "../assets/chains.svg")
+                .attr("width", 18)
+                .attr("height", 18)
+                .attr("opacity", 0.84)
+                .attr("transform", d => `
+                    translate(${d.x}, ${d.y})
+                    rotate(${(d.angle * 180) / Math.PI})
+                    translate(-9,-9)
+                `);
         }
 
-        if (step >= 3 && !state.stepsDrawn.has(3)) {
-            viz1drawIcons(chart, iconData, x);
-            state.stepsDrawn.add(3);
-        }
-
-        if (step >= 4 && !state.stepsDrawn.has(4)) {
-            viz1drawChains(chart, linePoints);
-            state.stepsDrawn.add(4);
-            state.stepsDrawn.clear();
-        }
-        
+        chart.selectAll(".viz1-dot")
+            .data(topDots)
+            .enter()
+            .append("circle")
+            .attr("class", "viz1-dot")
+            .attr("cx", d => x(d.year) + x.bandwidth() / 2)
+            .attr("cy", d => d.y)
+            .attr("r", 0)
+            .attr("fill", "#ffe2e8")
+            .transition()
+            .duration(500)
+            .delay(300)
+            .attr("r", 5.5);
 
         chart.selectAll(".viz1-hit")
             .data(data)
@@ -241,92 +395,6 @@
             })
             .on("mouseleave", hideTooltip);
     } 
-
-    //viz 1 helpers
-    function viz1drawDots(chart, topDots, x) {
-        chart.selectAll(".viz1-dot")
-            .data(topDots)
-            .enter()
-            .append("circle")
-            .attr("class", "viz1-dot")
-            .attr("cx", d => x(d.year) + x.bandwidth() / 2)
-            .attr("cy", d => d.y)
-            .attr("r", 0)
-            .attr("fill", "#ffe2e8")
-            .transition()
-            .duration(500)
-            .attr("r", 5.5);
-    }
-
-    function viz1drawIcons(chart, iconData, x) {
-        const iconSize = 30;
-        const iconPad = 2;
-
-        chart.selectAll(".viz1-person")
-            .data(iconData)
-            .enter()
-            .append("image")
-            .attr("class", "viz1-person")
-            .attr("href", "../assets/person.svg")
-            .attr("width", iconSize)
-            .attr("height", iconSize)
-            .attr("x", d => x(d.year) +
-                (x.bandwidth() - d.iconsPerRow * iconSize) / 2 +
-                d.col * iconSize)
-            .attr("y", innerHeight - 30)
-            .attr("opacity", 0.86)
-            .transition()
-            .duration(700)
-            .delay((d, i) => (i % 15) * 14)
-            .attr("y", d => innerHeight - (d.row + 1) * (iconSize + iconPad));
-    }
-
-    function viz1drawChains(chart, linePoints) {
-        const line = d3.line()
-            .x(d => d.x)
-            .y(d => d.y);
-
-        const path = chart.append("path")
-            .datum(linePoints)
-            .attr("fill", "none")
-            .attr("stroke", "none")
-            .attr("d", line);
-
-        const pathNode = path.node();
-        if (!pathNode) return;
-
-        const totalLength = pathNode.getTotalLength();
-
-        const chainPoints = d3.range(0, totalLength, 20).map(len => {
-            const p = pathNode.getPointAtLength(len);
-            const next = pathNode.getPointAtLength(Math.min(len + 1, totalLength));
-            return {
-                x: p.x,
-                y: p.y,
-                angle: Math.atan2(next.y - p.y, next.x - p.x)
-            };
-        });
-
-        chart.selectAll(".viz1-chain")
-            .data(chainPoints)
-            .enter()
-            .append("image")
-            .attr("class", "viz1-chain")
-            .attr("href", "../assets/chains.svg")
-            .attr("width", 18)
-            .attr("height", 18)
-            .attr("transform", d => `
-                translate(${d.x}, ${d.y})
-                rotate(${(d.angle * 180) / Math.PI})
-                translate(-9,-9)
-            `)
-            .attr("opacity", 0)
-            .transition()
-            .duration(700)
-            .attr("opacity", 0.84)
-            ;
-    }
-
 
     function renderViz2() {
         if (!state.data.usTopology || !state.data.usTopology.objects || !state.data.usTopology.objects.states) {
@@ -730,9 +798,9 @@
     }
 
     function renderViz5() {
-        drawFrame (
+        drawFrame(
             "Viz 5: Criminal Status of ADR",
-            `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)}`
+            `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)} from 2021 - 2025`
         );
 
         const criminality = (state.data.criminalityData || []).map(d => {
@@ -764,31 +832,56 @@
             .range([innerHeight, 0]);
 
         const color = d3.scaleOrdinal()
-            .domain(["Criminal Conviction", "Pending Criminal Chargers", "Other Immigration Violator"])
+            .domain([
+                "Criminal Conviction",
+                "Pending Criminal Chargers",
+                "Other Immigration Violator"
+            ])
             .range(["#F52731", "#F5E027", "#F57327"]);
+
+        const revealedLabels = new Set(VIZ5_REVEAL_ORDER.slice(0, state.viz5State));
+
+        const visibleLabels = VIZ5_REVEAL_ORDER.slice(0, state.viz5State);
+        const visibleSet = new Set(visibleLabels);
+
+        const visibleData = criminality.filter(d => visibleSet.has(d.label));
+
+        const prevVisibleLabels = VIZ5_REVEAL_ORDER.slice(0, state.viz5PrevState);
+        const prevVisibleSet = new Set(prevVisibleLabels);
 
         root.append("g")
             .attr("class", "adv-axis")
             .attr("transform", `translate(0,${innerHeight})`)
-            .call(d3.axisBottom(x))
-            .selectAll("text")
+            .call(d3.axisBottom(x).tickFormat(() => ""));
+
+        root.selectAll(".viz5-x-label")
+            .data(visibleData, d => d.label)
+            .enter()
+            .append("text")
+            .attr("class", "viz5-x-label")
+            .attr("x", d => x(d.label) + x.bandwidth() / 2)
+            .attr("y", innerHeight + 18)
+            .attr("text-anchor", "middle")
             .attr("fill", "#f2dce8")
             .attr("font-size", 12)
-            .attr("text-anchor", "middle")
-            .attr("dx", "-0.5em")
-            .attr("dy", "0.5em");
-    
+            .attr("opacity", d => prevVisibleSet.has(d.label) ? 1 : 0)
+            .text(d => d.label)
+            .filter(d => !prevVisibleSet.has(d.label))
+            .transition()
+            .duration(800)
+            .attr("opacity", 1);
+
         root.append("g")
             .attr("class", "adv-axis")
             .call(d3.axisLeft(y).ticks(6));
-    
+
         root.append("text")
             .attr("x", innerWidth / 2)
             .attr("y", innerHeight + 58)
             .attr("fill", "#f2dce8")
             .attr("text-anchor", "middle")
             .text("Legal Reason");
-    
+
         root.append("text")
             .attr("transform", "rotate(-90)")
             .attr("x", -innerHeight / 2)
@@ -796,7 +889,7 @@
             .attr("fill", "#f2dce8")
             .attr("text-anchor", "middle")
             .text(metricLabel(state.activeMetric));
-    
+
         root.selectAll(".viz5-grid-line")
             .data(y.ticks(6))
             .enter()
@@ -808,18 +901,19 @@
             .attr("y2", d => y(d))
             .attr("stroke", "rgba(255,255,255,0.10)")
             .attr("stroke-dasharray", "3,3");
-    
+
+
         root.selectAll(".viz5-bar")
-            .data(criminality, d => d.label)
+            .data(visibleData, d => d.label)
             .enter()
             .append("rect")
             .attr("class", "viz5-bar")
             .attr("x", d => x(d.label))
-            .attr("y", innerHeight)
             .attr("width", x.bandwidth())
-            .attr("height", 0)
             .attr("rx", 6)
             .attr("fill", d => color(d.label))
+            .attr("y", d => prevVisibleSet.has(d.label) ? y(d[state.activeMetric]) : innerHeight)
+            .attr("height", d => prevVisibleSet.has(d.label) ? (innerHeight - y(d[state.activeMetric])) : 0)
             .on("mousemove", (event, d) => {
                 showTooltip(
                     event,
@@ -827,29 +921,35 @@
                 );
             })
             .on("mouseleave", hideTooltip)
+            .filter(d => !prevVisibleSet.has(d.label))
             .transition()
             .duration(800)
             .attr("y", d => y(d[state.activeMetric]))
             .attr("height", d => innerHeight - y(d[state.activeMetric]));
-    
+
         root.selectAll(".viz5-value")
-            .data(criminality, d => d.label)
+            .data(visibleData, d => d.label)
             .enter()
             .append("text")
             .attr("class", "viz5-value")
             .attr("x", d => x(d.label) + x.bandwidth() / 2)
-            .attr("y", d => y(d[state.activeMetric]) - 10)
+            .attr("y", d => prevVisibleSet.has(d.label) ? (y(d[state.activeMetric]) - 10) : innerHeight)
             .attr("text-anchor", "middle")
             .attr("fill", "#f7e7ee")
             .attr("font-size", 12)
-            .text(d => formatNumber(d[state.activeMetric]));
+            .text(d => formatNumber(d[state.activeMetric]))
+            .filter(d => !prevVisibleSet.has(d.label))
+            .transition()
+            .duration(800)
+            .attr("y", d => y(d[state.activeMetric]) - 10);
     }
 
     // poem stuff
+    /*
     let stanzaIndex = 0;
     let lineIndex = 0;
 
-    const stanzaLengths = [4, 4, 4, 4, 3];
+    const stanzaLengths = [3, 4, 4, 5, 3];
 
     const verses = document.querySelectorAll(".verse");
     
@@ -889,8 +989,7 @@
             }
             lineIndex = stanzaLengths[stanzaIndex] - 1;
         }
-        clearCanvas();
-        
+
         goToLine(stanzaIndex, lineIndex);
     }
 
@@ -918,65 +1017,198 @@
         });
     }
 
+     function centerActiveLine(stanzaIndex, lineIndex) {
+        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        const inner = verse.querySelector(".verse-inner");
+
+        const lineHeight = 40;   
+        const visibleLines = 4;  
+
+        const offset = (lineIndex * lineHeight) - ((visibleLines - 1) / 2 * lineHeight);
+
+        inner.style.transform = `translateY(${-offset}px)`;
+    }
+
+    function updateScrollbar(stanzaIndex, lineIndex) {
+        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        const thumb = verse.querySelector(".fake-scrollbar-thumb");
+
+        const totalLines = stanzaLengths[stanzaIndex] - 1;
+
+        const progress = totalLines > 0 ? lineIndex / totalLines : 1;
+
+        thumb.style.height = `${progress * 100}%`;
+    }
+
     function updateVizForLine(stanzaIndex, lineIndex) {
         
         if (stanzaIndex === 0) {
             state.activeViz = "viz1";
-            if (state.activeViz === "viz1") {
-            if (!state.stepsDrawn) state.stepsDrawn = new Set();
-            for (let s = lineIndex + 1; s <= 4; s++) {
-                state.stepsDrawn.delete(s);
-        }}
-            render(stanzaIndex, lineIndex);
+            render();
             return;
         }
 
         if (stanzaIndex === 1) {
             state.activeViz = "viz2";
-            render(stanzaIndex, lineIndex);
+            render();
             return;
         }
 
         if (stanzaIndex === 2) {
             state.activeViz = "viz3";
-            render(stanzaIndex, lineIndex);
+            render();
             return;
         }
 
         if (stanzaIndex === 3) {
             state.activeViz = "viz5";
-            render(stanzaIndex, lineIndex);
+            render();
             return;
         }
 
         if (stanzaIndex === 4) {
-            state.activeViz = "viz1";//placeholder
-            render(stanzaIndex, lineIndex);
+            state.activeViz = "viz1";
+            render();
             return;
         }
     }
 
 
 goToLine(0, 0);
+*/
 
-    let lastStanza = 0;
+    const verses = Array.from(document.querySelectorAll(".verse"));
+    const forwardBtn = document.getElementById("forward-button");
+    const backwardBtn = document.getElementById("backward-button");
+    const poemPanel = document.querySelector(".poem-panel");
+    const chartContainer = document.getElementById("advanced-chart-container");
+    const controlPanel = document.querySelector(".viz-control-panel");
 
-    function render(stanzaIndex, lineIndex) {
+    const TOTAL_PAGES = 6;
+
+    state.currentPage = 1;
+
+    function getVizForPage(page) {
+        if (page === 2) return "viz1";
+        if (page === 3) return "viz2";
+        if (page === 4) return "viz3";
+        if (page === 5) return "viz5";
+        if (page === 6) return "viz4";
+        return null; // intro page
+    }
+
+    function updatePageButtons() {
+        backwardBtn.style.display = state.currentPage === 1 ? "none" : "inline-flex";
+        forwardBtn.style.display = state.currentPage === TOTAL_PAGES ? "none" : "inline-flex";
+    }
+
+    function updateVerseVisibility() {
+        verses.forEach((verse, i) => {
+            const pageForVerse = i + 2; // verse1 -> page2, verse2 -> page3, etc.
+            verse.style.display = state.currentPage === pageForVerse ? "block" : "none";
+        });
+
+        if (poemPanel) {
+            poemPanel.style.visibility = state.currentPage === 1 ? "hidden" : "visible";
+        }
+    }
+
+    function updateVizForPage() {
+        const viz = getVizForPage(state.currentPage);
+
+        const opening = document.getElementById("opening");
+        if (!viz) {
+            state.activeViz = null;
+
+            if (controlPanel) controlPanel.style.visibility = "hidden";
+            if (chartContainer) chartContainer.style.visibility = "hidden";
+
+            if (opening) opening.style.display = "flex";
+
+            clearCanvas();
+            hideTooltip();
+            return;
+        }
+
+        if (opening) opening.style.display = "none";
+        if (controlPanel) controlPanel.style.visibility = "visible";
+        if (chartContainer) chartContainer.style.visibility = "visible";
+
+        state.activeViz = viz;
+
+        if (viz !== "viz4") {
+            state.streamFocusCountry = null;
+        }
+
+        render();
+    }
+
+    function updateOpeningPage() {
+        const opening = document.getElementById("opening");
+        const layout = document.querySelector(".layout");
+
+        if (state.currentPage === 1) {
+            if (opening) opening.style.display = "flex";
+            if (layout) layout.classList.add("hidden");
+        } else {
+            if (opening) opening.style.display = "none";
+            if (layout) layout.classList.remove("hidden");
+        }
+    }
+
+    function goToPage(page) {
+        const previousPage = state.currentPage;
+        const nextPage = Math.max(1, Math.min(TOTAL_PAGES, page));
+        if (previousPage == 5 && nextPage !== 5) {
+            state.viz5State = 0;
+            state.viz5PrevState = 0;
+        }
+        state.currentPage = nextPage;
+        if (state.currentPage == 5 && previousPage !== 5) {
+            state.viz5State = 0;
+            state.viz5PrevState = 0;
+        }
+
+        updateOpeningPage();
+        updateVerseVisibility();
+        updatePageButtons();
+        updateViz5LineState();
+        updateVizForPage();
+    }
+
+    function goToNextPage() {
+        if (state.currentPage < TOTAL_PAGES) {
+            transitionToPage(state.currentPage + 1);
+        }
+    }
+
+    function goToPreviousPage() {
+        if (state.currentPage > 1) {
+            transitionToPage(state.currentPage - 1);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        forwardBtn.addEventListener("click", goToNextPage);
+        backwardBtn.addEventListener("click", goToPreviousPage);
+    });
+
+
+    function render() {
         if (!state.data) {
             return;
         }
 
         hideTooltip();
         updateButtonState();
-        if (stanzaIndex !== lastStanza) {
-            clearCanvas();
-            lastStanza = stanzaIndex;
+        clearCanvas();
+
+        if (state.activeViz === null) {
+            return;
         }
 
-    
-
-        if (state.activeViz == "viz1") {
-            renderViz1(lineIndex +1);
+        if (state.activeViz === "viz1") {
+            renderViz1();
         } else if (state.activeViz === "viz2") {
             renderViz2();
         } else if (state.activeViz === "viz3") {
@@ -985,18 +1217,10 @@ goToLine(0, 0);
             renderViz4();
         } else if (state.activeViz === "viz5") {
             renderViz5();
-        } else {
-            renderViz1();
         }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        initPoemProgression();
-
-        document.getElementById('forward-button').addEventListener('click', nextPoemLine);
-        document.getElementById('backward-button').addEventListener('click', prevPoemLine);
-    });
-
+    /*
 
     window.addEventListener('DOMContentLoaded', () => {
         initPoemProgression();
@@ -1004,6 +1228,16 @@ goToLine(0, 0);
         document.getElementById('forward-button').addEventListener('click', nextPoemLine);
         document.getElementById('backward-button').addEventListener('click', prevPoemLine);
     });
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+        initPoemProgression();
+
+        document.getElementById('forward-button').addEventListener('click', nextPoemLine);
+        document.getElementById('backward-button').addEventListener('click', prevPoemLine);
+    });
+
+    */
 
 
     function bindControls() {
@@ -1017,6 +1251,13 @@ goToLine(0, 0);
 
         metricButtons.on("click", function () {
             state.activeMetric = d3.select(this).attr("data-metric");
+
+            if (state.currentPage === 5 && state.activeViz === "viz5") {
+                state.viz5State = 0;
+                state.viz5PrevState = 0;
+                updateViz5LineState();
+            }
+
             render();
         });
 
@@ -1033,6 +1274,7 @@ goToLine(0, 0);
         });
     }
 
+    bindViz5VerseLines();
     bindControls();
 
     Promise.all([
@@ -1078,7 +1320,7 @@ goToLine(0, 0);
         if (state.selectedYear !== null) {
             yearSelect.property("value", state.selectedYear);
         }
-        render();
+        goToPage(1);
 
         return Promise.allSettled([
             loadJsonWithFallback(

@@ -8,8 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
     <link href="styles.css" rel="stylesheet" />
+    <meta charset="UTF-8">
   </head>
   <body>
+    <div id = "opening">
+        <h1>Lines We Never Choose</h1>
+        <p>An ICE Statistic Visualization</p>
+        <p>By Solan Yao, David Yang, Ugo Ofor, and Gedefaye Mengist</p>
+      </div>
+      <div class="controls">
+          <button class="arrow-button" id="backward-button">&#9664;</button>
+          <button class="arrow-button" id="forward-button">&#9654;</button>
+      </div>
     <div class = "layout">
     <div class="poem-panel">
       <div class="poem">
@@ -51,25 +61,20 @@
     </div>
     <div class="viz-panel">
       <div class="viz-control-panel">
-        <div class="button-row year-row">
-          <label for="viz-year-select">Fiscal Year</label>
-          <select id="viz-year-select"></select>
-        </div>
         <div class="button-row metric-row">
           <button class="metric-btn active" data-metric="arrests">Arrests</button>
           <button class="metric-btn" data-metric="detentions">Detentions</button>
           <button class="metric-btn" data-metric="removals">Removals</button>
         </div>
+        <div class="button-row year-row">
+          <label for="viz-year-select">Fiscal Year</label>
+          <select id="viz-year-select"></select>
+        </div>
       </div>
         <div id="advanced-chart-container">
           <svg id="advanced-chart"></svg>
         </div>
-        <div class="controls">
-          <button class="arrow-button" id="backward-button">◄</button>
-          <button class="arrow-button" id="forward-button">►</button>
       </div>
-      </div>
-    </div>
     </div>
 
     <div id="adv-tooltip" class="adv-tooltip hidden"></div>
