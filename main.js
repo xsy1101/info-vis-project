@@ -86,6 +86,14 @@
 
         d3.select("#advanced-chart-container").style("display", lastStanza ? "none":"block");
         
+        const isLastLineOfLastStanza =
+            stanzaIndex === stanzaLengths.length - 1 &&
+            lineIndex === stanzaLengths[stanzaIndex] - 1;
+
+        d3.select("#forward-button")
+            .style("opacity", isLastLineOfLastStanza ? 0 : 1)
+            .style("pointer-events", isLastLineOfLastStanza ? "none" : "auto");
+        
     }
 
     function drawFrame(title, subtitle) {
