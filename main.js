@@ -30,6 +30,7 @@
         activeMetric: "arrests",
         selectedYear: null,
         streamFocusCountry: null,
+        currentPage: 1,
         data: null,
     };
 
@@ -86,14 +87,6 @@
 
         d3.select("#advanced-chart-container").style("display", lastStanza ? "none":"block");
         
-        const isLastLineOfLastStanza =
-            stanzaIndex === stanzaLengths.length - 1 &&
-            lineIndex === stanzaLengths[stanzaIndex] - 1;
-
-        d3.select("#forward-button")
-            .style("opacity", isLastLineOfLastStanza ? 0 : 1)
-            .style("pointer-events", isLastLineOfLastStanza ? "none" : "auto");
-        
     }
 
     function drawFrame(title, subtitle) {
@@ -123,6 +116,38 @@
 
     function formatNumber(num) {
         return d3.format(",")(num || 0);
+    }
+
+    const TOTAL_PAGES = 6;
+
+    function isAtFinalLine() {
+        return (
+            stanzaIndex === verses.length - 1 &&
+            lineIndex === stanzaLengths[stanzaIndex] - 1
+        );
+    }
+    
+    function updateOpeningPage() {
+        const opening = document.getElementById("opening");
+        const layout = document.querySelector(".layout");
+    
+        if (state.currentPage === 1) {
+            if (opening) opening.style.display = "flex";
+            if (layout) layout.classList.add("hidden");
+        } else {
+            if (opening) opening.style.display = "none";
+            if (layout) layout.classList.remove("hidden");
+        }
+    }
+    
+    function updateFooterButtons() {
+        const forwardBtn = document.getElementById("forward-button");
+        const backwardBtn = document.getElementById("backward-button");
+    
+        if (!forwardBtn || !backwardBtn) return;
+    
+        backwardBtn.style.display = state.currentPage === 1 ? "none" : "inline-flex";
+        forwardBtn.style.display = "inline-flex";
     }
 
     function getYearlySeries(metricKey) {
@@ -1042,52 +1067,204 @@
     // poem stuff
     let stanzaIndex = 0;
     let lineIndex = 0;
-
+    
     const stanzaLengths = [4, 4, 4, 4, 3];
-
+    
     const verses = document.querySelectorAll(".verse");
+    
+    const PAGE_FADE_MS = 350;
+    
+    function runOpeningPageFadeTransition(callback) {
+        const opening = document.getElementById("opening");
+        const layout = document.querySelector(".layout");
+    
+        if (!opening || !layout) {
+            callback();
+            return;
+        }
+    
+        const openingVisible = state.currentPage === 1;
+    
+        if (openingVisible) {
+            opening.classList.add("page-fade-out");
+    
+            setTimeout(() => {
+                callback();
+    
+                layout.classList.add("page-fade-out");
+                requestAnimationFrame(() => {
+                    layout.classList.remove("page-fade-out");
+                    opening.classList.remove("page-fade-out");
+                });
+            }, PAGE_FADE_MS);
+        } else {
+            layout.classList.add("page-fade-out");
+    
+            setTimeout(() => {
+                callback();
+    
+                opening.classList.add("page-fade-out");
+                requestAnimationFrame(() => {
+                    opening.classList.remove("page-fade-out");
+                    layout.classList.remove("page-fade-out");
+                });
+            }, PAGE_FADE_MS);
+        }
+    }
+    
+    function shouldFadeForward() {
+        return (
+            state.currentPage !== 1 &&
+            stanzaIndex < verses.length - 1 &&
+            lineIndex === stanzaLengths[stanzaIndex] - 1
+        );
+    }
+    
+    function shouldFadeBackward() {
+        return (
+            state.currentPage !== 1 &&
+            stanzaIndex > 0 &&
+            lineIndex === 0
+        );
+    }
+    
+    function runPageFadeTransition(callback) {
+        const poemPanel = document.querySelector(".poem-panel");
+        const vizPanel = document.querySelector(".viz-panel");
+    
+        if (!poemPanel || !vizPanel) {
+            callback();
+            return;
+        }
+    
+        poemPanel.classList.add("page-fade-out");
+        vizPanel.classList.add("page-fade-out");
+    
+        setTimeout(() => {
+            callback();
+    
+            requestAnimationFrame(() => {
+                poemPanel.classList.remove("page-fade-out");
+                vizPanel.classList.remove("page-fade-out");
+            });
+        }, PAGE_FADE_MS);
+    }
     
     document.addEventListener("DOMContentLoaded", () => {
         const forwardBtn = document.getElementById("forward-button");
         const backwardBtn = document.getElementById("backward-button");
-
+    
         forwardBtn.addEventListener("click", goToNext);
         backwardBtn.addEventListener("click", goToPrevious);
+    
+        updateOpeningPage();
+        updateFooterButtons();
     });
 
     function goToNext() {
-        lineIndex++;
-
-        if (lineIndex >= stanzaLengths[stanzaIndex]) {
-            stanzaIndex++;
-            if (stanzaIndex >= verses.length) {
-                stanzaIndex = verses.length - 1;
-                lineIndex = stanzaLengths[stanzaIndex] - 1;
-                return;
-            }
-            lineIndex = 0;
-        }
-
-        goToLine(stanzaIndex, lineIndex);
-    }
-
-    function goToPrevious() {
-        lineIndex--;
-
-        if (lineIndex < 0) {
-            stanzaIndex--;
-            if (stanzaIndex < 0) {
+        if (state.currentPage === 1) {
+            runOpeningPageFadeTransition(() => {
+                state.currentPage = 2;
                 stanzaIndex = 0;
                 lineIndex = 0;
-                return;
-            }
-            lineIndex = stanzaLengths[stanzaIndex] - 1;
+                updateOpeningPage();
+                updateFooterButtons();
+                goToLine(stanzaIndex, lineIndex);
+            });
+            return;
         }
-        clearCanvas();
-        
-        goToLine(stanzaIndex, lineIndex);
+    
+        if (isAtFinalLine()) {
+            runOpeningPageFadeTransition(() => {
+                state.currentPage = 1;
+                stanzaIndex = 0;
+                lineIndex = 0;
+                updateOpeningPage();
+                updateFooterButtons();
+                hideAllVersesExcept(-1);
+                clearCanvas();
+                hideTooltip();
+            });
+            return;
+        }
+    
+        const advance = () => {
+            lineIndex++;
+    
+            if (lineIndex >= stanzaLengths[stanzaIndex]) {
+                stanzaIndex++;
+                if (stanzaIndex >= verses.length) {
+                    stanzaIndex = verses.length - 1;
+                    lineIndex = stanzaLengths[stanzaIndex] - 1;
+                    return;
+                }
+                lineIndex = 0;
+            }
+    
+            state.currentPage = stanzaIndex + 2;
+            updateOpeningPage();
+            updateFooterButtons();
+            goToLine(stanzaIndex, lineIndex);
+        };
+    
+        if (shouldFadeForward()) {
+            runPageFadeTransition(advance);
+        } else {
+            advance();
+        }
     }
-
+    
+    function goToPrevious() {
+        if (state.currentPage === 1) {
+            return;
+        }
+    
+        if (stanzaIndex === 0 && lineIndex === 0) {
+            runOpeningPageFadeTransition(() => {
+                state.currentPage = 1;
+                stanzaIndex = 0;
+                lineIndex = 0;
+                updateOpeningPage();
+                updateFooterButtons();
+                hideAllVersesExcept(-1);
+                clearCanvas();
+                hideTooltip();
+            });
+            return;
+        }
+    
+        const retreat = () => {
+            lineIndex--;
+    
+            if (lineIndex < 0) {
+                stanzaIndex--;
+                if (stanzaIndex < 0) {
+                    stanzaIndex = 0;
+                    lineIndex = 0;
+                    state.currentPage = 1;
+                    updateOpeningPage();
+                    updateFooterButtons();
+                    hideAllVersesExcept(-1);
+                    clearCanvas();
+                    hideTooltip();
+                    return;
+                }
+                lineIndex = stanzaLengths[stanzaIndex] - 1;
+            }
+    
+            state.currentPage = stanzaIndex + 2;
+            clearCanvas();
+            updateOpeningPage();
+            updateFooterButtons();
+            goToLine(stanzaIndex, lineIndex);
+        };
+    
+        if (shouldFadeBackward()) {
+            runPageFadeTransition(retreat);
+        } else {
+            retreat();
+        }
+    }
 
     function goToLine(stanzaIndex, lineIndex) {
         hideAllVersesExcept(stanzaIndex);
@@ -1097,7 +1274,7 @@
 
     function hideAllVersesExcept(active) {
         verses.forEach((v, i) => {
-            v.style.display = i === active ? "block" : "none";
+            v.style.display = state.currentPage === 1 ? "none" : (i === active ? "block" : "none");
         });
     }
 
@@ -1171,7 +1348,14 @@
     }
 
 
-goToLine(0, 0);
+//goToLine(0, 0);
+
+    state.currentPage = 1;
+    updateOpeningPage();
+    updateFooterButtons();
+    hideAllVersesExcept(-1);
+    clearCanvas();
+    hideTooltip();
 
     let lastStanza = 0;
 
