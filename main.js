@@ -1025,7 +1025,7 @@
                     .transition()
                     .duration(300)
                     .delay(i * 100)
-                    .style("opacity", 1);
+                    .style("opacity", 0.7);
         }}
         if (step >= 2 && !state.stepsDrawn.has(2)) {
             stanza.style("overflow", "hidden");
@@ -1047,7 +1047,7 @@
                     .transition()
                     .duration(300)
                     .delay(i * 100)
-                    .style("opacity", 1);
+                    .style("opacity", 0.7);
         }
     }
         if (step >= 3 && !state.stepsDrawn.has(3)) {
@@ -1058,7 +1058,7 @@
 
             d3.selectAll(".people-icon").transition()
                 .duration(1000)
-                .style("opacity", 0.5);
+                .style("opacity", 0.4);
 
             state.stepsDrawn.add(3);
             state.stepsDrawn.clear();

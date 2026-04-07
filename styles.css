@@ -92,39 +92,33 @@ body, html {
 }
 
 
-
-.controls {
+#arrow-buttons {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center; 
-    gap: 20px;
-    margin: 40px;
-    z-index: 20; 
+    gap: 80px; 
+    align-items: center;
+}
+
+#forward-button,
+#backward-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 36px;
+    cursor: pointer;
+ 
 }
 
 
-.arrow-button {
-  position: absolute;
-  top: 0;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  border: 1px solid #68445d;
-  background: rgba(35, 26, 42, 0.92);
-  color: #f4ecf2;
-  font-size: 20px;
-  cursor: pointer;
-  pointer-events: auto;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease;
-  justify-content: center;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.28);
+#forward-button:hover,
+#backward-button:hover {
+    opacity: 0.7;
+    transform: scale(1.2);
 }
 
-.arrow-button:hover {
-  background: #37253f;
-  transform: translateY(-1px) scale(1.05);
-}
 
 #closing-stanza {
     display: flex;
