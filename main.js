@@ -80,6 +80,12 @@
         yearSelect.style("opacity", needsYear ? 1:0)
             .property("disabled", !needsYear);
         
+        const lastStanza = state.activeViz === "closing-viz";
+        metricButtons.style("opacity", lastStanza ? 0:1)
+            .property("disabled", lastStanza);
+
+        d3.select("#advanced-chart-container").style("display", lastStanza ? "none":"block");
+        
     }
 
     function drawFrame(title, subtitle) {
@@ -795,9 +801,7 @@
             ])
             .range(["#F52731", "#F5E027", "#F57327"]);
 
-
-        // STEP 1 — Axes & grid (always drawn)
-        if (!state.stepsDrawn.has(1)) {
+        //if (!state.stepsDrawn.has(1)) {
             root.append("g")
                 .attr("class", "adv-axis")
                 .attr("transform", `translate(0,${innerHeight})`)
@@ -820,7 +824,7 @@
                 .attr("stroke-dasharray", "3,3");
 
             state.stepsDrawn.add(1);
-        }
+        //}
 
         if (step >= 2 && !state.stepsDrawn.has(2)) {
             const d = criminality[0];
@@ -940,6 +944,97 @@
         }
     }
 
+    function randomEdgePosition() {
+        const r = Math.random();
+        return r < 0.5
+            ? 75+ Math.random() * 25        
+            :  Math.random() * 25;  
+    }
+
+    function renderClosingViz(step = 1) {
+        
+        clearCanvas();
+        
+        
+       
+        const stanza = d3.select("#closing-stanza");
+        stanza.selectAll(".closing-person").remove();
+        stanza.style("background-color", null)
+          .style("color", null);
+        stanza
+            .style("display", "flex")
+            .style("inset", "0")
+            .style("width", "100vw")
+            .style("height", "100vh")
+            .style("margin", "0")
+            .style("padding", "0")
+            .style("justify-content", "center")
+            .style("align-items", "center")
+            .style("text-align", "center")
+            .style("flex-direction", "column")
+            .style("left", "0")
+            .style("top", "0")
+            .style("position", "fixed");
+
+        if (step >= 1 && !state.stepsDrawn.has(1)) {
+            stanza.style("overflow", "hidden");
+
+            for (let i = 0; i < 5; i++) {
+                const size = 20 + Math.random() * 60;   
+                const left = randomEdgePosition();
+                const top = randomEdgePosition();     
+
+                stanza.append("img")
+                    .attr("class", "people-icon closing-person")
+                    .attr("src", "../assets/person.svg")
+                    .style("position", "absolute")
+                    .style("left", `${left}%`)
+                    .style("top", `${top}%`)
+                    .style("width", `${size}px`)
+                    .style("height", "auto")
+                    .style("opacity", 0)
+                    .transition()
+                    .duration(300)
+                    .delay(i * 100)
+                    .style("opacity", 1);
+        }}
+        if (step >= 2 && !state.stepsDrawn.has(2)) {
+            stanza.style("overflow", "hidden");
+
+            for (let i = 0; i < 5; i++) {
+                const size = 20 + Math.random() * 60;   
+                const left = Math.random() * 90;        
+                const top = Math.random() * 90;         
+
+                stanza.append("img")
+                    .attr("class", "people-icon closing-person")
+                    .attr("src", "../assets/person.svg")
+                    .style("position", "absolute")
+                    .style("left", `${left}%`)
+                    .style("top", `${top}%`)
+                    .style("width", `${size}px`)
+                    .style("height", "auto")
+                    .style("opacity", 0)
+                    .transition()
+                    .duration(300)
+                    .delay(i * 100)
+                    .style("opacity", 1);
+        }
+    }
+        if (step >= 3 && !state.stepsDrawn.has(3)) {
+            stanza.transition()
+                .duration(1000)
+                .style("background-color", "#A8F1F7")
+                .style("color", "#555");
+
+            d3.selectAll(".people-icon").transition()
+                .duration(1000)
+                .style("opacity", 0.5);
+
+            state.stepsDrawn.add(3);
+            state.stepsDrawn.clear();
+        }
+    }
     // poem stuff
     let stanzaIndex = 0;
     let lineIndex = 0;
@@ -1003,7 +1098,14 @@
     }
 
     function activateLines(stanzaIndex, lineIndex) {
-        const verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        let verse;
+        if (stanzaIndex === 4) { 
+            verse = document.getElementById("closing-stanza");
+        } else {
+            verse = document.getElementById(`verse${stanzaIndex + 1}`);
+        }
+
+        if (!verse) return;
         const lines = verse.querySelectorAll(".line");
 
         lines.forEach((line, i) => {
@@ -1040,6 +1142,7 @@
 
         if (stanzaIndex === 3) {
             state.activeViz = "viz5";
+            
             if (state.activeViz === "viz5") {
             if (!state.stepsDrawn) state.stepsDrawn = new Set();
             for (let s = lineIndex + 1; s <= 4; s++) {
@@ -1050,7 +1153,14 @@
         }
 
         if (stanzaIndex === 4) {
-            state.activeViz = "viz1";//placeholder
+            state.activeViz = "closing-viz";
+            
+            if (state.activeViz === "closing-viz") {
+                if (!state.stepsDrawn) state.stepsDrawn = new Set();
+                    for (let s = lineIndex + 1; s <= 3; s++) {
+                        state.stepsDrawn.delete(s);
+                    }
+            }
             render(stanzaIndex, lineIndex);
             return;
         }
@@ -1086,8 +1196,9 @@ goToLine(0, 0);
         } else if (state.activeViz === "viz4") {
             renderViz4();
         } else if (state.activeViz === "viz5") {
-            
             renderViz5(lineIndex + 1);
+        } else if (state.activeViz === "closing-viz") {
+            renderClosingViz(lineIndex + 1);
         } else {
             renderViz1();
         }
