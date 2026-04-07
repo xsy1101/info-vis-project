@@ -74,7 +74,12 @@
         });
 
         const needsYear = state.activeViz === "viz2" || state.activeViz === "viz3"; 
-        yearRow.style("display", needsYear ? "flex" : "none");
+        yearRow.style("opacity", needsYear ? 1:0)
+            .property("disabled", !needsYear);
+        
+        yearSelect.style("opacity", needsYear ? 1:0)
+            .property("disabled", !needsYear);
+        
     }
 
     function drawFrame(title, subtitle) {
