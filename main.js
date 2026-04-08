@@ -35,7 +35,7 @@
     };
 
     const METRIC_LABELS = {
-        arrests: "Administrative Arrests",
+        arrests: "Arrests",
         detentions: "Detentions",
         removals: "Removals",
     };
@@ -367,7 +367,7 @@
     }
 
 
-    function renderViz2() {
+    function renderViz2(step = 1) {
         if (!state.data.usTopology || !state.data.usTopology.objects || !state.data.usTopology.objects.states) {
             drawNotice(
                 "Viz 2: AOR Geography (United States)",
@@ -376,9 +376,12 @@
             return;
         }
 
+        clearCanvas();
+
         drawFrame(
             "Viz 2: AOR Geography (United States)",
-            `${metricLabel(state.activeMetric)} by Area of Responsibility in FY ${state.selectedYear}`
+            `${metricLabel(state.activeMetric)} by Area of Responsibility in FY ${state.selectedYear}` +
+            `\n*Top countries: top countries of citizenship of detainees`
         );
 
         const mapGroup = root.append("g");
@@ -386,23 +389,11 @@
         const projection = d3.geoAlbersUsa().fitSize([innerWidth, innerHeight], states);
         const path = d3.geoPath(projection);
 
-        mapGroup.selectAll(".us-state")
-            .data(states.features)
-            .enter()
-            .append("path")
-            .attr("class", "us-state")
-            .attr("d", path)
-            .attr("fill", "#2a2430")
-            .attr("stroke", "#5f5168")
-            .attr("stroke-width", 0.8);
-
         const yearRows = state.data.aorData.records.filter(d => +d.fiscal_year === +state.selectedYear);
         const withCoords = yearRows
             .map(d => {
                 const point = projection([+d.lng, +d.lat]);
-                if (!point) {
-                    return null;
-                }
+                if (!point) return null;
                 return {
                     ...d,
                     x: point[0],
@@ -415,32 +406,56 @@
         const maxValue = d3.max(withCoords, d => d.value) || 1;
         const radius = d3.scaleSqrt().domain([0, maxValue]).range([4, 34]);
 
-        mapGroup.selectAll(".aor-bubble")
-            .data(withCoords, d => d.aor)
-            .enter()
-            .append("circle")
-            .attr("class", "aor-bubble")
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y)
-            .attr("r", 0)
-            .attr("fill", "rgba(255, 116, 86, 0.65)")
-            .attr("stroke", "#ffd3c7")
-            .attr("stroke-width", 1.2)
-            .on("mousemove", (event, d) => {
-                const topCountries = (d.top_countries || [])
-                    .map(item => `${item.country} (${formatNumber(item.total)})`)
-                    .join("<br/>");
-                showTooltip(
-                    event,
-                    `<strong>${d.aor}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(d.value)}<br/>` +
-                    `Detentions: ${formatNumber(d.detentions)}<br/>Removals: ${formatNumber(d.removals)}<br/>Arrests: ${formatNumber(d.arrests)}` +
-                    (topCountries ? `<br/><br/><em>Top countries</em><br/>${topCountries}` : "")
-                );
-            })
-            .on("mouseleave", hideTooltip)
-            .transition()
-            .duration(800)
-            .attr("r", d => radius(d.value));
+        
+
+        if (step >= 1) {
+            mapGroup.selectAll(".us-state")
+                .data(states.features)
+                .enter()
+                .append("path")
+                .attr("class", "us-state")
+                .attr("d", path)
+                .attr("fill", "#2a2430")
+                .attr("stroke", "#5f5168")
+                .attr("stroke-width", 0.8)
+                .attr("opacity",0.25)
+                .transition()       
+                .duration(200)
+                .attr("opacity", step >= 2 ? 1: 0.25);
+        }
+
+        if (step >= 3) {
+            const bubbleFill = step >= 4 ? "rgba(255, 0, 0, 0.75)" : "rgba(255, 116, 86, 0.65)";
+            const bubbleStroke = step >= 4 ? "#ffb3b3" : "#ffd3c7";
+
+            mapGroup.selectAll(".aor-bubble")
+                .data(withCoords, d => d.aor)
+                .enter()
+                .append("circle")
+                .attr("class", "aor-bubble")
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("r", 0)
+                
+                .on("mousemove", (event, d) => {
+                    const topCountries = (d.top_countries || [])
+                        .map(item => `${item.country} (${formatNumber(item.total)})`)
+                        .join("<br/>");
+
+                    showTooltip(
+                        event,
+                        `<strong>${d.aor}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(d.value)}<br/>` +
+                        (topCountries ? `<br/><br/><em>Top countries</em><br/>${topCountries}` : "")
+                    );
+                })
+                .on("mouseleave", hideTooltip)
+                .attr("fill", bubbleFill)
+                .attr("stroke", bubbleStroke)
+                .attr("stroke-width", 1.2)
+                .transition()
+                .duration(600)
+                .attr("r", d => radius(d.value));
+        }
 
         const legendX = innerWidth - 220;
         const legendY = innerHeight - 140;
@@ -494,7 +509,7 @@
 
         drawFrame(
             "Viz 3: Country of Citizenship (World Choropleth)",
-            `${metricLabel(state.activeMetric)} by country of citizenship in FY ${state.selectedYear}`
+            `${metricLabel(state.activeMetric)} by country of citizenship of detainee in FY ${state.selectedYear}`
         );
 
         const mapGroup = root.append("g");
@@ -575,32 +590,31 @@
 
                 showTooltip(
                     event,
-                    `<strong>${countryName}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(datum.rec[state.activeMetric])}<br/>` +
-                    `Detentions: ${formatNumber(datum.rec.detentions)}<br/>Removals: ${formatNumber(datum.rec.removals)}<br/>Arrests: ${formatNumber(datum.rec.arrests)}`
+                    `<strong>${countryName}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(datum.rec[state.activeMetric])}<br/>` 
                 );
             })
             .on("mouseleave", hideTooltip);
 
-        const zoom = d3.zoom()
+        /*const zoom = d3.zoom()
             .scaleExtent([1, 8])
             .on("zoom", event => {
                 mapGroup.attr("transform", event.transform);
             });
 
-        advSvg.call(zoom);
+        advSvg.call(zoom);*/
 
-        root.append("text")
+        /*root.append("text")
             .attr("x", innerWidth - 220)
             .attr("y", innerHeight + 24)
             .attr("fill", "#d2bac9")
             .attr("font-size", 12)
-            .text("Scroll to zoom, drag to pan");
+            .text("Scroll to zoom, drag to pan");*/
         
         const v = rows
             .map(d => +d[state.activeMetric])
             .filter(v => Number.isFinite(v));
 
-        const minValue = v.length > 0 ? 0 : 0; // start from 0
+        const minValue = v.length > 0 ? 0 : 0; 
         const maxValue = v.length > 0 ? d3.max(v) : 1;
 
         const legendWidth = 120;
@@ -1311,6 +1325,13 @@
 
         if (stanzaIndex === 1) {
             state.activeViz = "viz2";
+            
+            if (state.activeViz === "viz2") {
+                if (!state.stepsDrawn) state.stepsDrawn = new Set();
+                    for (let s = lineIndex + 1; s <= 4; s++) {
+                        state.stepsDrawn.delete(s);
+                    }
+            }
             render(stanzaIndex, lineIndex);
             return;
         }
@@ -1377,7 +1398,7 @@
             
             renderViz1(lineIndex +1);
         } else if (state.activeViz === "viz2") {
-            renderViz2();
+            renderViz2(lineIndex + 1);
         } else if (state.activeViz === "viz3") {
             const viz3Step = Number.isFinite(lineIndex) ? lineIndex + 1 : stanzaLengths[2];
             renderViz3(viz3Step);
