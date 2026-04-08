@@ -512,6 +512,9 @@
             `${metricLabel(state.activeMetric)} by country of citizenship of detainee in FY ${state.selectedYear}`
         );
 
+        clearCanvas();
+        advSvg.on(".zoom", null);
+
         const mapGroup = root.append("g");
         const countries = topojson.feature(state.data.worldTopology, state.data.worldTopology.objects.countries);
         const projection = d3.geoNaturalEarth1().fitSize([innerWidth, innerHeight], countries);
@@ -595,20 +598,22 @@
             })
             .on("mouseleave", hideTooltip);
 
-        /*const zoom = d3.zoom()
+        const zoom = d3.zoom()
             .scaleExtent([1, 8])
             .on("zoom", event => {
                 mapGroup.attr("transform", event.transform);
             });
 
-        advSvg.call(zoom);*/
 
-        /*root.append("text")
+        advSvg.call(zoom);
+        advSvg.call(zoom.transform, d3.zoomIdentity);
+
+        root.append("text")
             .attr("x", innerWidth - 220)
             .attr("y", innerHeight + 24)
             .attr("fill", "#d2bac9")
             .attr("font-size", 12)
-            .text("Scroll to zoom, drag to pan");*/
+            .text("Scroll to zoom, drag to pan");
         
         const v = rows
             .map(d => +d[state.activeMetric])

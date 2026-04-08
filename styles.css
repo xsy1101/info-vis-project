@@ -162,10 +162,15 @@ main {
   padding: 20px;
 }
 
+svg {
+  pointer-events: all;
+}
+
 #chart-container {
   display: flex;
   justify-content: center; 
-  margin-top: 20px;     
+  margin-top: 20px;    
+  
 }
 
 #chart {
