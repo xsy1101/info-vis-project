@@ -507,13 +507,14 @@
             return;
         }
 
+
+        clearCanvas();
+        advSvg.on(".zoom", null);
+
         drawFrame(
             "Viz 3: Country of Citizenship (World Choropleth)",
             `${metricLabel(state.activeMetric)} by country of citizenship of detainee in FY ${state.selectedYear}`
         );
-
-        clearCanvas();
-        advSvg.on(".zoom", null);
 
         const mapGroup = root.append("g");
         const countries = topojson.feature(state.data.worldTopology, state.data.worldTopology.objects.countries);
