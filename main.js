@@ -624,7 +624,7 @@
 
         linearGradient.append("stop")
             .attr("offset", "100%")
-            .attr("stop-color", "#bd0026"); // dark red
+            .attr("stop-color", "#bd0026"); 
 
         legend.append("rect")
             .attr("width", legendWidth)
