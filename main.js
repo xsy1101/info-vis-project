@@ -1376,6 +1376,7 @@
         hideAllVersesExcept(stanzaIndex);
         activateLines(stanzaIndex, lineIndex);
         updateVizForLine(stanzaIndex, lineIndex);
+        updateClosingSource(stanzaIndex, lineIndex)
     }
 
     function hideAllVersesExcept(active) {
@@ -1460,8 +1461,21 @@
         }
     }
 
+    function updateClosingSource(stanzaIndex, lineIndex) {
+        const source = document.getElementById("closing-source");
 
-//goToLine(0, 0);
+        const isFinalFrame =
+            stanzaIndex === 4 && 
+            lineIndex === stanzaLengths[4] - 1; 
+
+        if (isFinalFrame) {
+            setTimeout(() => source.classList.add("visible"), 1000);
+        } else {
+            source.classList.remove("visible");
+        }
+    }
+
+
 
     state.currentPage = 1;
     updateOpeningPage();

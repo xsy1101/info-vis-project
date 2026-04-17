@@ -91,6 +91,22 @@ body, html {
   font-weight: 700;
 }
 
+.source {
+    margin-top: 50px;
+    font-size: 15px;
+    color: #a08f9b;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.source a {
+    color: #d2bac9;
+    text-decoration: underline;
+}
+
+.source.visible {
+    opacity: 1;
+}
 
 #arrow-buttons {
     position: fixed;
