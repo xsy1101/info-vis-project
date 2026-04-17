@@ -8,7 +8,7 @@
 
     const advWidth = 1100;
     const advHeight = 620;
-    const advMargin = { top: 70, right: 35, bottom: 70, left: 85 };
+    const advMargin = { top: 70, right: 35, bottom: 85, left: 85 };
     const innerWidth = advWidth - advMargin.left - advMargin.right;
     const innerHeight = advHeight - advMargin.top - advMargin.bottom;
 
@@ -199,7 +199,7 @@
             .attr("y", innerHeight + 52)
             .attr("fill", "#f2dce8")
             .attr("text-anchor", "middle")
-            .text("Fiscal Year");
+            .text("Fiscal Year*");
 
         chart.append("text")
             .attr("transform", "rotate(-90)")
@@ -207,7 +207,14 @@
             .attr("y", -60)
             .attr("fill", "#f2dce8")
             .attr("text-anchor", "middle")
-            .text(metricLabel(state.activeMetric));
+            .text(metricLabel(state.activeMetric) );
+        
+        root.append("text")
+            .attr("x", innerWidth - 1000)
+            .attr("y", innerHeight +80)
+            .attr("fill", "#d2bac9")
+            .attr("font-size", 12)
+            .text("*The U.S. federal fiscal year runs from October 1 to September 30");
 
         const iconValue = 4200;
         const iconSize = 30;
@@ -252,6 +259,7 @@
 
         if (step >= 3 && !state.stepsDrawn.has(3)) {
             viz1drawIcons(chart, iconData, x);
+            viz1drawLegend(chart, iconValue);
             state.stepsDrawn.add(3);
         }
 
@@ -320,6 +328,27 @@
             .attr("y", d => innerHeight - (d.row + 1) * (iconSize + iconPad));
     }
 
+    function viz1drawLegend(chart, iconValue) {
+        const legend = chart.append("g")
+            .attr("class", "viz1-legend")
+            .attr("transform", `translate(${innerWidth - 170}, 20)`);
+
+        legend.append("image")
+            .attr("href", "../assets/person.svg")
+            .attr("width", 24)
+            .attr("height", 24)
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("opacity", 0.86);
+
+        legend.append("text")
+            .attr("x", 32)
+            .attr("y", 17)
+            .attr("fill", "#ccc")
+            .attr("font-size", 12)
+            .text(`= ${iconValue.toLocaleString()} people`);
+    }
+
     function viz1drawChains(chart, linePoints) {
         const line = d3.line()
             .x(d => d.x)
@@ -380,8 +409,7 @@
 
         drawFrame(
             "Viz 2: AOR Geography (United States)",
-            `${metricLabel(state.activeMetric)} by Area of Responsibility in FY ${state.selectedYear}` +
-            `\n*Top countries: top countries of citizenship of detainees`
+            `${metricLabel(state.activeMetric)} by Area of Responsibility* in FY ${state.selectedYear}` 
         );
 
         const mapGroup = root.append("g");
@@ -418,7 +446,7 @@
                 .attr("fill", "#2a2430")
                 .attr("stroke", "#5f5168")
                 .attr("stroke-width", 0.8)
-                .attr("opacity",0.25)
+                .attr("opacity", 0.25)
                 .transition()       
                 .duration(200)
                 .attr("opacity", step >= 2 ? 1: 0.25);
@@ -427,6 +455,16 @@
         if (step >= 3) {
             const bubbleFill = step >= 4 ? "rgba(255, 0, 0, 0.75)" : "rgba(255, 116, 86, 0.65)";
             const bubbleStroke = step >= 4 ? "#ffb3b3" : "#ffd3c7";
+
+            let orderedMetrics;
+
+            if (state.activeMetric === "arrests") {
+                orderedMetrics = ["arrests", "detentions", "removals"];
+            } else if (state.activeMetric === "detentions") {
+                orderedMetrics = ["detentions", "arrests", "removals"];
+            } else if (state.activeMetric === "removals") {
+                orderedMetrics = ["removals", "arrests", "detentions"];
+            }
 
             mapGroup.selectAll(".aor-bubble")
                 .data(withCoords, d => d.aor)
@@ -444,8 +482,11 @@
 
                     showTooltip(
                         event,
-                        `<strong>${d.aor}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(d.value)}<br/>` +
-                        (topCountries ? `<br/><br/><em>Top countries</em><br/>${topCountries}` : "")
+                        `<strong>${d.aor}</strong><br/>${metricLabel(orderedMetrics[0])}: ${formatNumber(d.value)}<br/>` +
+                        `<br/>` +
+                        `${metricLabel(orderedMetrics[1])}: ${formatNumber(d[orderedMetrics[1]])}`+
+                        `<br/>${metricLabel(orderedMetrics[2])}: ${formatNumber(d[orderedMetrics[2]])}<br/>`+
+                        (topCountries ? `<br/><em>Top countries**</em><br/>${topCountries}` : "")
                     );
                 })
                 .on("mouseleave", hideTooltip)
@@ -492,6 +533,20 @@
             .attr("fill", "#e5cfdb")
             .attr("font-size", 11)
             .text(d => formatNumber(d));
+
+         root.append("text")
+            .attr("x", innerWidth - 1000)
+            .attr("y", innerHeight +55)
+            .attr("fill", "#d2bac9")
+            .attr("font-size", 12)
+            .text("*AOR: Enforcement and Removal Operations have 25 field offices around the country");
+
+        root.append("text")
+            .attr("x", innerWidth - 1000)
+            .attr("y", innerHeight +70)
+            .attr("fill", "#d2bac9")
+            .attr("font-size", 12)
+            .text("**Top countries: top countries of citizenship of detainees");
     }
 
     function renderViz3(step = stanzaLengths[2]) {
@@ -565,6 +620,16 @@
             : 1;
         const revealedCount = Math.floor(rankedValues.length * revealProgress);
 
+        let orderedMetrics;
+
+            if (state.activeMetric === "arrests") {
+                orderedMetrics = ["arrests", "detentions", "removals"];
+            } else if (state.activeMetric === "detentions") {
+                orderedMetrics = ["detentions", "arrests", "removals"];
+            } else if (state.activeMetric === "removals") {
+                orderedMetrics = ["removals", "arrests", "detentions"];
+            }
+
         mapGroup.selectAll(".world-country")
             .data(choroplethFeatures)
             .enter()
@@ -594,8 +659,11 @@
 
                 showTooltip(
                     event,
-                    `<strong>${countryName}</strong><br/>${metricLabel(state.activeMetric)}: ${formatNumber(datum.rec[state.activeMetric])}<br/>` 
+                    `<strong>${countryName}</strong><br/>${metricLabel(orderedMetrics[0])}: ${formatNumber(datum.rec[orderedMetrics[0]])}<br/>` +
+                    `<br/><br/>${metricLabel(orderedMetrics[1])}: ${formatNumber(datum.rec[orderedMetrics[1]])}<br/>` +
+                    `${metricLabel(orderedMetrics[2])}: ${formatNumber(datum.rec[orderedMetrics[2]])}`
                 );
+                
             })
             .on("mouseleave", hideTooltip);
 
@@ -611,48 +679,49 @@
 
         root.append("text")
             .attr("x", innerWidth - 220)
-            .attr("y", innerHeight + 24)
+            .attr("y", innerHeight + 50)
             .attr("fill", "#d2bac9")
             .attr("font-size", 12)
             .text("Scroll to zoom, drag to pan");
         
-        const v = rows
-            .map(d => +d[state.activeMetric])
-            .filter(v => Number.isFinite(v));
-
-        const minValue = v.length > 0 ? 0 : 0; 
-        const maxValue = v.length > 0 ? d3.max(v) : 1;
-
         const legendWidth = 120;
         const legendHeight = 10;
         const legendX = advMargin.left;
         const legendY = innerHeight - 40;
+        const v = rows
+            .map(d => +d[state.activeMetric])
+            .filter(v => Number.isFinite(v));
+        const minValue = 0; 
+        const maxValue = v.length > 0 ? d3.max(v) : 1;
 
-        const legend = root.append("g")
-            .attr("transform", `translate(${legendX}, ${legendY})`);
 
         const defs = advSvg.select("defs").empty() ? advSvg.append("defs") : advSvg.select("defs");
+        
+        const gradientId = "legend-gradient";
 
-        const linearGradient = defs.append("linearGradient")
-            .attr("id", "simple-gradient")
+        defs.select(`#${gradientId}`).remove();
+
+        const gradient = defs.append("linearGradient")
+            .attr("id", gradientId)
             .attr("x1", "0%")
             .attr("x2", "100%");
 
-        linearGradient.append("stop")
-            .attr("offset", "0%")
-            .attr("stop-color", "#F7EB60"); 
+        const steps = 10;
 
-        linearGradient.append("stop")
-            .attr("offset", "100%")
-            .attr("stop-color", "#bd0026"); 
+        for (let i = 0; i <= steps; i++) {
+            const t = i / steps;
+            gradient.append("stop")
+                .attr("offset", `${t * 100}%`)
+                .attr("stop-color", color(logMin + t * (logMax - logMin)));
+        }
+        
+        const legend = root.append("g")
+            .attr("transform", `translate(${legendX}, ${legendY})`);
 
         legend.append("rect")
             .attr("width", legendWidth)
             .attr("height", legendHeight)
-            .style("fill", "url(#simple-gradient)")
-            .attr("stroke", "#fff")
-            .attr("stroke-width", 0.5);
-
+            .style("fill", `url(#${gradientId})`);
         legend.append("text")
             .attr("x", 0)
             .attr("y", -4)
@@ -676,10 +745,12 @@
             .attr("fill", "#f3dde6")
             .attr("font-size", 12)
             .text(`# of ${metricLabel(state.activeMetric)}`);
+
+        
         
 }
 
-    function renderViz4() {
+    /*function renderViz4() {
         drawFrame(
             "Viz 4: Rivers of Movement",
             `Streams show the yearly trend of people from each country of citizenship (${metricLabel(state.activeMetric)}).` +
@@ -809,7 +880,7 @@
                     .attr("font-size", 11)
                     .text(country);
             });
-    }
+    } */
     
     function renderViz5(step = 1) {
         drawFrame(
@@ -1419,23 +1490,16 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-        initPoemProgression();
-
-        document.getElementById('forward-button').addEventListener('click', nextPoemLine);
-        document.getElementById('backward-button').addEventListener('click', prevPoemLine);
-    });
-
-
-    window.addEventListener('DOMContentLoaded', () => {
-        initPoemProgression();
-
-        document.getElementById('forward-button').addEventListener('click', nextPoemLine);
-        document.getElementById('backward-button').addEventListener('click', prevPoemLine);
-    });
 
 
     function bindControls() {
+        const definitions = {
+            arrests: "Arrests are ICE enforcement actions in which a person is taken into custody for alleged immigration violation.",
+            detentions: "Detentions are cases where a person is held in ICE custody usually to secure their presence for immigration proceedings and removal",
+            removals: "Compulsory removal of a person from the United States",
+            fiscalYear: "The U.S. federal fiscal year runs from October 1 to September 30."
+        }
+
         vizButtons.on("click", function () {
             state.activeViz = d3.select(this).attr("data-viz");
             if (state.activeViz !== "viz4") {
@@ -1449,11 +1513,30 @@
             state.activeMetric = d3.select(this).attr("data-metric");
             state.stepsDrawn.clear();
             goToLine(stanzaIndex, lineIndex);
+        }).on("mouseover", function (event) {
+            const metric = d3.select(this).attr("data-metric");
+            showTooltip(event, definitions[metric]);
+        })
+        .on("mousemove", function (event) {
+            moveTooltip(event);
+        })
+        .on("mouseout", function () {
+            hideTooltip();
         });
 
         yearSelect.on("change", function () {
+            clearCanvas();
             state.selectedYear = +this.value;
-            render();
+            state.stepsDrawn.clear();
+            goToLine(stanzaIndex, lineIndex);
+        }).on("mouseover", function (event) {
+            showTooltip(event, definitions.fiscalYear);
+        })
+        .on("mousemove", function (event) {
+            moveTooltip(event);
+        })
+        .on("mouseout", function () {
+            hideTooltip();
         });
     }
 
