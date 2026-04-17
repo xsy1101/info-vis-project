@@ -884,7 +884,7 @@
     
     function renderViz5(step = 1) {
         drawFrame(
-            "Viz 5: Criminal Status of ADR",
+            "Viz 5: Criminality Status",
             `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)} from 2021 - 2025`
         );
 
@@ -930,6 +930,21 @@
             root.append("g")
                 .attr("class", "adv-axis")
                 .call(d3.axisLeft(y).ticks(6));
+            
+            root.append("text")
+                .attr("x", innerWidth / 2)
+                .attr("y", innerHeight + 52)
+                .attr("fill", "#f2dce8")
+                .attr("text-anchor", "middle")
+                .text("Criminal Status");
+
+            root.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -innerHeight / 2)
+                .attr("y", -60)
+                .attr("fill", "#f2dce8")
+                .attr("text-anchor", "middle")
+                .text(metricLabel("Number of People"));
 
             root.selectAll(".viz5-grid-line")
                 .data(y.ticks(6))
