@@ -405,14 +405,17 @@
             return;
         }
 
-        clearCanvas();
+    
 
         drawFrame(
             "Viz 2: AOR Geography (United States)",
             `${metricLabel(state.activeMetric)} by Area of Responsibility* in FY ${state.selectedYear}` 
         );
 
-        const mapGroup = root.append("g");
+        let mapGroup = root.select(".viz2-map-group");
+        if (mapGroup.empty()) {
+            mapGroup = root.append("g").attr("class", "viz2-map-group");
+        }
         const states = topojson.feature(state.data.usTopology, state.data.usTopology.objects.states);
         const projection = d3.geoAlbersUsa().fitSize([innerWidth, innerHeight], states);
         const path = d3.geoPath(projection);
@@ -434,9 +437,63 @@
         const maxValue = d3.max(withCoords, d => d.value) || 1;
         const radius = d3.scaleSqrt().domain([0, maxValue]).range([4, 34]);
 
-        
+        const cutoff = d3.median(withCoords, d => d.value) || 0;
+        const largePoints = withCoords.filter(d => d.value >= cutoff);
+        const smallPoints = withCoords.filter(d => d.value < cutoff);
 
-        if (step >= 1) {
+        const zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on("zoom", event => {
+                const k = event.transform.k;
+
+                mapGroup.attr("transform", event.transform);
+                
+                mapGroup.selectAll(".aor-bubble-large, .aor-bubble-small")
+                    .attr("r", d => radius(d.value) / Math.sqrt(k));
+    
+            });
+
+        advSvg.call(zoom);
+        advSvg.call(zoom.transform, d3.zoomIdentity);
+
+        root.append("text")
+            .attr("x", innerWidth - 220)
+            .attr("y", innerHeight + 50)
+            .attr("fill", "#d2bac9")
+            .attr("font-size", 12)
+            .text("Scroll to zoom, drag to pan");
+
+        let orderedMetrics;
+
+            if (state.activeMetric === "arrests") {
+                orderedMetrics = ["arrests", "detentions", "removals"];
+            } else if (state.activeMetric === "detentions") {
+                orderedMetrics = ["detentions", "arrests", "removals"];
+            } else if (state.activeMetric === "removals") {
+                orderedMetrics = ["removals", "arrests", "detentions"];
+            }
+
+        function attachTooltip(selection) {
+            selection
+                .on("mousemove", (event, d) => {
+                    const topCountries = (d.top_countries || [])
+                        .map(item => `${item.country} (${formatNumber(item.total)})`)
+                        .join("<br/>");
+
+                    showTooltip(
+                        event,
+                        `<strong>${d.aor}</strong><br/>${metricLabel(orderedMetrics[0])}: ${formatNumber(d.value)}<br/>` +
+                        `<br/>` +
+                        `${metricLabel(orderedMetrics[1])}: ${formatNumber(d[orderedMetrics[1]])}` +
+                        `<br/>${metricLabel(orderedMetrics[2])}: ${formatNumber(d[orderedMetrics[2]])}<br/>` +
+                        (topCountries ? `<br/><em>Top countries**</em><br/>${topCountries}` : "")
+                    );
+                })
+                .on("mouseleave", hideTooltip);
+        }
+
+        
+        if (step >= 1 && !state.stepsDrawn.has(1)) {
             mapGroup.selectAll(".us-state")
                 .data(states.features)
                 .enter()
@@ -448,59 +505,76 @@
                 .attr("stroke-width", 0.8)
                 .attr("opacity", 0.25)
                 .transition()       
-                .duration(200)
-                .attr("opacity", step >= 2 ? 1: 0.25);
+                .duration(500)
+                .attr("opacity", 1);
+                
+            state.stepsDrawn.add(1);
         }
-
-        if (step >= 3) {
-            const bubbleFill = step >= 4 ? "rgba(255, 0, 0, 0.75)" : "rgba(255, 116, 86, 0.65)";
-            const bubbleStroke = step >= 4 ? "#ffb3b3" : "#ffd3c7";
-
-            let orderedMetrics;
-
-            if (state.activeMetric === "arrests") {
-                orderedMetrics = ["arrests", "detentions", "removals"];
-            } else if (state.activeMetric === "detentions") {
-                orderedMetrics = ["detentions", "arrests", "removals"];
-            } else if (state.activeMetric === "removals") {
-                orderedMetrics = ["removals", "arrests", "detentions"];
-            }
-
-            mapGroup.selectAll(".aor-bubble")
-                .data(withCoords, d => d.aor)
+        
+        if (step >= 2 && !state.stepsDrawn.has(2)) {
+            const largeBubbles = mapGroup.selectAll(".aor-bubble-large")
+                .data(largePoints, d => d.aor)
                 .enter()
                 .append("circle")
-                .attr("class", "aor-bubble")
+                .attr("class", "aor-bubble-large")
                 .attr("cx", d => d.x)
                 .attr("cy", d => d.y)
                 .attr("r", 0)
-                
-                .on("mousemove", (event, d) => {
-                    const topCountries = (d.top_countries || [])
-                        .map(item => `${item.country} (${formatNumber(item.total)})`)
-                        .join("<br/>");
+                .attr("fill", "rgba(255, 116, 86, 0.65)")
+                .attr("stroke", "#ffd3c7")
+                .attr("stroke-width", 1.2);
 
-                    showTooltip(
-                        event,
-                        `<strong>${d.aor}</strong><br/>${metricLabel(orderedMetrics[0])}: ${formatNumber(d.value)}<br/>` +
-                        `<br/>` +
-                        `${metricLabel(orderedMetrics[1])}: ${formatNumber(d[orderedMetrics[1]])}`+
-                        `<br/>${metricLabel(orderedMetrics[2])}: ${formatNumber(d[orderedMetrics[2]])}<br/>`+
-                        (topCountries ? `<br/><em>Top countries**</em><br/>${topCountries}` : "")
-                    );
-                })
-                .on("mouseleave", hideTooltip)
-                .attr("fill", bubbleFill)
-                .attr("stroke", bubbleStroke)
-                .attr("stroke-width", 1.2)
+            attachTooltip(largeBubbles);
+
+            largeBubbles
                 .transition()
                 .duration(600)
                 .attr("r", d => radius(d.value));
+            
+            state.stepsDrawn.add(2);
         }
+
+        if (step >= 3 && !state.stepsDrawn.has(3)) {
+            const smallBubbles = mapGroup.selectAll(".aor-bubble-small")
+                .data(smallPoints, d => d.aor)
+                .enter()
+                .append("circle")
+                .attr("class", "aor-bubble-small")
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y)
+                .attr("r", 0)
+                .attr("fill", "rgba(255, 116, 86, 0.65)")
+                .attr("stroke", "#ffd3c7")
+                .attr("stroke-width", 1.2);
+
+            attachTooltip(smallBubbles);
+
+            smallBubbles
+                .transition()
+                .duration(600)
+                .attr("r", d => radius(d.value));
+            
+            state.stepsDrawn.add(3);
+        }
+        
+        if (step >= 4 && !state.stepsDrawn.has(4)) {
+            mapGroup.selectAll(".us-state")
+
+                .transition()       
+                .duration(500)
+                .attr("opacity", 1)
+                .attr("fill",  "rgba(180, 30, 30, 0.85)")
+                .attr("stroke", "#ffb3b3");
+
+            
+            state.stepsDrawn.add(4);
+        }
+
+       
 
         const legendX = innerWidth - 220;
         const legendY = innerHeight - 140;
-        const legendValues = [maxValue * 0.25, maxValue * 0.6, maxValue].map(v => Math.round(v));
+        const legendValues = [maxValue *0.05, maxValue * 0.25, maxValue * 0.6, maxValue].map(v => Math.round(v));
 
         const legend = mapGroup.append("g")
             .attr("transform", `translate(${legendX},${legendY})`);
@@ -1040,6 +1114,7 @@
         }
 
         if (step >= 4 && !state.stepsDrawn.has(4)) {
+            
             const d = criminality[2];
             root.append("rect")
                 .attr("class", "viz5-bar")
@@ -1362,6 +1437,7 @@
             clearCanvas();
             updateOpeningPage();
             updateFooterButtons();
+            state.stepsDrawn.clear();
             goToLine(stanzaIndex, lineIndex);
         };
     
@@ -1411,7 +1487,8 @@
                 if (!state.stepsDrawn) state.stepsDrawn = new Set();
                 for (let s = lineIndex + 1; s <= 4; s++) {
                     state.stepsDrawn.delete(s);
-            }}
+                }
+            }
             render(stanzaIndex, lineIndex);
             return;
         }
