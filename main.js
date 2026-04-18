@@ -1655,6 +1655,17 @@
 
     bindControls();
 
+    const infoBtn = document.getElementById("info-btn");
+    const modal = document.getElementById("tutorial-modal");
+
+    function toggleModal() {
+    const isHidden = modal.style.display === "none" || modal.style.display === "";
+    modal.style.display = isHidden ? "flex" : "none";
+    }
+
+    infoBtn.onclick = toggleModal;
+    modal.onclick = toggleModal;
+
     Promise.all([
         d3.json("../data/arrests_yearly.json"),
         d3.json("../data/detentions_yearly.json"),
