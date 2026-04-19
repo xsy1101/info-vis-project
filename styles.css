@@ -40,7 +40,7 @@ body, html {
 }
 
 #tutorial-modal img {
-  width: 2000px;
+  width: 1100px;
   max-width: 90vw;
   border-radius: 8px;
   
@@ -314,8 +314,8 @@ svg {
 }
 
 #advanced-chart-container {
-  min-width: 1100px;
-  min-height: 650px;
+  min-width: 1000px;
+  min-height: 600px;
   margin: -15px auto;
   border-radius: 14px;
   overflow: hidden;
