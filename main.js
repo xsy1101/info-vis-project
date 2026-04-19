@@ -66,6 +66,18 @@
         advSvg.on(".zoom", null);
         root.selectAll("*").remove();
     }
+    const infoBtn = document.getElementById("info-btn");
+    const modal = document.getElementById("tutorial-modal");
+
+    
+
+    function toggleModal() {
+        const isHidden = modal.style.display === "none" || modal.style.display === "";
+        modal.style.display = isHidden ? "flex" : "none";
+    }
+
+    infoBtn.onclick = toggleModal;
+    modal.onclick = toggleModal;
 
     function updateButtonState() {
         vizButtons.classed("active", function () {
@@ -131,7 +143,10 @@
     function updateOpeningPage() {
         const opening = document.getElementById("opening");
         const layout = document.querySelector(".layout");
+        infoBtn.style.display = "none";
+        
     
+            
         if (state.currentPage === 1) {
             if (opening) opening.style.display = "flex";
             if (layout) layout.classList.add("hidden");
@@ -164,6 +179,7 @@
     state.stepsDrawn = new Set();
 
     function renderViz1(step = 1) {
+        
 
         const source = getYearlySeries(state.activeMetric);
         const data = source.map(d => ({
@@ -1166,7 +1182,7 @@
         
         clearCanvas();
         
-        
+        infoBtn.style.display = "none";
        
         const stanza = d3.select("#closing-stanza");
         stanza.selectAll(".closing-person").remove();
@@ -1259,6 +1275,7 @@
     function runOpeningPageFadeTransition(callback) {
         const opening = document.getElementById("opening");
         const layout = document.querySelector(".layout");
+        
     
         if (!opening || !layout) {
             callback();
@@ -1269,7 +1286,7 @@
     
         if (openingVisible) {
             opening.classList.add("page-fade-out");
-    
+           
             setTimeout(() => {
                 callback();
     
@@ -1281,6 +1298,8 @@
             }, PAGE_FADE_MS);
         } else {
             layout.classList.add("page-fade-out");
+
+            
     
             setTimeout(() => {
                 callback();
@@ -1313,7 +1332,6 @@
     function runPageFadeTransition(callback) {
         const poemPanel = document.querySelector(".poem-panel");
         const vizPanel = document.querySelector(".viz-panel");
-    
         if (!poemPanel || !vizPanel) {
             callback();
             return;
@@ -1344,6 +1362,8 @@
     });
 
     function goToNext() {
+       
+        
         if (state.currentPage === 1) {
             runOpeningPageFadeTransition(() => {
                 state.currentPage = 2;
@@ -1352,6 +1372,7 @@
                 updateOpeningPage();
                 updateFooterButtons();
                 goToLine(stanzaIndex, lineIndex);
+                infoBtn.style.display = "block";
             });
             return;
         }
@@ -1371,6 +1392,7 @@
         }
     
         const advance = () => {
+            
             lineIndex++;
     
             if (lineIndex >= stanzaLengths[stanzaIndex]) {
@@ -1411,6 +1433,7 @@
                 hideAllVersesExcept(-1);
                 clearCanvas();
                 hideTooltip();
+
             });
             return;
         }
@@ -1481,6 +1504,7 @@
     }
 
     function updateVizForLine(stanzaIndex, lineIndex) {
+        infoBtn.style.display = "block";
         
         if (stanzaIndex === 0) {
             state.activeViz = "viz1";
@@ -1488,6 +1512,7 @@
                 modal.style.display = "flex";
                 state.tutorialShown = true;
             }
+            
             if (state.activeViz === "viz1") {
                 if (!state.stepsDrawn) state.stepsDrawn = new Set();
                 for (let s = lineIndex + 1; s <= 4; s++) {
@@ -1569,6 +1594,7 @@
     let lastStanza = 0;
 
     function render(stanzaIndex, lineIndex) {
+
         if (!state.data) {
             return;
         }
@@ -1579,6 +1605,7 @@
             clearCanvas();
             lastStanza = stanzaIndex;
         }
+        
 
     
 
@@ -1660,16 +1687,7 @@
 
     bindControls();
 
-    const infoBtn = document.getElementById("info-btn");
-    const modal = document.getElementById("tutorial-modal");
-
-    function toggleModal() {
-        const isHidden = modal.style.display === "none" || modal.style.display === "";
-        modal.style.display = isHidden ? "flex" : "none";
-    }
-
-    infoBtn.onclick = toggleModal;
-    modal.onclick = toggleModal;
+    
 
     Promise.all([
         d3.json("../data/arrests_yearly.json"),
