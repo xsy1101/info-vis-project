@@ -69,11 +69,14 @@
     const infoBtn = document.getElementById("info-btn");
     const modal = document.getElementById("tutorial-modal");
 
-    
+    const forwardBtn = document.getElementById("forward-button");
+    const backwardBtn = document.getElementById("backward-button");
 
     function toggleModal() {
         const isHidden = modal.style.display === "none" || modal.style.display === "";
         modal.style.display = isHidden ? "flex" : "none";
+        forwardBtn.style.display = isHidden ? "none" : "block";
+        backwardBtn.style.display = isHidden ? "none" : "block";
     }
 
     infoBtn.onclick = toggleModal;
@@ -157,8 +160,7 @@
     }
     
     function updateFooterButtons() {
-        const forwardBtn = document.getElementById("forward-button");
-        const backwardBtn = document.getElementById("backward-button");
+        
     
         if (!forwardBtn || !backwardBtn) return;
     
@@ -1350,9 +1352,9 @@
         }, PAGE_FADE_MS);
     }
     
+    
     document.addEventListener("DOMContentLoaded", () => {
-        const forwardBtn = document.getElementById("forward-button");
-        const backwardBtn = document.getElementById("backward-button");
+        
     
         forwardBtn.addEventListener("click", goToNext);
         backwardBtn.addEventListener("click", goToPrevious);
@@ -1373,6 +1375,7 @@
                 updateFooterButtons();
                 goToLine(stanzaIndex, lineIndex);
                 infoBtn.style.display = "block";
+
             });
             return;
         }
@@ -1506,12 +1509,15 @@
     function updateVizForLine(stanzaIndex, lineIndex) {
         infoBtn.style.display = "block";
         
+        
         if (stanzaIndex === 0) {
             state.activeViz = "viz1";
             if (lineIndex === 0 && !state.tutorialShown && state.currentPage !== 1) {
                 modal.style.display = "flex";
                 state.tutorialShown = true;
-            }
+                forwardBtn.style.display = "none";
+                backwardBtn.style.display = "none";
+            } 
             
             if (state.activeViz === "viz1") {
                 if (!state.stepsDrawn) state.stepsDrawn = new Set();
