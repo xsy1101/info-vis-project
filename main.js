@@ -32,6 +32,7 @@
         streamFocusCountry: null,
         currentPage: 1,
         data: null,
+        tutorialShown: false
     };
 
     const METRIC_LABELS = {
@@ -1483,6 +1484,10 @@
         
         if (stanzaIndex === 0) {
             state.activeViz = "viz1";
+            if (lineIndex === 0 && !state.tutorialShown && state.currentPage !== 1) {
+                modal.style.display = "flex";
+                state.tutorialShown = true;
+            }
             if (state.activeViz === "viz1") {
                 if (!state.stepsDrawn) state.stepsDrawn = new Set();
                 for (let s = lineIndex + 1; s <= 4; s++) {
@@ -1659,8 +1664,8 @@
     const modal = document.getElementById("tutorial-modal");
 
     function toggleModal() {
-    const isHidden = modal.style.display === "none" || modal.style.display === "";
-    modal.style.display = isHidden ? "flex" : "none";
+        const isHidden = modal.style.display === "none" || modal.style.display === "";
+        modal.style.display = isHidden ? "flex" : "none";
     }
 
     infoBtn.onclick = toggleModal;

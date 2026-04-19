@@ -25,6 +25,7 @@ body, html {
 
 #tutorial-modal {
   display: none;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
@@ -35,14 +36,28 @@ body, html {
   align-items: center;
   z-index: 9000;
   cursor: pointer; 
+  gap: 10px;
 }
 
 #tutorial-modal img {
-  width: 5000px;
+  width: 2000px;
   max-width: 90vw;
   border-radius: 8px;
   
 }
+
+
+.tutorial-header {
+  color: #f3dde6;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.tutorial-footer {
+  color: #d2bac9;
+  font-size: 13px;
+}
+
 
 .layout {
   display: flex;
