@@ -232,7 +232,7 @@
             .attr("x", innerWidth - 1000)
             .attr("y", innerHeight +80)
             .attr("fill", "#d2bac9")
-            .attr("font-size", 12)
+            .attr("font-size", 13)
             .text("*The U.S. federal fiscal year runs from October 1 to September 30");
 
         const iconValue = 4200;
@@ -427,7 +427,7 @@
     
 
         drawFrame(
-            "Viz 2: AOR Geography (United States)",
+            "Viz 2: Area of Responsibility Geography (United States)",
             `${metricLabel(state.activeMetric)} by Area of Responsibility* in FY ${state.selectedYear}` 
         );
 
@@ -479,7 +479,7 @@
             .attr("x", innerWidth - 220)
             .attr("y", innerHeight + 50)
             .attr("fill", "#d2bac9")
-            .attr("font-size", 12)
+            .attr("font-size", 13)
             .text("Scroll to zoom, drag to pan");
 
         let orderedMetrics;
@@ -629,16 +629,16 @@
 
          root.append("text")
             .attr("x", innerWidth - 1000)
-            .attr("y", innerHeight +55)
+            .attr("y", innerHeight +52)
             .attr("fill", "#d2bac9")
-            .attr("font-size", 12)
+            .attr("font-size", 13)
             .text("*AOR: Enforcement and Removal Operations have 25 field offices around the country");
 
         root.append("text")
             .attr("x", innerWidth - 1000)
             .attr("y", innerHeight +70)
             .attr("fill", "#d2bac9")
-            .attr("font-size", 12)
+            .attr("font-size", 13)
             .text("**Top countries: top countries of citizenship of detainees");
     }
 
@@ -649,7 +649,7 @@
             !state.data.worldTopology.objects.countries
         ) {
             drawNotice(
-                "Viz 3: Country of Citizenship (World Choropleth)",
+                "Viz 3: Detainee Country of Citizenship",
                 "World map data is unavailable right now. Check internet and refresh."
             );
             return;
@@ -660,7 +660,7 @@
         advSvg.on(".zoom", null);
 
         drawFrame(
-            "Viz 3: Country of Citizenship (World Choropleth)",
+            "Viz 3: Detainee Country of Citizenship",
             `${metricLabel(state.activeMetric)} by country of citizenship of detainee in FY ${state.selectedYear}`
         );
 
@@ -774,7 +774,7 @@
             .attr("x", innerWidth - 220)
             .attr("y", innerHeight + 50)
             .attr("fill", "#d2bac9")
-            .attr("font-size", 12)
+            .attr("font-size", 13)
             .text("Scroll to zoom, drag to pan");
         
         const legendWidth = 120;
@@ -977,7 +977,7 @@
     
     function renderViz5(step = 1) {
         drawFrame(
-            "Viz 5: Criminality Status",
+            "Viz 4: Criminality Status",
             `Bar chart showing legal reasons for ${metricLabel(state.activeMetric)} from 2021 - 2025`
         );
 
